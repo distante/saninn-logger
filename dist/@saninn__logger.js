@@ -88,4 +88,4 @@ var SaninnLogger = /** @class */ (function () {
     return SaninnLogger;
 }());
 exports.SaninnLogger = SaninnLogger;
-//# sourceMappingURL=index.js.map
+//# sourceMappingURL=@saninn__logger.js.map

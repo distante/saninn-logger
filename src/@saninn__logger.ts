@@ -1,29 +1,15 @@
-type LogTypeKeyStringValue = { [key in LogTypesEnum]?: string };
+import { LogTypesEnum } from './models/log-types.enum';
+import { ILoggerConfig } from './models/logger-config.interface';
+import { LogTypeKeyAnyValue, LogTypeKeyFunctionValue, LogTypeKeyStringValue } from './models/types';
 
-type LogTypeKeyFunctionValue = { [key in LogTypesEnum]?: Function };
-type LogTypeKeyAnyValue = { [key in LogTypesEnum]?: any };
-
-export enum LogTypesEnum {
-    log = 'log',
-    dir = 'dir',
-    warn = 'warn',
-    error = 'error'
-}
-
-export interface ISaninnLoggerConfig {
-    prefix?: string;
-    prefixColors?: LogTypeKeyStringValue;
-    printToConsole?: boolean;
-    extraLoggerFunctions?: LogTypeKeyFunctionValue;
-}
-
+// TODO: export types?
 export class SaninnLogger {
     private prefix?: string;
     private prefixColors: LogTypeKeyStringValue = {};
     private extraLoggerFunctions: LogTypeKeyFunctionValue = {};
     private printToConsole = true;
 
-    constructor(loggerConfig?: string | ISaninnLoggerConfig) {
+    constructor(loggerConfig?: string | ILoggerConfig) {
         if (!loggerConfig) {
             return;
         }
@@ -62,6 +48,8 @@ export class SaninnLogger {
 
     private getConsoleHandlerFor(logType: LogTypesEnum): Function {
         const extraFunction = this.extraLoggerFunctions[logType];
+        // TODO: add an event listener???
+        // TODO: add an extraFunction for each call? .log(someFunction, "message 1", "message 2")
         if (extraFunction) {
             extraFunction();
         }
