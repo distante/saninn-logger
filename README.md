@@ -4,11 +4,11 @@ A configurable wrapper around the console object0 (without losing the console ca
 
 ## Install
 
-`npm install @saninn/logger
+`npm install @saninn/logger`
 
-## Features
+## Basic usage
 
-TODO
+`const myLogger = new SaninnLogger()`
 
 ## License
 

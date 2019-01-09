@@ -1,6 +1,6 @@
 import { LogTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
-import { LogTypeKeyAnyValue, LogTypeKeyFunctionValue, LogTypeKeyStringValue } from './models/types';
+import { LogTypeKeyAnyValue, LogTypeKeyFunctionValue, LogTypeKeyStringValue } from './models/type-definitions';
 
 // TODO: export types?
 export class SaninnLogger {
@@ -22,7 +22,7 @@ export class SaninnLogger {
         this.prefix = loggerConfig.prefix || undefined;
         this.printToConsole = loggerConfig.printToConsole || true;
 
-        // we can just use colors in a browser environment
+        // we can use colors just in a browser environment
         if (window) {
             this.initializeObjectsBasedOnEnumsLogTypes(this.prefixColors, loggerConfig.prefixColors);
             this.initializeObjectsBasedOnEnumsLogTypes(this.extraLoggerFunctions, loggerConfig.extraLoggerFunctions);

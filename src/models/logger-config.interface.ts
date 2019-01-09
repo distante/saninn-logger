@@ -1,4 +1,4 @@
-import { LogTypeKeyFunctionValue, LogTypeKeyStringValue } from './types';
+import { LogTypeKeyFunctionValue, LogTypeKeyStringValue } from './type-definitions';
 
 export interface ILoggerConfig {
     prefix?: string;
