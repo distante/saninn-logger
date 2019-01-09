@@ -1,27 +1,10 @@
-declare type LogTypeKeyStringValue = {
-    [key in LogTypesEnum]?: string;
-};
-declare type LogTypeKeyFunctionValue = {
-    [key in LogTypesEnum]?: Function;
-};
-export declare enum LogTypesEnum {
-    log = "log",
-    dir = "dir",
-    warn = "warn",
-    error = "error"
-}
-export interface ISaninnLoggerConfig {
-    prefix?: string;
-    prefixColors?: LogTypeKeyStringValue;
-    printToConsole?: boolean;
-    extraLoggerFunctions?: LogTypeKeyFunctionValue;
-}
+import { ILoggerConfig } from './models/logger-config.interface';
 export declare class SaninnLogger {
     private prefix?;
     private prefixColors;
     private extraLoggerFunctions;
     private printToConsole;
-    constructor(loggerConfig?: string | ISaninnLoggerConfig);
+    constructor(loggerConfig?: string | ILoggerConfig);
     readonly log: Function;
     readonly warn: Function;
     readonly dir: Function;
@@ -29,4 +12,3 @@ export declare class SaninnLogger {
     private getConsoleHandlerFor;
     private initializeObjectsBasedOnEnumsLogTypes;
 }
-export {};

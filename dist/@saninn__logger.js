@@ -1,12 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var LogTypesEnum;
-(function (LogTypesEnum) {
-    LogTypesEnum["log"] = "log";
-    LogTypesEnum["dir"] = "dir";
-    LogTypesEnum["warn"] = "warn";
-    LogTypesEnum["error"] = "error";
-})(LogTypesEnum = exports.LogTypesEnum || (exports.LogTypesEnum = {}));
+import { LogTypesEnum } from './models/log-types.enum';
+// TODO: export types?
 var SaninnLogger = /** @class */ (function () {
     function SaninnLogger(loggerConfig) {
         this.prefixColors = {};
@@ -21,7 +14,7 @@ var SaninnLogger = /** @class */ (function () {
         }
         this.prefix = loggerConfig.prefix || undefined;
         this.printToConsole = loggerConfig.printToConsole || true;
-        // we can just use colors in a browser environment
+        // we can use colors just in a browser environment
         if (window) {
             this.initializeObjectsBasedOnEnumsLogTypes(this.prefixColors, loggerConfig.prefixColors);
             this.initializeObjectsBasedOnEnumsLogTypes(this.extraLoggerFunctions, loggerConfig.extraLoggerFunctions);
@@ -58,6 +51,8 @@ var SaninnLogger = /** @class */ (function () {
     });
     SaninnLogger.prototype.getConsoleHandlerFor = function (logType) {
         var extraFunction = this.extraLoggerFunctions[logType];
+        // TODO: add an event listener???
+        // TODO: add an extraFunction for each call? .log(someFunction, "message 1", "message 2")
         if (extraFunction) {
             extraFunction();
         }
@@ -87,5 +82,5 @@ var SaninnLogger = /** @class */ (function () {
     };
     return SaninnLogger;
 }());
-exports.SaninnLogger = SaninnLogger;
+export { SaninnLogger };
 //# sourceMappingURL=@saninn__logger.js.map
