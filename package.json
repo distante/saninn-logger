@@ -1,40 +1,47 @@
 {
-    "name": "@saninn/logger",
-    "version": "0.0.1",
-    "private": true,
-    "description": "A configurable wrapper around the console object (without losing the console call position)",
-    "main": "dist/@saninn__logger.js",
-    "types": "dist/@saninn__logger.d.ts",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "tsc"
-    },
-    "repository": {
-        "type": "git",
-        "url": ""
-    },
-    "keywords": [
-        "console",
-        "wrapper",
-        "logger"
-    ],
-    "author": "Saninn Salas Diaz",
-    "license": "ISC",
-    "homepage": "https://saninnsalas.com",
-    "husky": {
-        "hooks": {
-            "pre-commit": "pretty-quick --staged",
-            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-        }
-    },
-    "devDependencies": {
-        "@commitlint/cli": "^7.2.1",
-        "@commitlint/config-conventional": "^7.1.2",
-        "husky": "^1.3.1",
-        "npm-run-all": "^4.1.5",
-        "prettier": "1.15.3",
-        "pretty-quick": "^1.8.0",
-        "tslint-config-prettier": "^1.17.0",
-        "typescript": "^3.2.2"
+  "name": "@saninn/logger",
+  "version": "0.0.1",
+  "private": true,
+  "description": "A configurable wrapper around the console object (without losing the console call position)",
+  "main": "dist/@saninn__logger.js",
+  "types": "dist/@saninn__logger.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "run-p transpile:module",
+    "transpile:module": "run-s clean:prod && tsc && run-s fix-es2015-modules",
+    "transpile:commonjs": "run-s clean:prod && tsc && run-s fix-es2015-modules",
+    "clean:prod": "shx rm -rf ./dist",
+    "clean:dev": "shx rm -rf ./dev-module/",
+    "fix-es2015-modules": "node ./scripts/fix-es2015-modules.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "console",
+    "wrapper",
+    "logger"
+  ],
+  "author": "Saninn Salas Diaz",
+  "license": "ISC",
+  "homepage": "https://saninnsalas.com",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^7.2.1",
+    "@commitlint/config-conventional": "^7.1.2",
+    "filehound": "^1.16.5",
+    "husky": "^1.3.1",
+    "npm-run-all": "^4.1.5",
+    "prettier": "1.15.3",
+    "pretty-quick": "^1.8.0",
+    "shx": "^0.3.2",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.2"
+  }
 }
