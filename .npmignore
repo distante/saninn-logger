@@ -1,3 +1,5 @@
 src/
 node_module/
 .vscode/
+scripts/
+.editorconfig

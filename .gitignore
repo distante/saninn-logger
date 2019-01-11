@@ -37,3 +37,4 @@ UserInterfaceState.xcuserstate
 #Saninn
 *.~lock.*
 .vscode/plugins.json
+dist/
