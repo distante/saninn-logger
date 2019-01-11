@@ -7,10 +7,11 @@
   "types": "dist/@saninn__logger.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "run-p transpile:module",
-    "transpile:module": "run-s clean:prod && tsc && run-s fix-es2015-modules",
-    "transpile:commonjs": "run-s clean:prod && tsc -m commonjs --outDir ./dist/commonjs && run-s fix-es2015-modules",
-    "clean:prod": "shx rm -rf ./dist",
+    "build": "run-p build:module build:commonjs",
+    "build:module": "run-s clean:module && tsc && run-s fix-es2015-modules",
+    "build:commonjs": "run-s clean:commonjs && tsc -m commonjs --outDir ./dist/commonjs",
+    "clean:module": "shx rm -rf ./dist/es6",
+    "clean:commonjs": "shx rm -rf ./dist/commonjs",
     "clean:dev": "shx rm -rf ./dev-module/",
     "fix-es2015-modules": "node ./scripts/fix-es2015-modules.js"
   },
