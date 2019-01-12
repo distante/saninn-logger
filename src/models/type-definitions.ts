@@ -1,5 +1,5 @@
-import { LogTypesEnum } from './log-types.enum';
+import { LoggerTypesEnum } from './log-types.enum';
 
-export type LogTypeKeyStringValue = { [key in LogTypesEnum]?: string };
-export type LogTypeKeyFunctionValue = { [key in LogTypesEnum]?: Function };
-export type LogTypeKeyAnyValue = { [key in LogTypesEnum]?: any };
+export type LoggerTypesObject<T> = { [key in LoggerTypesEnum]?: T };
+export type LoggerTypesObjectForColors = { [key in Exclude<LoggerTypesEnum, LoggerTypesEnum.dir>]?: string };
+// export type LoggerTypesForColorObject<T> = Omit<LoggerTypesObject<T>, LoggerTypesEnum.dir>;

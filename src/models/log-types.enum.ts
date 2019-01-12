@@ -1,6 +1,6 @@
-export enum LogTypesEnum {
-    log = 'log',
-    dir = 'dir',
-    warn = 'warn',
-    error = 'error'
+export enum LoggerTypesEnum {
+  log = 'log',
+  dir = 'dir',
+  warn = 'warn',
+  error = 'error'
 }

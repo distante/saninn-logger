@@ -3,7 +3,7 @@
 
 const FileHound = require('filehound');
 const fs = require('fs');
-const path = require('path');
+// const path = require('path');
 
 const files = FileHound.create()
   .path('./dist')
@@ -12,7 +12,7 @@ const files = FileHound.create()
 
 files.then(filePaths => {
   filePaths.forEach(filepath => {
-    fs.readFile(filepath, 'utf8', (err, data) => {
+    fs.readFile(filepath, 'utf8', (errorReadingFile, data) => {
       if (!data.match(/(import|export) .* from/g)) {
         return;
       }
@@ -25,14 +25,16 @@ files.then(filePaths => {
 
       // let newData = data.replace(/((import|export) .* from\s+['"])(.*)(?=['"])/g, '$1.js');
 
-      if (err) throw err;
+      if (errorReadingFile) {
+        throw errorReadingFile;
+      }
 
-      console.log(`writing to ${filepath}`);
-      fs.writeFile(filepath, newData, function(err) {
-        if (err) {
-          throw err;
+      fs.writeFile(filepath, newData, function(errorWritingFile) {
+        if (errorWritingFile) {
+          throw errorWritingFile;
         }
-        console.log('complete');
+        // tslint:disable-next-line:no-console
+        console.log(`js extension added to ${filepath}`);
       });
     });
   });

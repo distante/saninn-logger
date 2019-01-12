@@ -7,15 +7,14 @@
  *
  *  http://www.saninnsalas.com
  */
-import { LogTypesEnum } from './models/log-types.enum';
+import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
-import { LogTypeKeyAnyValue, LogTypeKeyFunctionValue, LogTypeKeyStringValue } from './models/type-definitions';
+import { LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-definitions';
 
-// TODO: export types?
 export class SaninnLogger {
   private prefix?: string;
-  private prefixColors: LogTypeKeyStringValue = {};
-  private extraLoggerFunctions: LogTypeKeyFunctionValue = {};
+  private prefixColors: LoggerTypesObjectForColors = {};
+  private extraLoggerFunctions: LoggerTypesObject<Function> = {};
   private printToConsole = true;
 
   constructor(loggerConfig?: string | ILoggerConfig) {
@@ -28,8 +27,11 @@ export class SaninnLogger {
       return;
     }
 
-    this.prefix = loggerConfig.prefix || undefined;
-    this.printToConsole = loggerConfig.printToConsole || true;
+    this.prefix = loggerConfig.prefix;
+
+    if (typeof loggerConfig.printToConsole !== 'undefined') {
+      this.printToConsole = loggerConfig.printToConsole;
+    }
 
     // we can use colors just in a browser environment
     if (window) {
@@ -40,27 +42,31 @@ export class SaninnLogger {
 
   // TODO: There should be a way to make this automatically from the Enum...
   get log(): Function {
-    return this.getConsoleHandlerFor(LogTypesEnum.log);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.log);
   }
 
   get warn(): Function {
-    return this.getConsoleHandlerFor(LogTypesEnum.warn);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
   }
 
+  /**
+   * console.dir does not accept multiparameters
+   * if you log `logger.dir(x,y)` `y` will be ignored
+   */
   get dir(): Function {
-    return this.getConsoleHandlerFor(LogTypesEnum.dir);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
   }
 
   get error(): Function {
-    return this.getConsoleHandlerFor(LogTypesEnum.error);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.error);
   }
 
-  private getConsoleHandlerFor(logType: LogTypesEnum): Function {
-    const extraFunction = this.extraLoggerFunctions[logType];
-    // TODO: add an event listener????
+  private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
+    const extraFunctionForThisLogType = this.extraLoggerFunctions[logType];
+    // TODO: add an callback for when this function is done?????
     // TODO: add an extraFunction that works just in a single call? example logger.log(someSingleExtraFunction, "message 1", "message 2")
-    if (extraFunction) {
-      extraFunction();
+    if (extraFunctionForThisLogType) {
+      extraFunctionForThisLogType();
     }
 
     if (!this.printToConsole) {
@@ -74,6 +80,14 @@ export class SaninnLogger {
 
     const prefixString = `[${this.prefix}]:`;
 
+    // Console.dir does not accept multiparameters,
+    // We will add a raw console.log after this print
+    if (logType === LoggerTypesEnum.dir) {
+      // tslint:disable-next-line:no-console
+      console.log(prefixString + '(dir after this line)');
+      return console[logType].bind(console);
+    }
+
     if (!this.prefixColors[logType]) {
       return console[logType].bind(console, prefixString);
     }
@@ -81,12 +95,15 @@ export class SaninnLogger {
     return console[logType].bind(console, `%c${prefixString}`, `color: ${this.prefixColors[logType]}`);
   }
 
-  private initializeObjectsBasedOnEnumsLogTypes(object: LogTypeKeyAnyValue, configs: LogTypeKeyAnyValue | undefined) {
+  private initializeObjectsBasedOnEnumsLogTypes(
+    object: LoggerTypesObject<any>,
+    configs: LoggerTypesObject<any> | undefined
+  ) {
     if (!configs) {
       return;
     }
 
-    const logTypesArray: LogTypesEnum[] = Object.keys(LogTypesEnum) as LogTypesEnum[];
+    const logTypesArray: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
 
     logTypesArray.forEach(logType => {
       if (configs[logType]) {
