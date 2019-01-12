@@ -1,7 +1,12 @@
-/*! one 
-    This is my Copyright
-*/
-
+/*!
+ *  @license
+ *
+ *  Copyright Saninn Salas Diaz All Rights Reserved.
+ *
+ *  Released under the MIT License
+ *
+ *  http://www.saninnsalas.com
+ */
 import { LogTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
 import { LogTypeKeyAnyValue, LogTypeKeyFunctionValue, LogTypeKeyStringValue } from './models/type-definitions';
@@ -52,8 +57,8 @@ export class SaninnLogger {
 
   private getConsoleHandlerFor(logType: LogTypesEnum): Function {
     const extraFunction = this.extraLoggerFunctions[logType];
-    // TODO: add an event listener???
-    // TODO: add an extraFunction for each call? .log(someFunction, "message 1", "message 2")
+    // TODO: add an event listener????
+    // TODO: add an extraFunction that works just in a single call? example logger.log(someSingleExtraFunction, "message 1", "message 2")
     if (extraFunction) {
       extraFunction();
     }

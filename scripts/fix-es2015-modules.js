@@ -1,4 +1,4 @@
-/** Path fix function by https://github.com/QuantumInformation  */
+/** Path fix function based one made byhttps://github.com/QuantumInformation  */
 'use strict';
 
 const FileHound = require('filehound');
@@ -13,10 +13,18 @@ const files = FileHound.create()
 files.then(filePaths => {
   filePaths.forEach(filepath => {
     fs.readFile(filepath, 'utf8', (err, data) => {
-      if (!data.match(/import .* from/g)) {
+      if (!data.match(/(import|export) .* from/g)) {
         return;
       }
-      let newData = data.replace(/(import .* from\s+['"])(.*)(?=['"])/g, '$1$2.js');
+
+      const scriptImports = data.match(/((import|export) .* from\s+['"])(.*)(?=['"])/g);
+      let newData = data;
+      scriptImports.forEach(script => {
+        newData = newData.replace(script, script + '.js');
+      });
+
+      // let newData = data.replace(/((import|export) .* from\s+['"])(.*)(?=['"])/g, '$1.js');
+
       if (err) throw err;
 
       console.log(`writing to ${filepath}`);
