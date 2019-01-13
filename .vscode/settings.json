@@ -1,4 +1,10 @@
 {
   "tslint.autoFixOnSave": true,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/platforms": true,
+    "**/resources": true
+  }
 }

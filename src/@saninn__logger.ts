@@ -9,9 +9,10 @@
  */
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
+import { ILogger } from './models/logger.interface';
 import { LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-definitions';
 
-export class SaninnLogger {
+export class SaninnLogger implements ILogger {
   private prefix?: string;
   private prefixColors: LoggerTypesObjectForColors = {};
   private extraLoggerFunctions: LoggerTypesObject<Function> = {};
