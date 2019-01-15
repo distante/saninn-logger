@@ -7,5 +7,5 @@
  *
  *  http://www.saninnsalas.com
  */
-export { SaninnLogger } from './@saninn__logger';
-export { ILoggerConfig } from './models/logger-config.interface';
+export * from './@saninn__logger';
+export * from './models/logger-config.interface';
