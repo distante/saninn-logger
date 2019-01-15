@@ -34,10 +34,11 @@ export class SaninnLogger implements ILogger {
       this.printToConsole = loggerConfig.printToConsole;
     }
 
-    // we can use colors just in a browser environment
-    if (window) {
+    this.initializeObjectsBasedOnEnumsLogTypes(this.extraLoggerFunctions, loggerConfig.extraLoggerFunctions);
+
+    // we can use colors just in a browser environment ( NO IE !)
+    if (this.isBrowser() && !this.isIE()) {
       this.initializeObjectsBasedOnEnumsLogTypes(this.prefixColors, loggerConfig.prefixColors);
-      this.initializeObjectsBasedOnEnumsLogTypes(this.extraLoggerFunctions, loggerConfig.extraLoggerFunctions);
     }
   }
 
@@ -111,5 +112,27 @@ export class SaninnLogger implements ILogger {
         object[logType] = configs[logType];
       }
     });
+  }
+
+  // TODO: Make this better
+  private isBrowser(): boolean {
+    if (window && window.console && !this.isNode()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  // TODO: Make this better
+  private isNode(): boolean {
+    if (typeof process === 'object' && process.title && process.version) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  private isIE() {
+    console.warn('isIE() is not implemented');
+    return false;
   }
 }
