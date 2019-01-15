@@ -1,6 +1,12 @@
 import { SaninnLogger } from './@saninn__logger';
 import { LoggerTypesEnum } from './models/log-types.enum';
 
+/**
+ * LoggerTypesEnum constructs the logger interface and several objects.
+ * Here it will be also used as pivot for the tests.
+ */
+const consoleFunctionNames = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
+
 beforeEach(() => {
   jest.restoreAllMocks();
 });
@@ -25,22 +31,6 @@ describe('It is possible to create a SaninnLogger instance', () => {
     });
     expect(saninnLogger).toBeTruthy();
   });
-  describe('prefixColor should just work the environment is the correct one', () => {
-    test('Should not work if global exist', () => {
-      const textExpected = 'saninn test';
-      spyOn(global, 'process').and.returnValue(false);
-      spyOn(window.console, 'log');
-      const saninnLogger = new SaninnLogger({
-        prefixColors: {
-          log: 'red'
-        }
-      });
-
-      saninnLogger.log(textExpected);
-
-      expect(window.console.log).toHaveBeenCalledWith(textExpected);
-    });
-  });
 });
 
 /**
@@ -49,7 +39,6 @@ describe('It is possible to create a SaninnLogger instance', () => {
  * a new LogType was not defined
  */
 test('Each call to a getter (using LoggerTypesEnum Keys) should return the correspond console function ', () => {
-  const consoleFunctionNames = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
   const saninnLogger = new SaninnLogger();
 
   consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum) => {
@@ -64,6 +53,64 @@ test('Each call to a getter (using LoggerTypesEnum Keys) should return the corre
     const returnedFunction = saninnLogger[consoleFunction];
 
     expect(returnedFunction).toEqual(expected);
+  });
+});
+
+describe('prefix', () => {
+  const prefixText = 'prefix text';
+  const completePrefix = `[${prefixText}]:`;
+  let saninnLogger: SaninnLogger;
+  beforeEach(() => {
+    saninnLogger = new SaninnLogger(prefixText);
+  });
+
+  const log: LoggerTypesEnum = LoggerTypesEnum.log;
+  test(`should call ${log} function with the given prefix`, () => {
+    spyOn(console, log);
+    saninnLogger[log]();
+    expect(console[log]).toHaveBeenCalledWith(completePrefix);
+  });
+
+  const warn: LoggerTypesEnum = LoggerTypesEnum.warn;
+  test(`should call ${warn} function with the given prefix`, () => {
+    spyOn(console, warn);
+    saninnLogger[warn]();
+    expect(console[warn]).toHaveBeenCalledWith(completePrefix);
+  });
+
+  const error: LoggerTypesEnum = LoggerTypesEnum.error;
+  test(`should call ${error} function with the given prefix`, () => {
+    spyOn(console, error);
+    saninnLogger[error]();
+    expect(console[error]).toHaveBeenCalledWith(completePrefix);
+  });
+
+  // dir does not have prefix!
+  const dir: LoggerTypesEnum = LoggerTypesEnum.dir;
+  test(`should NOT call ${dir} function with the given prefix`, () => {
+    spyOn(console, dir);
+    saninnLogger[dir]();
+    expect(console[dir]).not.toHaveBeenCalledWith(completePrefix);
+  });
+});
+
+describe('prefixColor should just work if the environment is the correct one', () => {
+  test('Should not work if we are not in browser', () => {
+    const textExpected = 'saninn test';
+    const prefixText = 'prefix';
+    const fullPrefix = `[${prefixText}]:`;
+    spyOn(window.console, 'log');
+    const isBrowser = spyOn(SaninnLogger.prototype as any, 'isBrowser').and.returnValue(false);
+    const saninnLogger = new SaninnLogger({
+      prefix: 'prefix',
+      prefixColors: {
+        log: 'red'
+      }
+    });
+
+    saninnLogger.log(textExpected);
+    expect(isBrowser).toHaveBeenCalled();
+    expect(window.console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
   });
 });
 

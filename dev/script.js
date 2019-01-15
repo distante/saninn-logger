@@ -29,6 +29,7 @@ const loggerWithFullConfig = new SaninnLogger({
   printToConsole: true
 });
 
+loggerWithString.log();
 loggerWithString.log('Regular log');
 loggerWithFullConfig.log('trying log');
 loggerWithFullConfig.dir('trying dir');
