@@ -1,5 +1,7 @@
+import 'jest-extended';
 import { SaninnLogger } from './@saninn__logger';
 import { LoggerTypesEnum } from './models/log-types.enum';
+import { LoggerTypesObject } from './models/type-definitions';
 
 /**
  * LoggerTypesEnum constructs the logger interface and several objects.
@@ -94,12 +96,91 @@ describe('prefix', () => {
   });
 });
 
+describe('extraGlobalLoggerFunctions', () => {
+  test(`log extraGlobalFunction is called before bind to console`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
+
+    const consoleBindMock = jest.fn();
+    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
+      consoleBindMock();
+    });
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledTimes(1);
+    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
+  });
+  test(`dir extraGlobalFunction is called before bind to console`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.dir;
+
+    const consoleBindMock = jest.fn();
+    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
+      consoleBindMock();
+    });
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledTimes(1);
+    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
+  });
+  test(`warn extraGlobalFunction is called before bind to console`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.warn;
+
+    const consoleBindMock = jest.fn();
+    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
+      consoleBindMock();
+    });
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledTimes(1);
+    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
+  });
+  test(`error extraGlobalFunction is called before bind to console`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.error;
+
+    const consoleBindMock = jest.fn();
+    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
+      consoleBindMock();
+    });
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledTimes(1);
+    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
+  });
+});
+
 describe('prefixColor should just work if the environment is the correct one', () => {
   test('Should not work if we are not in browser', () => {
     const textExpected = 'saninn test';
     const prefixText = 'prefix';
     const fullPrefix = `[${prefixText}]:`;
-    spyOn(window.console, 'log');
+    spyOn(console, 'log');
     const isBrowser = spyOn(SaninnLogger.prototype as any, 'isBrowser').and.returnValue(false);
     const saninnLogger = new SaninnLogger({
       prefix: 'prefix',
@@ -110,23 +191,6 @@ describe('prefixColor should just work if the environment is the correct one', (
 
     saninnLogger.log(textExpected);
     expect(isBrowser).toHaveBeenCalled();
-    expect(window.console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
-  });
-  test('Should not work if we are not in browser', () => {
-    const textExpected = 'saninn test';
-    const prefixText = 'prefix';
-    const fullPrefix = `[${prefixText}]:`;
-    spyOn(window.console, 'log');
-    const isBrowser = spyOn(SaninnLogger.prototype as any, 'isBrowser').and.returnValue(true);
-    const saninnLogger = new SaninnLogger({
-      prefix: 'prefix',
-      prefixColors: {
-        log: 'red'
-      }
-    });
-
-    saninnLogger.log(textExpected);
-    expect(isBrowser).toHaveBeenCalled();
-    expect(window.console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
+    expect(console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
   });
 });

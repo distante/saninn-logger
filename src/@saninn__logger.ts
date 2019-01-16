@@ -15,7 +15,7 @@ import { LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-def
 export class SaninnLogger implements ILogger {
   private prefix?: string;
   private prefixColors: LoggerTypesObjectForColors = {};
-  private extraLoggerFunctions: LoggerTypesObject<Function> = {};
+  private extraGlobalLoggerFunctions: LoggerTypesObject<Function> = {};
   private printToConsole = true;
 
   constructor(loggerConfig?: string | ILoggerConfig) {
@@ -34,7 +34,7 @@ export class SaninnLogger implements ILogger {
       this.printToConsole = loggerConfig.printToConsole;
     }
 
-    this.initializeObjectsBasedOnEnumsLogTypes(this.extraLoggerFunctions, loggerConfig.extraLoggerFunctions);
+    this.initializeObjectsBasedOnEnumsLogTypes(this.extraGlobalLoggerFunctions, loggerConfig.extraLoggerFunctions);
 
     // we can use colors just in a browser environment ( NO IE !)
     if (this.isBrowser() && !this.isIE()) {
@@ -64,7 +64,7 @@ export class SaninnLogger implements ILogger {
   }
 
   private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
-    const extraFunctionForThisLogType = this.extraLoggerFunctions[logType];
+    const extraFunctionForThisLogType = this.extraGlobalLoggerFunctions[logType];
     // TODO: add an callback for when this function is done?????
     // TODO: add an extraFunction that works just in a single call? example logger.log(someSingleExtraFunction, "message 1", "message 2")
     if (extraFunctionForThisLogType) {
@@ -134,10 +134,8 @@ export class SaninnLogger implements ILogger {
   private isIE() {
     const appVersion = window.navigator.appVersion.toUpperCase();
     if (appVersion.indexOf('TRIDENT') !== -1 || appVersion.indexOf('Edge') !== -1) {
-      console.log('is IE');
       return true;
     } else {
-      console.log('is NOT IE');
       return false;
     }
   }
