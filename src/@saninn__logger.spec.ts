@@ -112,17 +112,21 @@ describe('prefixColor should just work if the environment is the correct one', (
     expect(isBrowser).toHaveBeenCalled();
     expect(window.console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
   });
-});
+  test('Should not work if we are not in browser', () => {
+    const textExpected = 'saninn test';
+    const prefixText = 'prefix';
+    const fullPrefix = `[${prefixText}]:`;
+    spyOn(window.console, 'log');
+    const isBrowser = spyOn(SaninnLogger.prototype as any, 'isBrowser').and.returnValue(true);
+    const saninnLogger = new SaninnLogger({
+      prefix: 'prefix',
+      prefixColors: {
+        log: 'red'
+      }
+    });
 
-describe('log', () => {
-  const loggerTypeToTest: LoggerTypesEnum = LoggerTypesEnum.log;
-
-  test('should call the console.log with the prefix', () => {
-    const prefixText = 'test';
-    const expectedPrefix = `[${prefixText}]:`;
-    const saninnLogger = new SaninnLogger(prefixText);
-    spyOn(console, 'log');
-    saninnLogger[loggerTypeToTest]();
-    expect(console[loggerTypeToTest]).toBeCalledWith(expectedPrefix);
+    saninnLogger.log(textExpected);
+    expect(isBrowser).toHaveBeenCalled();
+    expect(window.console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
   });
 });

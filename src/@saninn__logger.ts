@@ -130,9 +130,15 @@ export class SaninnLogger implements ILogger {
       return false;
     }
   }
-
+  // TODO: Make this better
   private isIE() {
-    console.warn('isIE() is not implemented');
-    return false;
+    const appVersion = window.navigator.appVersion.toUpperCase();
+    if (appVersion.indexOf('TRIDENT') !== -1 || appVersion.indexOf('Edge') !== -1) {
+      console.log('is IE');
+      return true;
+    } else {
+      console.log('is NOT IE');
+      return false;
+    }
   }
 }
