@@ -1,7 +1,7 @@
 import 'jest-extended';
 import { SaninnLogger } from './@saninn__logger';
 import { LoggerTypesEnum } from './models/log-types.enum';
-import { LoggerTypesObject } from './models/type-definitions';
+import { LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-definitions';
 
 /**
  * LoggerTypesEnum constructs the logger interface and several objects.
@@ -55,44 +55,6 @@ test('Each call to a getter (using LoggerTypesEnum Keys) should return the corre
     const returnedFunction = saninnLogger[consoleFunction];
 
     expect(returnedFunction).toEqual(expected);
-  });
-});
-
-describe('prefix', () => {
-  const prefixText = 'prefix text';
-  const completePrefix = `[${prefixText}]:`;
-  let saninnLogger: SaninnLogger;
-  beforeEach(() => {
-    saninnLogger = new SaninnLogger(prefixText);
-  });
-
-  const log: LoggerTypesEnum = LoggerTypesEnum.log;
-  test(`should call ${log} function with the given prefix`, () => {
-    spyOn(console, log);
-    saninnLogger[log]();
-    expect(console[log]).toHaveBeenCalledWith(completePrefix);
-  });
-
-  const warn: LoggerTypesEnum = LoggerTypesEnum.warn;
-  test(`should call ${warn} function with the given prefix`, () => {
-    spyOn(console, warn);
-    saninnLogger[warn]();
-    expect(console[warn]).toHaveBeenCalledWith(completePrefix);
-  });
-
-  const error: LoggerTypesEnum = LoggerTypesEnum.error;
-  test(`should call ${error} function with the given prefix`, () => {
-    spyOn(console, error);
-    saninnLogger[error]();
-    expect(console[error]).toHaveBeenCalledWith(completePrefix);
-  });
-
-  // dir does not have prefix!
-  const dir: LoggerTypesEnum = LoggerTypesEnum.dir;
-  test(`should NOT call ${dir} function with the given prefix`, () => {
-    spyOn(console, dir);
-    saninnLogger[dir]();
-    expect(console[dir]).not.toHaveBeenCalledWith(completePrefix);
   });
 });
 
@@ -175,6 +137,61 @@ describe('extraGlobalLoggerFunctions', () => {
   });
 });
 
+describe('printToConsole', () => {
+  test('if printToConsole is set to false, the logger should not be bind', () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
+
+    const bindSpy = spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
+      /* */
+    });
+    const saninnLogger = new SaninnLogger({
+      printToConsole: false
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(bindSpy).not.toHaveBeenCalled();
+  });
+});
+
+describe('prefix', () => {
+  const prefixText = 'prefix text';
+  const completePrefix = `[${prefixText}]:`;
+  let saninnLogger: SaninnLogger;
+  beforeEach(() => {
+    saninnLogger = new SaninnLogger(prefixText);
+  });
+
+  const log: LoggerTypesEnum = LoggerTypesEnum.log;
+  test(`should call ${log} function with the given prefix`, () => {
+    spyOn(console, log);
+    saninnLogger[log]();
+    expect(console[log]).toHaveBeenCalledWith(completePrefix);
+  });
+
+  const warn: LoggerTypesEnum = LoggerTypesEnum.warn;
+  test(`should call ${warn} function with the given prefix`, () => {
+    spyOn(console, warn);
+    saninnLogger[warn]();
+    expect(console[warn]).toHaveBeenCalledWith(completePrefix);
+  });
+
+  const error: LoggerTypesEnum = LoggerTypesEnum.error;
+  test(`should call ${error} function with the given prefix`, () => {
+    spyOn(console, error);
+    saninnLogger[error]();
+    expect(console[error]).toHaveBeenCalledWith(completePrefix);
+  });
+
+  // dir does not have prefix!
+  const dir: LoggerTypesEnum = LoggerTypesEnum.dir;
+  test(`should NOT call ${dir} function with the given prefix`, () => {
+    spyOn(console, dir);
+    saninnLogger[dir]();
+    expect(console[dir]).not.toHaveBeenCalledWith(completePrefix);
+  });
+});
+
 describe('prefixColor should just work if the environment is the correct one', () => {
   test('Should not work if we are not in browser', () => {
     const textExpected = 'saninn test';
@@ -192,5 +209,62 @@ describe('prefixColor should just work if the environment is the correct one', (
     saninnLogger.log(textExpected);
     expect(isBrowser).toHaveBeenCalled();
     expect(console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
+  });
+
+  describe('should return the colored prefix', () => {
+    const textExpected = 'saninn test';
+    const prefixText = 'prefix';
+    const fullColoredPrefix = `%c[${prefixText}]:`;
+    const colors: LoggerTypesObjectForColors = {
+      log: 'red',
+      error: 'yellow',
+      warn: 'blue'
+    };
+    const styles: LoggerTypesObjectForColors = {
+      log: `color: ${colors.log}`,
+      error: `color: ${colors.error}`,
+      warn: `color: ${colors.warn}`
+    };
+
+    beforeEach(() => {
+      spyOn(SaninnLogger.prototype as any, 'isBrowser').and.returnValue(true);
+    });
+
+    test('for log', () => {
+      const consoleFunction = LoggerTypesEnum.log;
+      spyOn(console, consoleFunction).and.callThrough();
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixText,
+        prefixColors: colors
+      });
+
+      saninnLogger[consoleFunction](textExpected);
+
+      expect(console[consoleFunction]).toHaveBeenCalledWith(fullColoredPrefix, styles[consoleFunction], textExpected);
+    });
+    test('for warn', () => {
+      const consoleFunction = LoggerTypesEnum.warn;
+      spyOn(console, consoleFunction).and.callThrough();
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixText,
+        prefixColors: colors
+      });
+
+      saninnLogger[consoleFunction](textExpected);
+
+      expect(console[consoleFunction]).toHaveBeenCalledWith(fullColoredPrefix, styles[consoleFunction], textExpected);
+    });
+    test('for error', () => {
+      const consoleFunction = LoggerTypesEnum.error;
+      spyOn(console, consoleFunction).and.callThrough();
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixText,
+        prefixColors: colors
+      });
+
+      saninnLogger[consoleFunction](textExpected);
+
+      expect(console[consoleFunction]).toHaveBeenCalledWith(fullColoredPrefix, styles[consoleFunction], textExpected);
+    });
   });
 });
