@@ -192,44 +192,32 @@ describe('prefix', () => {
   });
 });
 
-describe('prefixColor should just work if the environment is the correct one', () => {
-  test('Should not work if we are not in browser', () => {
-    const textExpected = 'saninn test';
-    const prefixText = 'prefix';
-    const fullPrefix = `[${prefixText}]:`;
-    spyOn(console, 'log');
-    const isBrowser = spyOn(SaninnLogger.prototype as any, 'isBrowser').and.returnValue(false);
-    const saninnLogger = new SaninnLogger({
-      prefix: 'prefix',
-      prefixColors: {
-        log: 'red'
-      }
+describe('prefixColor', () => {
+  const textExpected = 'saninn test';
+  const prefixText = 'prefix';
+  const fullColoredPrefix = `%c[${prefixText}]:`;
+  const colors: LoggerTypesObjectForColors = {
+    log: 'red',
+    error: 'yellow',
+    warn: 'blue'
+  };
+  const styles: LoggerTypesObjectForColors = {
+    log: `color: ${colors.log}`,
+    error: `color: ${colors.error}`,
+    warn: `color: ${colors.warn}`
+  };
+  it('should not have any prefixColor value if we are in IE', () => {
+    spyOn(SaninnLogger.prototype as any, 'isIE').and.returnValue(true);
+    const initSpy = spyOn(SaninnLogger.prototype as any, 'initializeObjectsBasedOnEnumsLogTypes');
+    // tslint:disable-next-line:no-unused-new
+    new SaninnLogger({
+      prefix: prefixText,
+      prefixColors: colors
     });
 
-    saninnLogger.log(textExpected);
-    expect(isBrowser).toHaveBeenCalled();
-    expect(console.log).toHaveBeenCalledWith(fullPrefix, textExpected);
+    expect(initSpy).toHaveBeenCalledTimes(1);
   });
-
   describe('should return the colored prefix', () => {
-    const textExpected = 'saninn test';
-    const prefixText = 'prefix';
-    const fullColoredPrefix = `%c[${prefixText}]:`;
-    const colors: LoggerTypesObjectForColors = {
-      log: 'red',
-      error: 'yellow',
-      warn: 'blue'
-    };
-    const styles: LoggerTypesObjectForColors = {
-      log: `color: ${colors.log}`,
-      error: `color: ${colors.error}`,
-      warn: `color: ${colors.warn}`
-    };
-
-    beforeEach(() => {
-      spyOn(SaninnLogger.prototype as any, 'isBrowser').and.returnValue(true);
-    });
-
     test('for log', () => {
       const consoleFunction = LoggerTypesEnum.log;
       spyOn(console, consoleFunction).and.callThrough();

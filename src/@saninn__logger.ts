@@ -36,8 +36,9 @@ export class SaninnLogger implements ILogger {
 
     this.initializeObjectsBasedOnEnumsLogTypes(this.extraGlobalLoggerFunctions, loggerConfig.extraLoggerFunctions);
 
-    // we can use colors just in a browser environment ( NO IE !)
-    if (this.isBrowser() && !this.isIE()) {
+    // IE does not support colors!
+    const isIE = this.isIE();
+    if (!isIE) {
       this.initializeObjectsBasedOnEnumsLogTypes(this.prefixColors, loggerConfig.prefixColors);
     }
   }
@@ -67,6 +68,7 @@ export class SaninnLogger implements ILogger {
     const extraFunctionForThisLogType = this.extraGlobalLoggerFunctions[logType];
     // TODO: add an callback for when this function is done?????
     // TODO: add an extraFunction that works just in a single call? example logger.log(someSingleExtraFunction, "message 1", "message 2")
+    // TODO: add there the prefix in case they want to use it.
     if (extraFunctionForThisLogType) {
       extraFunctionForThisLogType();
     }
@@ -114,22 +116,6 @@ export class SaninnLogger implements ILogger {
     });
   }
 
-  // TODO: Make this better
-  private isBrowser(): boolean {
-    if (window && window.console && !this.isNode()) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  // TODO: Make this better
-  private isNode(): boolean {
-    if (typeof process === 'object' && process.title && process.version) {
-      return true;
-    } else {
-      return false;
-    }
-  }
   // TODO: Make this better
   private isIE() {
     const appVersion = window.navigator.appVersion.toUpperCase();
