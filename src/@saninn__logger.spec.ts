@@ -18,14 +18,17 @@ describe('It is possible to create a SaninnLogger instance', () => {
     const saninnLogger = new SaninnLogger();
     expect(saninnLogger).toBeTruthy();
   });
+
   test('With just the name as a string parameter', () => {
     const saninnLogger = new SaninnLogger('test');
     expect(saninnLogger).toBeTruthy();
   });
+
   test('With an empty Object', () => {
     const saninnLogger = new SaninnLogger({});
     expect(saninnLogger).toBeTruthy();
   });
+
   test('With an config Object', () => {
     const saninnLogger = new SaninnLogger({
       prefix: 'hello',
@@ -78,6 +81,7 @@ describe('extraGlobalLoggerFunctions', () => {
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
   });
+
   test(`dir extraGlobalFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.dir;
 
@@ -97,6 +101,7 @@ describe('extraGlobalLoggerFunctions', () => {
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
   });
+
   test(`warn extraGlobalFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.warn;
 
@@ -116,6 +121,7 @@ describe('extraGlobalLoggerFunctions', () => {
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
   });
+
   test(`error extraGlobalFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.error;
 
@@ -158,6 +164,7 @@ describe('prefix', () => {
   const prefixText = 'prefix text';
   const completePrefix = `[${prefixText}]:`;
   let saninnLogger: SaninnLogger;
+
   beforeEach(() => {
     saninnLogger = new SaninnLogger(prefixText);
   });
@@ -221,6 +228,7 @@ describe('prefixColor', () => {
     // @ts-ignore
     document.documentMode = false;
   });
+
   describe('should return the colored prefix', () => {
     test('for log', () => {
       const consoleFunction = LoggerTypesEnum.log;
@@ -234,6 +242,7 @@ describe('prefixColor', () => {
 
       expect(console[consoleFunction]).toHaveBeenCalledWith(fullColoredPrefix, styles[consoleFunction], textExpected);
     });
+
     test('for warn', () => {
       const consoleFunction = LoggerTypesEnum.warn;
       spyOn(console, consoleFunction).and.callThrough();
@@ -246,6 +255,7 @@ describe('prefixColor', () => {
 
       expect(console[consoleFunction]).toHaveBeenCalledWith(fullColoredPrefix, styles[consoleFunction], textExpected);
     });
+
     test('for error', () => {
       const consoleFunction = LoggerTypesEnum.error;
       spyOn(console, consoleFunction).and.callThrough();
