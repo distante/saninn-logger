@@ -61,8 +61,8 @@ test('Each call to a getter (using LoggerTypesEnum Keys) should return the corre
   });
 });
 
-describe('extraGlobalLoggerFunctions', () => {
-  test(`log extraGlobalFunction is called before bind to console`, () => {
+describe('extraLoggerFunctions', () => {
+  test(`log extraFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
 
     const consoleBindMock = jest.fn();
@@ -82,7 +82,23 @@ describe('extraGlobalLoggerFunctions', () => {
     expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
   });
 
-  test(`dir extraGlobalFunction is called before bind to console`, () => {
+  test(`log extraFunction is called with the prefix`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
+    const loggerPrefix = 'test-logger-prefix';
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      prefix: loggerPrefix,
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
+  });
+
+  test(`dir extraFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.dir;
 
     const consoleBindMock = jest.fn();
@@ -102,7 +118,23 @@ describe('extraGlobalLoggerFunctions', () => {
     expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
   });
 
-  test(`warn extraGlobalFunction is called before bind to console`, () => {
+  test(`dir extraFunction is called with the prefix`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.dir;
+    const loggerPrefix = 'test-logger-prefix';
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      prefix: loggerPrefix,
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
+  });
+
+  test(`warn extraFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.warn;
 
     const consoleBindMock = jest.fn();
@@ -122,7 +154,23 @@ describe('extraGlobalLoggerFunctions', () => {
     expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
   });
 
-  test(`error extraGlobalFunction is called before bind to console`, () => {
+  test(`warn extraFunction is called with the prefix`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.warn;
+    const loggerPrefix = 'test-logger-prefix';
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      prefix: loggerPrefix,
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
+  });
+
+  test(`error extraFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.error;
 
     const consoleBindMock = jest.fn();
@@ -140,6 +188,22 @@ describe('extraGlobalLoggerFunctions', () => {
 
     expect(mockFunction).toHaveBeenCalledTimes(1);
     expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
+  });
+
+  test(`error extraFunction is called with the prefix`, () => {
+    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.error;
+    const loggerPrefix = 'test-logger-prefix';
+    const mockFunction = jest.fn();
+    const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
+    loggerFunctionConfigs[consoleFunction] = mockFunction;
+    const saninnLogger = new SaninnLogger({
+      prefix: loggerPrefix,
+      extraLoggerFunctions: loggerFunctionConfigs
+    });
+
+    saninnLogger[consoleFunction]();
+
+    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
   });
 });
 

@@ -15,7 +15,7 @@ import { LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-def
 export class SaninnLogger implements ILogger {
   private prefix?: string;
   private prefixColors: LoggerTypesObjectForColors = {};
-  private extraGlobalLoggerFunctions: LoggerTypesObject<Function> = {};
+  private extraLoggerFunctions: LoggerTypesObject<Function> = {};
   private printToConsole = true;
 
   constructor(loggerConfig?: string | ILoggerConfig) {
@@ -34,7 +34,7 @@ export class SaninnLogger implements ILogger {
       this.printToConsole = loggerConfig.printToConsole;
     }
 
-    this.initializeObjectsBasedOnEnumsLogTypes(this.extraGlobalLoggerFunctions, loggerConfig.extraLoggerFunctions);
+    this.initializeObjectsBasedOnEnumsLogTypes(this.extraLoggerFunctions, loggerConfig.extraLoggerFunctions);
 
     // IE does not support colors!
     const isIE = this.isIE();
@@ -65,12 +65,10 @@ export class SaninnLogger implements ILogger {
   }
 
   private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
-    const extraFunctionForThisLogType = this.extraGlobalLoggerFunctions[logType];
+    const extraFunctionForThisLogType = this.extraLoggerFunctions[logType];
     // TODO: add an callback for when this function is done?????
-    // TODO: add an extraFunction that works just in a single call? example logger.log(someSingleExtraFunction, "message 1", "message 2")
-    // TODO: add there the prefix in case they want to use it.
     if (extraFunctionForThisLogType) {
-      extraFunctionForThisLogType();
+      extraFunctionForThisLogType(this.prefix);
     }
 
     if (!this.printToConsole) {
@@ -85,7 +83,7 @@ export class SaninnLogger implements ILogger {
     const prefixString = `[${this.prefix}]:`;
 
     // Console.dir does not accept multiparameters,
-    // We will add a raw console.log after this print
+    // We will add a raw console.log before the dir print
     if (logType === LoggerTypesEnum.dir) {
       // tslint:disable-next-line:no-console
       console.log(prefixString + '(dir after this line)');
@@ -116,7 +114,6 @@ export class SaninnLogger implements ILogger {
     });
   }
 
-  // TODO: Make this better
   private isIE() {
     // @ts-ignore
     return /*@cc_on!@*/ false || !!document.documentMode;

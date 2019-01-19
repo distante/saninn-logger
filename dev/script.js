@@ -1,23 +1,24 @@
 import { SaninnLogger } from '../dist/es6/index.js';
+console.dir(SaninnLogger);
 const loggerWithString = new SaninnLogger('just-with-string');
 
 const loggerWithFullConfig = new SaninnLogger({
   extraLoggerFunctions: {
-    dir: () => {
+    dir: prefix => {
       // tslint:disable-next-line:no-console
-      console.log('This is a DIR callback that is not the direct console.dir');
+      console.log('This is a DIR callback that is not the direct console.dir', 'thisIsTheFrefix ' + prefix);
     },
-    error: () => {
+    error: prefix => {
       // tslint:disable-next-line:no-console
-      console.log('This is a ERROR callback that is not the direct console.error');
+      console.log('This is a ERROR callback that is not the direct console.error', 'thisIsTheFrefix ' + prefix);
     },
-    log: () => {
+    log: prefix => {
       // tslint:disable-next-line:no-console
-      console.log('This is a LOG callback that is not the direct console.log');
+      console.log('This is a LOG callback that is not the direct console.log', 'thisIsTheFrefix ' + prefix);
     },
-    warn: () => {
+    warn: prefix => {
       // tslint:disable-next-line:no-console
-      console.log('This is a WARN callback that is not the direct console.warn');
+      console.log('This is a WARN callback that is not the direct console.warn', 'thisIsTheFrefix ' + prefix);
     }
   },
   prefix: 'full-config-logger',
