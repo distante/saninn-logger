@@ -206,8 +206,10 @@ describe('prefixColor', () => {
     error: `color: ${colors.error}`,
     warn: `color: ${colors.warn}`
   };
-  it('should not have any prefixColor value if we are in IE', () => {
-    spyOn(SaninnLogger.prototype as any, 'isIE').and.returnValue(true);
+
+  test('should not have any prefixColor value if we are in IE', () => {
+    // @ts-ignore
+    document.documentMode = true;
     const initSpy = spyOn(SaninnLogger.prototype as any, 'initializeObjectsBasedOnEnumsLogTypes');
     // tslint:disable-next-line:no-unused-new
     new SaninnLogger({
@@ -216,6 +218,8 @@ describe('prefixColor', () => {
     });
 
     expect(initSpy).toHaveBeenCalledTimes(1);
+    // @ts-ignore
+    document.documentMode = false;
   });
   describe('should return the colored prefix', () => {
     test('for log', () => {

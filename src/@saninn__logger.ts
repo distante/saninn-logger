@@ -118,11 +118,7 @@ export class SaninnLogger implements ILogger {
 
   // TODO: Make this better
   private isIE() {
-    const appVersion = window.navigator.appVersion.toUpperCase();
-    if (appVersion.indexOf('TRIDENT') !== -1 || appVersion.indexOf('Edge') !== -1) {
-      return true;
-    } else {
-      return false;
-    }
+    // @ts-ignore
+    return /*@cc_on!@*/ false || !!document.documentMode;
   }
 }
