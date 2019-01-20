@@ -6,24 +6,22 @@ const fs = require('fs');
 // const path = require('path');
 
 const files = FileHound.create()
-  .path('./dist/es6')
+  .path('./dist/iife')
   .ext('js')
   .find();
 
 files.then(filePaths => {
   filePaths.forEach(filepath => {
     fs.readFile(filepath, 'utf8', (errorReadingFile, data) => {
-      if (!data.match(/(import|export) .* from/g)) {
+      if (!data.match(/return exports;/g)) {
         return;
       }
 
-      const scriptImports = data.match(/((import|export) .* from\s+['"])(.*)(?=['"])/g);
+      const exportString = data.match(/return exports;/g);
       let newData = data;
-      scriptImports.forEach(script => {
-        newData = newData.replace(script, script + '.js');
+      exportString.forEach(script => {
+        newData = newData.replace(script, 'return SaninnLogger;');
       });
-
-      // let newData = data.replace(/((import|export) .* from\s+['"])(.*)(?=['"])/g, '$1.js');
 
       if (errorReadingFile) {
         throw errorReadingFile;
@@ -34,7 +32,7 @@ files.then(filePaths => {
           throw errorWritingFile;
         }
         // tslint:disable-next-line:no-console
-        console.log(`js extension added to ${filepath}`);
+        console.log(`SaninnLogger exported in ${filepath}`);
       });
     });
   });

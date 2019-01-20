@@ -28,11 +28,12 @@
     "build": "run-p build:*",
     "build:module": "run-s clean:module && tsc --sourceMap false && run-s fix-es2015-modules",
     "build:commonjs": "run-s clean:commonjs && tsc --sourceMap false -m commonjs --outDir ./dist/commonjs",
-    "build:iife": "npm run clean:iife && rollup -c",
+    "build:iife": "npm run clean:iife && rollup -c && run-s fix-iife-export",
     "clean:module": "shx rm -rf ./dist/es6",
     "clean:commonjs": "shx rm -rf ./dist/commonjs",
     "clean:iife": "shx rm -rf ./dist/iife",
-    "fix-es2015-modules": "node ./scripts/fix-es2015-modules.js"
+    "fix-es2015-modules": "node ./scripts/fix-es2015-modules.js",
+    "fix-iife-export": "node ./scripts/fix-iife-export.js"
   },
   "repository": {
     "type": "git",

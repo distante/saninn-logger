@@ -1,7 +1,7 @@
 import typescript from 'rollup-plugin-typescript';
 
 export default {
-  input: './src/index.ts',
+  input: './src/@saninn__logger.ts',
 
   output: {
     banner: `/**
@@ -21,7 +21,7 @@ export default {
     typescript({
       // lib: ["es5", "es6", "dom"],
       sourceMap: false,
-      target: 'es5'
+      target: 'es3'
     })
   ]
 };
