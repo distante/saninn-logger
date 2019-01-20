@@ -3,3 +3,4 @@ node_module/
 .vscode/
 scripts/
 .editorconfig
+dist-bundles/

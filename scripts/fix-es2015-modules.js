@@ -3,10 +3,16 @@
 
 const FileHound = require('filehound');
 const fs = require('fs');
-// const path = require('path');
+
+const args = process.argv.slice(2);
+
+let folderToFix = './dist/';
+if (args.length === 1) {
+  folderToFix = args[0];
+}
 
 const files = FileHound.create()
-  .path('./dist/es6')
+  .path(folderToFix)
   .ext('js')
   .find();
 

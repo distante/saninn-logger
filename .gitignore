@@ -38,3 +38,4 @@ UserInterfaceState.xcuserstate
 *.~lock.*
 .vscode/plugins.json
 dist/
+dist-bundles/

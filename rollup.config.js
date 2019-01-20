@@ -13,7 +13,7 @@ export default {
  *
  *  http://www.saninnsalas.com
  */`,
-    file: './dist/iife/@saninn__logger.js',
+    file: './dist-bundles/iife/@saninn__logger.js',
     format: 'iife',
     name: 'SaninnLogger'
   },
