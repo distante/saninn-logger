@@ -20,7 +20,8 @@
   },
   "scripts": {
     "test": "jest",
-    "test:ci": "jest --runInBand --no-cache --watch false",
+    "test:ci": "jest --runInBand --no-cache --watch false --coverage true",
+    "test:codecov": "codecov",
     "tsc:check": "tsc --noEmit",
     "prettier:check": "pretty-quick --staged",
     "saninn": "run-p watch live-server",
@@ -82,5 +83,7 @@
     "tslint-config-prettier": "^1.17.0",
     "typescript": "^3.2.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "codecov": "^3.1.0"
+  }
 }

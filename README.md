@@ -1,6 +1,22 @@
-# @saninn/logger
+<div style="text-align: center;">
+  <h1>@saninn/logger</h1>
+
+<span style="font-size:2em">👨‍💻💻</span>
 
 A configurable wrapper around the console object made in typescript (without losing the console call position)
+
+<div style="text-align: center;">
+
+[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) ![](https://img.shields.io/github/license/distante/saninn-logger.svg)
+
+</div>
+</div>
+
+<hr />
+
+## The Problem
+
+I need to control when activate or deactivate my app logging function but If I use `console.log` inside another class or function I lose the position of the logging. Well not anymore!
 
 ## Install
 
