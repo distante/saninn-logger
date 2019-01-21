@@ -13,7 +13,7 @@ A configurable wrapper around the console object made in typescript (without los
 
 I need to control when activate or deactivate my app logging function but If I use `console.log` inside another class or function I lose the position of the logging. Well not anymore!
 
-[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger)
+[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger)
 
 ## Install
 

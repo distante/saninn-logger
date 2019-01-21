@@ -20,7 +20,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test:ci": "jest --runInBand --no-cache --watch false",
+    "test:ci": "jest --runInBand --no-cache --watch false --coverage true",
     "tsc:check": "tsc --noEmit",
     "prettier:check": "pretty-quick --staged",
     "saninn": "run-p watch live-server",
