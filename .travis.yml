@@ -1,0 +1,15 @@
+# .travis.yml
+
+language: node_js
+
+node_js:
+  - stable
+
+install:
+  - npm install
+
+before_script:
+  - npm run tsc:check && npm run prettier:check && npm run build && npm run build-bundles
+
+script:
+  - npm run test:ci

@@ -20,7 +20,9 @@
   },
   "scripts": {
     "test": "jest",
-    "fix": "ts-jest config:migrate ./jest.config.js",
+    "test:ci": "jest --runInBand --no-cache --watch false --source-map false",
+    "tsc:check": "tsc --noEmit",
+    "prettier:check": "pretty-quick --staged",
     "saninn": "run-p watch live-server",
     "watch": "run-s clean:module && tsc && npm-watch",
     "serve": "live-server --watch=dist/,dev/ --open=dev/index.html --wait=500",
@@ -38,7 +40,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/distante/saninn-logger"
+    "url": "git+https://github.com/distante/saninn-logger.git"
+  },
+  "bugs": {
+    "url": "https://github.com/distante/saninn-logger/issues"
   },
   "keywords": [
     "console",
