@@ -1,12 +1,12 @@
 {
   "name": "@saninn/logger",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "private": true,
   "description": "A configurable wrapper around the console object (without losing the console call position)",
   "main": "dist/@saninn__logger.js",
   "types": "dist/@saninn__logger.d.ts",
   "files": [
-    "./dist/**/*"
+    "dist"
   ],
   "watch": {
     "transpile-dev": {
