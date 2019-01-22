@@ -4,3 +4,4 @@ node_module/
 scripts/
 .editorconfig
 dist-bundles/
+dist-zips/
