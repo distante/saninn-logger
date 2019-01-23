@@ -115,9 +115,8 @@
     "ts-jest": "^23.10.5",
     "tslib": "^1.9.3",
     "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.2"
-  },
-  "dependencies": {
+    "typescript": "^3.2.2",
     "codecov": "^3.1.0"
-  }
+  },
+  "dependencies": {}
 }
