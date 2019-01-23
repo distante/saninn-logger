@@ -87,11 +87,11 @@
       "commitMessage": "release: ${version}"
     },
     "github": {
-      "release": true
-    },
-    "assets": [
-      "dist-bundles/*.zip"
-    ]
+      "release": true,
+      "assets": [
+        "dist-bundles/*.zip"
+      ]
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
