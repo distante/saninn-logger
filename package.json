@@ -1,7 +1,6 @@
 {
   "name": "@saninn/logger",
   "version": "0.0.0",
-  "private": true,
   "description": "A configurable wrapper around the console object (without losing the console call position)",
   "main": "dist/@saninn__logger.js",
   "types": "dist/@saninn__logger.d.ts",
@@ -37,7 +36,22 @@
     "clean:commonjs": "shx rm -rf ./dist-bundles/commonjs",
     "clean:iife": "shx rm -rf ./dist-bundles/iife",
     "fix-es2015-modules": "node ./scripts/fix-es2015-modules.js",
-    "fix-iife-export": "node ./scripts/fix-iife-export.js"
+    "fix-iife-export": "node ./scripts/fix-iife-export.js",
+    "bump:mayor": "npm-bump mayor",
+    "bump:minor": "npm-bump minor",
+    "bump:patch": "npm-bump patch",
+    "bump:beta": "beta",
+    "release": "release-it",
+    "release:patch": "release-it patch -n",
+    "release:minor": "release-it minor -n",
+    "release:major": "release-it major -n",
+    "release:prepatch": "release-it prepatch -n",
+    "release:preminor": "release-it preminor -n",
+    "release:premajor": "release-it premajor -n",
+    "zip-bundles": "run-s zip:*",
+    "zip:module": "cd dist-bundles/es6 && bestzip ../es6.zip * && cd .. && cd ..",
+    "zip:commonjs": "cd dist-bundles/commonjs && bestzip ../commonjs.zip * && cd .. && cd ..",
+    "zip:iife": "cd dist-bundles/iife && bestzip ../iife.zip * && cd .. && cd .."
   },
   "repository": {
     "type": "git",
@@ -60,6 +74,19 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
+  "release-it": {
+    "scripts": {
+      "beforeStart": "node ./scripts/release_1_before-start.js",
+      "afterBump": "node ./scripts/release_3_after-Bump.js ${version}",
+      "afterRelease": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    },
+    "github": {
+      "release": true
+    },
+    "assets": [
+      "dist-bundles/*.zip"
+    ]
+  },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
     "@commitlint/config-conventional": "^7.1.2",
@@ -75,6 +102,7 @@
     "npm-watch": "^0.5.0",
     "prettier": "1.15.3",
     "pretty-quick": "^1.8.0",
+    "release-it": "^10.0.2",
     "rollup": "^1.1.0",
     "rollup-plugin-typescript": "^1.0.0",
     "shx": "^0.3.2",
