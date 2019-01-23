@@ -1,6 +1,6 @@
 {
   "name": "@saninn/logger",
-  "version": "0.0.9",
+  "version": "0.0.8",
   "description": "A configurable wrapper around the console object (without losing the console call position)",
   "main": "dist/@saninn__logger.js",
   "types": "dist/@saninn__logger.d.ts",
@@ -78,7 +78,7 @@
     "scripts": {
       "beforeStart": "node ./scripts/release_1_before-start.js",
       "afterBump": "node ./scripts/release_3_after-Bump.js ${version}",
-      "afterRelease": "echo Successfully released ${name} v${version} to https://${repo.host}/${repo.repository}/releases/tag/${version}"
+      "afterRelease": "echo Successfully released ${name} v${version} to https://${repo.host}/${repo.repository}/releases/tag/v${version}"
     },
     "git": {
       "commitMessage": "release: v${version}",
@@ -87,6 +87,7 @@
     },
     "github": {
       "release": true,
+      "releaseName": "Release v${version}",
       "assets": [
         "dist-bundles/*.zip"
       ]
