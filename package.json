@@ -42,6 +42,12 @@
     "bump:patch": "npm-bump patch",
     "bump:beta": "beta",
     "release": "release-it",
+    "release:patch": "release-it patch -n",
+    "release:minor": "release-it minor -n",
+    "release:major": "release-it major -n",
+    "release:prepatch": "release-it prepatch -n",
+    "release:preminor": "release-it preminor -n",
+    "release:premajor": "release-it premajor -n",
     "zip-all": "run-s zip:*",
     "zip:module": "cd dist-bundles/es6 && bestzip ../es6.zip * && cd .. && cd ..",
     "zip:commonjs": "cd dist-bundles/commonjs && bestzip ../commonjs.zip * && cd .. && cd ..",
@@ -69,9 +75,17 @@
     }
   },
   "release-it": {
+    "scripts": {
+      "beforeStart": "node ./scripts/release_1_before-start.js",
+      "afterBump": "node ./scripts/release_3_after-Bump.js ${version}",
+      "afterRelease": "echo Successfully released ${name} v${version} to ${repo.repository}."
+    },
     "github": {
       "release": true
-    }
+    },
+    "assets": [
+      "dist-bundles/*.zip"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^7.2.1",
