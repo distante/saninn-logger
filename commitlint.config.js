@@ -1,6 +1,8 @@
-const types = ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test', 'Release'];
+const types = ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'perf', 'refactor', 'revert', 'style', 'test', 'release'];
 
 module.exports = {
   extends: ['@commitlint/config-conventional'],
-  'type-enum': [2, 'always', types]
+  rules: {
+    'type-enum': [2, 'always', types]
+  }
 };
