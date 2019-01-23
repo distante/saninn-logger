@@ -81,7 +81,7 @@
       "afterRelease": "echo Successfully released ${name} v${version} to ${repo.repository}."
     },
     "git": {
-      "commitMessage": "release: ${version}"
+      "commitMessage": "release: v${version}"
     },
     "github": {
       "release": true,

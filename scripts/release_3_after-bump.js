@@ -5,7 +5,7 @@ const shell = require('shelljs');
 const path = require('path');
 const distBundlesDir = path.join(process.cwd(), 'dist-bundles');
 
-const version = process.argv[2] && process.argv[2].length ? process.argv[2] + '-' : '';
+const version = process.argv[2] && process.argv[2].length ? 'v' + process.argv[2] + '-' : '';
 
 console.log(`\n🚀🚀🚀    ${scriptName}    🚀🚀🚀 \n`);
 if (version === '') {
