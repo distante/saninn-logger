@@ -28,7 +28,7 @@
     "serve": "live-server --watch=dist/,dev/ --open=dev/index.html --wait=500",
     "transpile-dev": "tsc && npm run fix-es2015-modules",
     "build": "shx rm -rf ./dist/ && tsc --sourceMap false && run-s fix-es2015-modules",
-    "build-bundles": "run-p build:* && npm run zip-all",
+    "build-bundles": "run-p build:*",
     "build:module": "run-s clean:module && tsc --sourceMap false --outDir ./dist-bundles/es6 && node ./scripts/fix-es2015-modules.js ./dist-bundles/es6",
     "build:commonjs": "run-s clean:commonjs && tsc --sourceMap false -m commonjs --outDir ./dist-bundles/commonjs",
     "build:iife": "npm run clean:iife && rollup -c && run-s fix-iife-export",
@@ -48,7 +48,7 @@
     "release:prepatch": "release-it prepatch -n",
     "release:preminor": "release-it preminor -n",
     "release:premajor": "release-it premajor -n",
-    "zip-all": "run-s zip:*",
+    "zip-bundles": "run-s zip:*",
     "zip:module": "cd dist-bundles/es6 && bestzip ../es6.zip * && cd .. && cd ..",
     "zip:commonjs": "cd dist-bundles/commonjs && bestzip ../commonjs.zip * && cd .. && cd ..",
     "zip:iife": "cd dist-bundles/iife && bestzip ../iife.zip * && cd .. && cd .."

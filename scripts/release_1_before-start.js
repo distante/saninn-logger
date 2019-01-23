@@ -10,7 +10,8 @@ const packageScripts = {
   buildBundles: objectWithRawScripts['build-bundles'],
   prettierCheck: objectWithRawScripts['prettier:check'],
   test: objectWithRawScripts['test'],
-  tscCheck: objectWithRawScripts['tsc:check']
+  tscCheck: objectWithRawScripts['tsc:check'],
+  zipBundles: objectWithRawScripts['zip-bundles']
 };
 
 function runScript(scriptToRun) {
@@ -37,6 +38,7 @@ console.log(`\n🚀🚀🚀    ${scriptName}    🚀🚀🚀 \n`);
 runScript(packageScripts.test + ' --silent'); // npm run test
 runScript(packageScripts.tscCheck); // npm run tsc:check
 runScript(packageScripts.build); // npm run build
-runScript(packageScripts.buildBundles); // npm run build-bundles",  //this also zips
+runScript(packageScripts.buildBundles); // npm run build-bundles"
+runScript(packageScripts.zipBundles); // create zip versions
 
 console.log(`\n👍  ${scriptName} done 👍 `);
