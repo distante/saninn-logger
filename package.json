@@ -80,6 +80,9 @@
       "afterBump": "node ./scripts/release_3_after-Bump.js ${version}",
       "afterRelease": "echo Successfully released ${name} v${version} to ${repo.repository}."
     },
+    "git": {
+      "commitMessage": "Release: ${version}"
+    },
     "github": {
       "release": true
     },
