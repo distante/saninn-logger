@@ -22,7 +22,7 @@ I need to control when activate or deactivate my app logging function but If I u
 
 `npm install @saninn/logger`.
 
-If you want to use it as es6, commonjs or iife import just clone this project, run `npm install` and `npm run build`. You will
+If you want to use it as es6, commonjs or iife download the respective assets in the [Releases Page](https://github.com/distante/saninn-logger/releases/). As alternative you can clone this project, run `npm install` and `npm run build-bundles`.
 
 ## Basic usage
 
