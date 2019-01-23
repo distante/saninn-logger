@@ -37,6 +37,7 @@ console.log(`\n🚀🚀🚀    ${scriptName}    🚀🚀🚀 \n`);
 
 runScript(packageScripts.test + ' --silent'); // npm run test
 runScript(packageScripts.tscCheck); // npm run tsc:check
+shell.exec('rm -rf ./dist-bundles/*');
 runScript(packageScripts.build); // npm run build
 runScript(packageScripts.buildBundles); // npm run build-bundles"
 runScript(packageScripts.zipBundles); // create zip versions
