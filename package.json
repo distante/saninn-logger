@@ -87,7 +87,7 @@
     },
     "github": {
       "release": true,
-      "releaseName": "Release v${version}",
+      "releaseName": "{version}",
       "assets": [
         "dist-bundles/*.zip"
       ]

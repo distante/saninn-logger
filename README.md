@@ -1,11 +1,13 @@
-<div style="text-align: center;">
+<div align="center">
   <h1>@saninn/logger</h1>
 
 <span style="font-size:2em">👨‍💻💻</span>
 
-A configurable wrapper around the console object made in typescript (without losing the console call position)
+A configurable wrapper of the console object with no dependencies (without losing the console call position).
 
-<div style="text-align: center;">
+Made with Typescript, usable as es6 module and iife with IE10 support.
+
+<div align="center">
 
 [![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) ![](https://img.shields.io/github/license/distante/saninn-logger.svg)
 
@@ -16,7 +18,11 @@ A configurable wrapper around the console object made in typescript (without los
 
 ## The Problem
 
-I need to control when activate or deactivate my app logging function but If I use `console.log` inside another class or function I lose the position of the logging. Well not anymore!
+You need to control when activate or deactivate your app or website logging but when your put `console.log` inside another class or function the console call position is lost. Well not anymore!
+
+![example][example]
+
+[example]: https://i.imgur.com/NQSB5f5.png 'Saninn Logger Example'
 
 ## Install
 
@@ -34,28 +40,59 @@ const myLogger = new SaninnLogger('my-logger-prefix');
 myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 ```
 
-If you need to use it directly on an es6 or es5 project then clone the project, run `npm install` and `build-bundles`, you will get a `dist-bundles` directory with `commonjs`, `es6` and `iife` versions.
+### Javascript (es6 module)
 
-```ts
-import { SaninnLogger } from '@saninn/logger';
+#### index.html
+
+```html
+<head>
+  <script src="main.js" type="module"></script>
+</head>
+```
+
+#### main.js
+
+```js
+import { SaninnLogger } from './node_modules/@saninn/logger/dist/@saninn__logger.js';
 const myLogger = new SaninnLogger('my-logger-prefix');
+myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
+```
+
+### Javascript (es5)
+
+- First download the Immediately-invoked function expression (iife) from the [Releases Page](https://github.com/distante/saninn-logger/releases/) and import it before your javascript entry point
+
+#### index.html
+
+```html
+<head>
+  <script src="@saninn__logger.js"></script>
+  <script src="main.js"></script>
+</head>
+```
+
+#### main.js
+
+```js
+var myLogger = new SaninnLogger('my-logger-prefix');
 myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 ```
 
 ## Configuration Options
 
 ```ts
-prefix?: string;
 /** The prefix to be appended before the log message */
+prefix?: string;
 
-prefixColors?: {log: string, warn: string, error: string};
 /** A valid CSS string color for the prefix (where it is supported). Examples: red | #ffbbss | rgb(255,10,2) | rgba(255,10,2,1)  */
+prefixColors?: {log: string, warn: string, error: string};
 
-printToConsole?: boolean;
-/** Call window.console / global.console or just call #extraLoggerFunction */
+/** Call window.console / global.console or just call the extraLoggerFunction */
+printToConsole?: boolean (default true);
 
+/** This function will be called before the logger prints their output */
 extraLoggerFunctions?: {log: () =>{}, dir: () =>{}, warn: () =>{}, error: () =>{}};
-/** This function will be called before the console prints their output */
+
 ```
 
 ## Full options usage
@@ -98,6 +135,10 @@ loggerWithFullConfig.error('trying error');
 [output]: https://i.imgur.com/6A8IT7H.png 'console output'
 
 ## License
+
+## Use cases
+
+You can see the [Wiki](https://github.com/distante/saninn-logger/wiki) for ideas and use cases where @saninn/logger can help you!
 
 [MIT](/LICENSE)
 
