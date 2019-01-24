@@ -9,7 +9,7 @@ Made with Typescript, usable as es6 module and iife with IE10 support.
 
 <div align="center">
 
-[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) ![](https://img.shields.io/github/license/distante/saninn-logger.svg)
+[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) [![Greenkeeper badge](https://badges.greenkeeper.io/distante/saninn-logger.svg)](https://greenkeeper.io/) ![](https://img.shields.io/github/license/distante/saninn-logger.svg)
 
 </div>
 </div>
