@@ -11,20 +11,20 @@ import { IExtendedConsoleForLogger } from './models/extended-console.interface';
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
 import { ILogger } from './models/logger.interface';
-import { LoggerTypesObject } from './models/type-definitions';
+import { LoggerTypesObject, RequiredLoggerConfig } from './models/type-definitions';
 
-let saninnLoggerInstanceId = 0;
+let saninnLoggerInstanceCounter = 0;
 
 const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
-
 export class SaninnLogger implements ILogger {
   private loggerId: string;
 
-  private config: Required<ILoggerConfig> = {
+  private config: RequiredLoggerConfig = {
     prefix: '',
     prefixColors: {},
     printToConsole: true,
     preLoggerFunctions: {},
+    useLoggerProcessors: false,
     extraLoggerProcessors: {}
   };
 
@@ -37,11 +37,12 @@ export class SaninnLogger implements ILogger {
       // return this.consoleFunctionProxys[prop]!.bind(console);
     }
   };
+
   private consoleProxy = new Proxy(console, this.consoleProxyHandler);
 
   constructor(loggerConfig?: string | ILoggerConfig) {
-    saninnLoggerInstanceId++;
-    this.loggerId = `SaninnLogger_${Date.now()}_${saninnLoggerInstanceId}`;
+    saninnLoggerInstanceCounter++;
+    this.loggerId = `SaninnLogger_${Date.now()}_${saninnLoggerInstanceCounter}`;
 
     this.initProxy();
 
@@ -69,6 +70,22 @@ export class SaninnLogger implements ILogger {
     if (!isIE) {
       this.initializeObjectsBasedOnEnumsLogTypes(this.config.prefixColors, loggerConfig.prefixColors);
     }
+  }
+
+  public addLoggerProcessor() {
+    console.error(this.addLoggerProcessor.name + ' not implemented');
+  }
+
+  public removeLoggerProcessor() {
+    console.error(this.removeLoggerProcessor.name + ' not implemented');
+  }
+
+  public enableLoggerProcessors() {
+    console.error(this.addLoggerProcessor.name + ' not implemented');
+  }
+
+  public disableLoggerProcessors() {
+    console.error(this.removeLoggerProcessor.name + ' not implemented');
   }
 
   private initProxy() {

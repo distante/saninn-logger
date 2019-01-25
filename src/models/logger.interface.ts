@@ -1,5 +1,8 @@
-import { LoggerTypesEnum } from './log-types.enum';
-/**
- * Yes, this is a type but it will be used as an interface ;)
- */
-export type ILogger = { [key in LoggerTypesEnum]: Function };
+import { ILoggerActions } from './logger-actions.interface';
+
+export interface ILogger extends ILoggerActions {
+  enableLoggerProcessors(): void;
+  disableLoggerProcessors(): void;
+  addLoggerProcessor(): void;
+  removeLoggerProcessor(): void;
+}

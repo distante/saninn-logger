@@ -334,3 +334,23 @@ describe('prefixColor', () => {
     });
   });
 });
+
+describe('use of external logger processors', () => {
+  test('the given loggerProcesor function should be called before the log', () => {
+    const extraLogProcessor = jest.fn();
+    const prefixTest = 'prefix-test';
+    const textTest = 'some random text';
+    const logProcessors: LoggerTypesObject<Function[]> = {
+      log: [extraLogProcessor]
+    };
+    const saninnLogger = new SaninnLogger({
+      prefix: prefixTest,
+      useLoggerProcessors: true,
+      extraLoggerProcessors: logProcessors
+    });
+
+    saninnLogger.log(textTest);
+
+    expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, textTest);
+  });
+});
