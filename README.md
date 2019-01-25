@@ -87,11 +87,11 @@ prefix?: string;
 /** A valid CSS string color for the prefix (where it is supported). Examples: red | #ffbbss | rgb(255,10,2) | rgba(255,10,2,1)  */
 prefixColors?: {log: string, warn: string, error: string};
 
-/** Call window.console / global.console or just call the extraLoggerFunction */
+/** Call window.console / global.console or just call the preLoggerFunction */
 printToConsole?: boolean (default true);
 
 /** This function will be called before the logger prints their output */
-extraLoggerFunctions?: {log: () =>{}, dir: () =>{}, warn: () =>{}, error: () =>{}};
+preLoggerFunctions?: {log: () =>{}, dir: () =>{}, warn: () =>{}, error: () =>{}};
 
 ```
 
@@ -99,7 +99,7 @@ extraLoggerFunctions?: {log: () =>{}, dir: () =>{}, warn: () =>{}, error: () =>{
 
 ```js
 const loggerWithFullConfig = new SaninnLogger({
-  extraLoggerFunctions: {
+  preLoggerFunctions: {
     dir: prefix => {
       console.log('This is a DIR callback that is not the direct console.dir', 'thisIsTheFrefix ' + prefix);
     },

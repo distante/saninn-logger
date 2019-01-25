@@ -5,8 +5,19 @@ export interface ILoggerConfig {
   prefix?: string;
   /** A valid CSS string color for the prefix (where it is supported). Examples: red | #ffbbss | rgb(255,10,2) | rgba(255,10,2,1)  */
   prefixColors?: LoggerTypesObjectForColors;
-  /** Call window.console / global.console or just call #extraLoggerFunction */
+  /**
+   * If enabled the log output will be printed locally in console.
+   * SaninnLogger will keep the line of the call unless #processExternalLoggers is true
+   */
   printToConsole?: boolean;
   /** This function will be called before the console prints their output */
-  extraLoggerFunctions?: LoggerTypesObject<Function>;
+  preLoggerFunctions?: LoggerTypesObject<Function>;
+
+  /**
+   * If actived the array of functions on extraLoggerFunctions will be called after
+   * every console function.
+   * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
+   * because there is no way to get the console message without proxy it.
+   */
+  extraLoggerProcessors?: LoggerTypesObject<Function[]>;
 }

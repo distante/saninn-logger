@@ -61,7 +61,7 @@ test('Each call to a getter (using LoggerTypesEnum Keys) should return the corre
   });
 });
 
-describe('extraLoggerFunctions', () => {
+describe('preLoggerFunctions', () => {
   test(`log extraFunction is called before bind to console`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
 
@@ -73,7 +73,7 @@ describe('extraLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -90,7 +90,7 @@ describe('extraLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -109,7 +109,7 @@ describe('extraLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -126,7 +126,7 @@ describe('extraLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -145,7 +145,7 @@ describe('extraLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -162,7 +162,7 @@ describe('extraLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -181,7 +181,7 @@ describe('extraLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -198,7 +198,7 @@ describe('extraLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      extraLoggerFunctions: loggerFunctionConfigs
+      preLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
