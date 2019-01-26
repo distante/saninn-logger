@@ -2,7 +2,6 @@ import typescript from 'rollup-plugin-typescript';
 
 export default {
   input: './src/@saninn__logger.ts',
-
   output: {
     banner: `/**
  *  @license

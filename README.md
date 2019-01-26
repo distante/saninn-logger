@@ -3,9 +3,9 @@
 
 <span style="font-size:2em">👨‍💻💻</span>
 
-A configurable wrapper of the console object with no dependencies (without losing the console call position).
+A configurable wrapper of the console that keeps the log call position. The only dependency is an included Polyfill!
 
-Made with Typescript, usable as es6 module and iife with IE10 support.
+Made with Typescript, usable as es6 module and iife (with IE10 support).
 
 <div align="center">
 
@@ -29,6 +29,8 @@ You need to control when activate or deactivate your app or website logging but 
 `npm install @saninn/logger`.
 
 If you want to use it as es6, commonjs or iife download the respective assets in the [Releases Page](https://github.com/distante/saninn-logger/releases/). As alternative you can clone this project, run `npm install` and `npm run build-bundles`.
+
+_Note: The iife version contains a Polyfill for Javascript Proxy Api._
 
 ## Basic usage
 
@@ -196,6 +198,23 @@ loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors'
 You can see the [Wiki](https://github.com/distante/saninn-logger/wiki) for ideas and use cases where @saninn/logger can help you!
 
 [MIT](/LICENSE)
+
+## Development
+
+This project uses:
+
+- [Typescript](https://www.npmjs.com/package/typescript) in strict mode.
+- [Prettier](https://github.com/prettier/prettier) as code formater.
+- [commitlint](https://github.com/marionebl/commitlint) to assure the commits follow the [conventional commit format](https://www.conventionalcommits.org/).
+- [jest](https://jestjs.io/) as test runner.
+
+### scripts
+
+There are 3 scripts I use together for dev (each in their own console): 'watch', 'serve' and 'test'.
+
+- 'npm run watch' will look for Typescript changes and compile it to es6.
+- 'npm run serve' will load a local server with './index-es6.html' as entry point. It uses './script.js' as module loader.
+- 'npm run test -- --watch --coverage --silent' will run jest tests on each typescript change.
 
 ## Pull Requests Are Welcome
 
