@@ -78,6 +78,61 @@ export class SaninnLogger implements ILogger {
     }
   }
 
+  //    ██████  ██    ██ ██████  ██      ██  ██████
+  //    ██   ██ ██    ██ ██   ██ ██      ██ ██
+  //    ██████  ██    ██ ██████  ██      ██ ██
+  //    ██      ██    ██ ██   ██ ██      ██ ██
+  //    ██       ██████  ██████  ███████ ██  ██████
+
+  public addLoggerProcessor() {
+    console.error(this.addLoggerProcessor.name + ' not implemented');
+  }
+
+  public removeLoggerProcessor() {
+    console.error(this.removeLoggerProcessor.name + ' not implemented');
+  }
+
+  public enableLoggerProcessors() {
+    console.error(this.addLoggerProcessor.name + ' not implemented');
+  }
+
+  public disableLoggerProcessors() {
+    console.error(this.removeLoggerProcessor.name + ' not implemented');
+  }
+
+  //    ██████  ███████ ████████ ████████ ███████ ██████  ███████
+  //   ██       ██         ██       ██    ██      ██   ██ ██
+  //   ██   ███ █████      ██       ██    █████   ██████  ███████
+  //   ██    ██ ██         ██       ██    ██      ██   ██      ██
+  //    ██████  ███████    ██       ██    ███████ ██   ██ ███████
+
+  // TODO: There should be a way to make this automatically from the Enum...
+  get log(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.log);
+  }
+
+  get warn(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
+  }
+
+  /**
+   * console.dir does not accept multiparameters
+   * if you log `logger.dir(x,y)` `y` will be ignored
+   */
+  get dir(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
+  }
+
+  get error(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.error);
+  }
+
+  //    ██████  ██████  ██ ██    ██  █████  ████████ ███████
+  //    ██   ██ ██   ██ ██ ██    ██ ██   ██    ██    ██
+  //    ██████  ██████  ██ ██    ██ ███████    ██    █████
+  //    ██      ██   ██ ██  ██  ██  ██   ██    ██    ██
+  //    ██      ██   ██ ██   ████   ██   ██    ██    ███████
+
   private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
     LOG_TYPES_ARRAY.forEach(logType => {
       if (loggerProcessors[logType]) {
@@ -111,6 +166,7 @@ export class SaninnLogger implements ILogger {
    */
   private consoleFunctionProxyApply(
     nativeConsoleFunction: Function,
+    // tslint:disable-next-line:variable-name
     _nativeConsoleObject: Console,
     argumentsList: any[],
     logType: LoggerTypesEnum
@@ -123,11 +179,15 @@ export class SaninnLogger implements ILogger {
 
   private runLoggerProcessorsOf(logType: LoggerTypesEnum, rawArgumentList: any[]) {
     let initialIndexOfArguments = 0;
-    let prefix = this.config.prefix;
+    const prefix = this.config.prefix;
 
     if (logType !== LoggerTypesEnum.dir) {
-      if (this.config.prefix) initialIndexOfArguments++;
-      if (this.config.prefixColors[logType]) initialIndexOfArguments++;
+      if (this.config.prefix) {
+        initialIndexOfArguments++;
+      }
+      if (this.config.prefixColors[logType]) {
+        initialIndexOfArguments++;
+      }
     }
 
     const argumentsList = rawArgumentList.slice(initialIndexOfArguments);
@@ -188,48 +248,5 @@ export class SaninnLogger implements ILogger {
   private isIE() {
     // @ts-ignore
     return /*@cc_on!@*/ false || !!document.documentMode;
-  }
-
-  //    ██████  ██    ██ ██████  ██      ██  ██████
-  //    ██   ██ ██    ██ ██   ██ ██      ██ ██
-  //    ██████  ██    ██ ██████  ██      ██ ██
-  //    ██      ██    ██ ██   ██ ██      ██ ██
-  //    ██       ██████  ██████  ███████ ██  ██████
-
-  public addLoggerProcessor() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
-  }
-
-  public removeLoggerProcessor() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
-  }
-
-  public enableLoggerProcessors() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
-  }
-
-  public disableLoggerProcessors() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
-  }
-
-  // TODO: There should be a way to make this automatically from the Enum...
-  get log(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.log);
-  }
-
-  get warn(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
-  }
-
-  /**
-   * console.dir does not accept multiparameters
-   * if you log `logger.dir(x,y)` `y` will be ignored
-   */
-  get dir(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
-  }
-
-  get error(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.error);
   }
 }

@@ -1,7 +1,7 @@
 import 'jest-extended';
 import { SaninnLogger } from './@saninn__logger';
 import { LoggerTypesEnum } from './models/log-types.enum';
-import { LoggerProcessor, LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-definitions';
+import { LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-definitions';
 
 /**
  * LoggerTypesEnum constructs the logger interface and several objects.
@@ -356,13 +356,12 @@ describe('External logger processors', () => {
       const extraLogProcessor2 = jest.fn();
       const prefixTest = 'prefix-test';
       const textTest = 'some random text';
-      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
-        log: [extraLogProcessor1, extraLogProcessor2]
-      };
       const saninnLogger = new SaninnLogger({
         prefix: prefixTest,
         useLoggerProcessors: true,
-        loggerProcessors: loggerProcessors
+        loggerProcessors: {
+          log: [extraLogProcessor1, extraLogProcessor2]
+        }
       });
 
       saninnLogger[consoleFunction](textTest);
@@ -378,13 +377,12 @@ describe('External logger processors', () => {
       const extraLogProcessor2 = jest.fn();
       const prefixTest = 'prefix-test';
       const textTest = 'some random text';
-      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
-        warn: [extraLogProcessor1, extraLogProcessor2]
-      };
       const saninnLogger = new SaninnLogger({
         prefix: prefixTest,
         useLoggerProcessors: true,
-        loggerProcessors: loggerProcessors
+        loggerProcessors: {
+          warn: [extraLogProcessor1, extraLogProcessor2]
+        }
       });
 
       saninnLogger[consoleFunction](textTest);
@@ -400,13 +398,12 @@ describe('External logger processors', () => {
       const extraLogProcessor2 = jest.fn();
       const prefixTest = 'prefix-test';
       const textTest = 'some random text';
-      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
-        error: [extraLogProcessor1, extraLogProcessor2]
-      };
       const saninnLogger = new SaninnLogger({
         prefix: prefixTest,
         useLoggerProcessors: true,
-        loggerProcessors: loggerProcessors
+        loggerProcessors: {
+          error: [extraLogProcessor1, extraLogProcessor2]
+        }
       });
 
       saninnLogger[consoleFunction](textTest);
@@ -422,13 +419,12 @@ describe('External logger processors', () => {
       const extraLogProcessor2 = jest.fn();
       const prefixTest = 'prefix-test';
       const textTest = 'some random text';
-      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
-        dir: [extraLogProcessor1, extraLogProcessor2]
-      };
       const saninnLogger = new SaninnLogger({
         prefix: prefixTest,
         useLoggerProcessors: true,
-        loggerProcessors: loggerProcessors
+        loggerProcessors: {
+          dir: [extraLogProcessor1, extraLogProcessor2]
+        }
       });
 
       saninnLogger[consoleFunction](textTest);
