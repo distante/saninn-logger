@@ -101,16 +101,19 @@ preLoggerFunctions?: {log: () =>{}, dir: () =>{}, warn: () =>{}, error: () =>{}}
 const loggerWithFullConfig = new SaninnLogger({
   preLoggerFunctions: {
     dir: prefix => {
-      console.log('This is a DIR callback that is not the direct console.dir', 'thisIsTheFrefix ' + prefix);
+      console.log('This is a DIR preLoggerFunction that is not the direct console.dir', 'thisIsTheFrefix ' + prefix);
     },
     error: prefix => {
-      console.log('This is a ERROR callback that is not the direct console.error', 'thisIsTheFrefix ' + prefix);
+      console.log(
+        'This is a ERROR preLoggerFunction that is not the direct console.error',
+        'thisIsTheFrefix ' + prefix
+      );
     },
     log: prefix => {
-      console.log('This is a LOG callback that is not the direct console.log', 'thisIsTheFrefix ' + prefix);
+      console.log('This is a LOG preLoggerFunction that is not the direct console.log', 'thisIsTheFrefix ' + prefix);
     },
     warn: prefix => {
-      console.log('This is a WARN callback that is not the direct console.warn', 'thisIsTheFrefix ' + prefix);
+      console.log('This is a WARN preLoggerFunction that is not the direct console.warn', 'thisIsTheFrefix ' + prefix);
     }
   },
   prefix: 'full-config-logger',

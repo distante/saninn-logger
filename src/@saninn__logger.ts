@@ -7,42 +7,40 @@
  *
  *  http://www.saninnsalas.com
  */
-import { IExtendedConsoleForLogger } from './models/extended-console.interface';
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
 import { ILogger } from './models/logger.interface';
 import { LoggerTypesObject, RequiredLoggerConfig } from './models/type-definitions';
 
-let saninnLoggerInstanceCounter = 0;
+// let saninnLoggerInstanceCounter = 0;
 
 const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
 export class SaninnLogger implements ILogger {
-  private loggerId: string;
-
   private config: RequiredLoggerConfig = {
     prefix: '',
     prefixColors: {},
     printToConsole: true,
     preLoggerFunctions: {},
     useLoggerProcessors: false,
-    extraLoggerProcessors: {}
+    loggerProcessors: {}
   };
 
-  private extendedConsole: IExtendedConsoleForLogger = console as IExtendedConsoleForLogger;
   private consoleFunctionProxys: LoggerTypesObject<Function> = {};
   private consoleProxyHandler: ProxyHandler<Console> = {
     get: (target: Console, prop: LoggerTypesEnum) => {
-      return target[prop];
-      // here the option to prop or server
-      // return this.consoleFunctionProxys[prop]!.bind(console);
+      if (this.config.useLoggerProcessors) {
+        return this.consoleFunctionProxys[prop];
+      } else {
+        return target[prop];
+      }
     }
   };
 
   private consoleProxy = new Proxy(console, this.consoleProxyHandler);
 
   constructor(loggerConfig?: string | ILoggerConfig) {
-    saninnLoggerInstanceCounter++;
-    this.loggerId = `SaninnLogger_${Date.now()}_${saninnLoggerInstanceCounter}`;
+    // saninnLoggerInstanceCounter++;
+    // this.loggerId = `SaninnLogger_${Date.now()}_${saninnLoggerInstanceCounter}`;
 
     this.initProxy();
 
@@ -57,13 +55,18 @@ export class SaninnLogger implements ILogger {
 
     this.config.prefix = loggerConfig.prefix || '';
 
+    this.config.useLoggerProcessors = !!loggerConfig.useLoggerProcessors;
+
+    if (loggerConfig.loggerProcessors) {
+      this.initializeLoggerProcessorsWith(loggerConfig.loggerProcessors);
+    }
+
+    // Since printToConsole is true by default this is the safest way to assign it.
     if (typeof loggerConfig.printToConsole !== 'undefined') {
       this.config.printToConsole = loggerConfig.printToConsole;
     }
 
     this.initializeObjectsBasedOnEnumsLogTypes(this.config.preLoggerFunctions, loggerConfig.preLoggerFunctions);
-
-    this.registerExtraFunctionsInGlobalConsole(loggerConfig.preLoggerFunctions);
 
     // IE does not support colors!
     const isIE = this.isIE();
@@ -88,31 +91,45 @@ export class SaninnLogger implements ILogger {
     console.error(this.removeLoggerProcessor.name + ' not implemented');
   }
 
-  private initProxy() {
-    const consoleFunctionHandler: ProxyHandler<Function> = {
-      // tslint:disable-next-line:object-literal-shorthand
-      apply: (target, thisArg, argumentsList) => {
-        // tslint:disable-next-line:no-console
-        console.log('thisArg', thisArg);
-        // tslint:disable-next-line:no-console
-        console.log('argumentsList', argumentsList);
-        return target(...argumentsList);
-      }
-    };
+  private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<Function[]>) {
     LOG_TYPES_ARRAY.forEach(logType => {
-      this.consoleFunctionProxys[logType] = new Proxy(console[logType], consoleFunctionHandler);
+      if (loggerProcessors[logType]) {
+        this.config.loggerProcessors[logType] = loggerProcessors[logType];
+      } else {
+        this.config.loggerProcessors[logType] = [];
+      }
     });
   }
 
-  private registerExtraFunctionsInGlobalConsole(preLoggerFunctions: LoggerTypesObject<Function> | undefined) {
-    if (!preLoggerFunctions) {
-      return;
+  private initProxy() {
+    LOG_TYPES_ARRAY.forEach(logType => {
+      const consoleFunctionHandler: ProxyHandler<Function> = {
+        // tslint:disable-next-line:object-literal-shorthand
+        apply: (target, thisArg, argumentsList) =>
+          this.consoleFunctionProxyApply(target, thisArg, argumentsList, logType)
+      };
+      this.consoleFunctionProxys[logType] = new Proxy(console[logType], consoleFunctionHandler);
+      // console.error(this.consoleFunctionProxys[logType]);
+    });
+  }
+
+  private consoleFunctionProxyApply(
+    target: Function,
+    thisArg: Console,
+    argumentsList: string[],
+    logType: LoggerTypesEnum
+  ) {
+    console.warn('consoleFunctionProxyApply for ' + logType);
+    if (this.config.loggerProcessors[logType]!.length) {
+      console.warn(logType + ' this has loggerProcessors');
     }
-    if (!this.extendedConsole.___SaninnLogger) {
-      this.extendedConsole.___SaninnLogger = {};
-    }
-    this.extendedConsole.___SaninnLogger[this.loggerId] = {};
-    this.initializeObjectsBasedOnEnumsLogTypes(this.extendedConsole.___SaninnLogger[this.loggerId], preLoggerFunctions);
+    // tslint:disable-next-line:no-console
+    console.log('target', target);
+    // tslint:disable-next-line:no-console
+    console.log('thisArg', thisArg);
+    // tslint:disable-next-line:no-console
+    console.log('argumentsList', argumentsList);
+    return target(...argumentsList);
   }
 
   // TODO: There should be a way to make this automatically from the Enum...

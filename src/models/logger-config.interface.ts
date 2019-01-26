@@ -21,5 +21,5 @@ export interface ILoggerConfig {
    */
   useLoggerProcessors?: boolean;
 
-  extraLoggerProcessors?: LoggerTypesObject<Function[]>;
+  loggerProcessors?: LoggerTypesObject<Function[]>;
 }

@@ -335,22 +335,43 @@ describe('prefixColor', () => {
   });
 });
 
-describe('use of external logger processors', () => {
-  test('the given loggerProcesor function should be called before the log', () => {
-    const extraLogProcessor = jest.fn();
+describe('External logger processors', () => {
+  test('useLoggerProcessors should use the console proxy ', () => {
+    const saninnLogger = new SaninnLogger({
+      useLoggerProcessors: true
+    });
+    const proxyFunctionSpy = jest.fn();
+    // @ts-ignore
+    spyOn(saninnLogger.consoleFunctionProxys, 'log').and.callFake(proxyFunctionSpy);
+
+    saninnLogger.log('test');
+
+    expect(proxyFunctionSpy).toHaveBeenCalled();
+  });
+  test('the given loggerProcesor function should be called', () => {
+    const consoleFunction = 'log';
+    const consoleBindMock = jest.fn();
+    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
+      consoleBindMock();
+    });
+    const extraLogProcessor1 = jest.fn();
+    const extraLogProcessor2 = jest.fn();
     const prefixTest = 'prefix-test';
     const textTest = 'some random text';
     const logProcessors: LoggerTypesObject<Function[]> = {
-      log: [extraLogProcessor]
+      log: [extraLogProcessor1, extraLogProcessor2]
     };
     const saninnLogger = new SaninnLogger({
       prefix: prefixTest,
       useLoggerProcessors: true,
-      extraLoggerProcessors: logProcessors
+      loggerProcessors: logProcessors
     });
 
-    saninnLogger.log(textTest);
+    saninnLogger[consoleFunction](textTest);
 
-    expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, textTest);
+    expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, textTest);
+    // expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, textTest);
+    // expect(extraLogProcessor1).toHaveBeenCalledBefore(consoleBindMock);
+    // expect(extraLogProcessor2).toHaveBeenCalledBefore(consoleBindMock);
   });
 });
