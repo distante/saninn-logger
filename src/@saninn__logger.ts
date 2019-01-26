@@ -10,7 +10,7 @@
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
 import { ILogger } from './models/logger.interface';
-import { LoggerTypesObject, RequiredLoggerConfig } from './models/type-definitions';
+import { LoggerProcessor, LoggerTypesObject, RequiredLoggerConfig } from './models/type-definitions';
 
 // let saninnLoggerInstanceCounter = 0;
 
@@ -20,7 +20,7 @@ export class SaninnLogger implements ILogger {
     prefix: '',
     prefixColors: {},
     printToConsole: true,
-    preLoggerFunctions: {},
+    globalPreLoggerFunctions: {},
     useLoggerProcessors: false,
     loggerProcessors: {}
   };
@@ -66,7 +66,10 @@ export class SaninnLogger implements ILogger {
       this.config.printToConsole = loggerConfig.printToConsole;
     }
 
-    this.initializeObjectsBasedOnEnumsLogTypes(this.config.preLoggerFunctions, loggerConfig.preLoggerFunctions);
+    this.initializeObjectsBasedOnEnumsLogTypes(
+      this.config.globalPreLoggerFunctions,
+      loggerConfig.globalPreLoggerFunctions
+    );
 
     // IE does not support colors!
     const isIE = this.isIE();
@@ -75,23 +78,7 @@ export class SaninnLogger implements ILogger {
     }
   }
 
-  public addLoggerProcessor() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
-  }
-
-  public removeLoggerProcessor() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
-  }
-
-  public enableLoggerProcessors() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
-  }
-
-  public disableLoggerProcessors() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
-  }
-
-  private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<Function[]>) {
+  private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
     LOG_TYPES_ARRAY.forEach(logType => {
       if (loggerProcessors[logType]) {
         this.config.loggerProcessors[logType] = loggerProcessors[logType];
@@ -105,56 +92,53 @@ export class SaninnLogger implements ILogger {
     LOG_TYPES_ARRAY.forEach(logType => {
       const consoleFunctionHandler: ProxyHandler<Function> = {
         // tslint:disable-next-line:object-literal-shorthand
-        apply: (target, thisArg, argumentsList) =>
-          this.consoleFunctionProxyApply(target, thisArg, argumentsList, logType)
+        apply: (target, consoleObject, argumentsList) =>
+          this.consoleFunctionProxyApply(target, consoleObject, argumentsList, logType)
       };
       this.consoleFunctionProxys[logType] = new Proxy(console[logType], consoleFunctionHandler);
       // console.error(this.consoleFunctionProxys[logType]);
     });
   }
 
+  /**
+   * @private
+   * @param {Function} nativeConsoleFunction - The native console.log Function
+   * @param {Console} _nativeConsoleObject - window.console / global.console
+   * @param {any[]} argumentsList - contains all arguments sended to console.x(), including prefix, color, etc
+   * @param {LoggerTypesEnum} logType
+   * @returns void
+   * @memberof SaninnLogger
+   */
   private consoleFunctionProxyApply(
-    target: Function,
-    thisArg: Console,
-    argumentsList: string[],
+    nativeConsoleFunction: Function,
+    _nativeConsoleObject: Console,
+    argumentsList: any[],
     logType: LoggerTypesEnum
   ) {
-    console.warn('consoleFunctionProxyApply for ' + logType);
     if (this.config.loggerProcessors[logType]!.length) {
-      console.warn(logType + ' this has loggerProcessors');
+      this.runLoggerProcessorsOf(logType, argumentsList);
     }
-    // tslint:disable-next-line:no-console
-    console.log('target', target);
-    // tslint:disable-next-line:no-console
-    console.log('thisArg', thisArg);
-    // tslint:disable-next-line:no-console
-    console.log('argumentsList', argumentsList);
-    return target(...argumentsList);
+    return nativeConsoleFunction(...argumentsList);
   }
 
-  // TODO: There should be a way to make this automatically from the Enum...
-  get log(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.log);
-  }
+  private runLoggerProcessorsOf(logType: LoggerTypesEnum, rawArgumentList: any[]) {
+    let initialIndexOfArguments = 0;
+    let prefix = this.config.prefix;
 
-  get warn(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
-  }
+    if (logType !== LoggerTypesEnum.dir) {
+      if (this.config.prefix) initialIndexOfArguments++;
+      if (this.config.prefixColors[logType]) initialIndexOfArguments++;
+    }
 
-  /**
-   * console.dir does not accept multiparameters
-   * if you log `logger.dir(x,y)` `y` will be ignored
-   */
-  get dir(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
-  }
+    const argumentsList = rawArgumentList.slice(initialIndexOfArguments);
 
-  get error(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.error);
+    this.config.loggerProcessors[logType]!.forEach(loggerProcessor => {
+      loggerProcessor(prefix, argumentsList);
+    });
   }
 
   private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
-    const extraFunctionForThisLogType = this.config.preLoggerFunctions[logType];
+    const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions[logType];
     // TODO: add an callback for when this function is done?????
     if (extraFunctionForThisLogType) {
       extraFunctionForThisLogType(this.config.prefix);
@@ -204,5 +188,48 @@ export class SaninnLogger implements ILogger {
   private isIE() {
     // @ts-ignore
     return /*@cc_on!@*/ false || !!document.documentMode;
+  }
+
+  //    ██████  ██    ██ ██████  ██      ██  ██████
+  //    ██   ██ ██    ██ ██   ██ ██      ██ ██
+  //    ██████  ██    ██ ██████  ██      ██ ██
+  //    ██      ██    ██ ██   ██ ██      ██ ██
+  //    ██       ██████  ██████  ███████ ██  ██████
+
+  public addLoggerProcessor() {
+    console.error(this.addLoggerProcessor.name + ' not implemented');
+  }
+
+  public removeLoggerProcessor() {
+    console.error(this.removeLoggerProcessor.name + ' not implemented');
+  }
+
+  public enableLoggerProcessors() {
+    console.error(this.addLoggerProcessor.name + ' not implemented');
+  }
+
+  public disableLoggerProcessors() {
+    console.error(this.removeLoggerProcessor.name + ' not implemented');
+  }
+
+  // TODO: There should be a way to make this automatically from the Enum...
+  get log(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.log);
+  }
+
+  get warn(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
+  }
+
+  /**
+   * console.dir does not accept multiparameters
+   * if you log `logger.dir(x,y)` `y` will be ignored
+   */
+  get dir(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
+  }
+
+  get error(): Function {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.error);
   }
 }

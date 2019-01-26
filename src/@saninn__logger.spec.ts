@@ -1,7 +1,7 @@
 import 'jest-extended';
 import { SaninnLogger } from './@saninn__logger';
 import { LoggerTypesEnum } from './models/log-types.enum';
-import { LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-definitions';
+import { LoggerProcessor, LoggerTypesObject, LoggerTypesObjectForColors } from './models/type-definitions';
 
 /**
  * LoggerTypesEnum constructs the logger interface and several objects.
@@ -73,7 +73,7 @@ describe('preLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -90,7 +90,7 @@ describe('preLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -109,7 +109,7 @@ describe('preLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -126,7 +126,7 @@ describe('preLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -145,7 +145,7 @@ describe('preLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -162,7 +162,7 @@ describe('preLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -181,7 +181,7 @@ describe('preLoggerFunctions', () => {
     const loggerFunctionConfigs = {} as LoggerTypesObject<Function>;
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -198,7 +198,7 @@ describe('preLoggerFunctions', () => {
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
-      preLoggerFunctions: loggerFunctionConfigs
+      globalPreLoggerFunctions: loggerFunctionConfigs
     });
 
     saninnLogger[consoleFunction]();
@@ -348,30 +348,94 @@ describe('External logger processors', () => {
 
     expect(proxyFunctionSpy).toHaveBeenCalled();
   });
-  test('the given loggerProcesor function should be called', () => {
-    const consoleFunction = 'log';
-    const consoleBindMock = jest.fn();
-    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
-      consoleBindMock();
-    });
-    const extraLogProcessor1 = jest.fn();
-    const extraLogProcessor2 = jest.fn();
-    const prefixTest = 'prefix-test';
-    const textTest = 'some random text';
-    const logProcessors: LoggerTypesObject<Function[]> = {
-      log: [extraLogProcessor1, extraLogProcessor2]
-    };
-    const saninnLogger = new SaninnLogger({
-      prefix: prefixTest,
-      useLoggerProcessors: true,
-      loggerProcessors: logProcessors
+
+  describe('the given loggerProcessor function should be called', () => {
+    test('log loggerProcessors', () => {
+      const consoleFunction = 'log';
+      const extraLogProcessor1 = jest.fn();
+      const extraLogProcessor2 = jest.fn();
+      const prefixTest = 'prefix-test';
+      const textTest = 'some random text';
+      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
+        log: [extraLogProcessor1, extraLogProcessor2]
+      };
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixTest,
+        useLoggerProcessors: true,
+        loggerProcessors: loggerProcessors
+      });
+
+      saninnLogger[consoleFunction](textTest);
+
+      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
     });
 
-    saninnLogger[consoleFunction](textTest);
+    test('warn loggerProcessors', () => {
+      const consoleFunction = 'warn';
+      const extraLogProcessor1 = jest.fn();
+      const extraLogProcessor2 = jest.fn();
+      const prefixTest = 'prefix-test';
+      const textTest = 'some random text';
+      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
+        warn: [extraLogProcessor1, extraLogProcessor2]
+      };
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixTest,
+        useLoggerProcessors: true,
+        loggerProcessors: loggerProcessors
+      });
 
-    expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, textTest);
-    // expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, textTest);
-    // expect(extraLogProcessor1).toHaveBeenCalledBefore(consoleBindMock);
-    // expect(extraLogProcessor2).toHaveBeenCalledBefore(consoleBindMock);
+      saninnLogger[consoleFunction](textTest);
+
+      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
+    });
+
+    test('error loggerProcessors', () => {
+      const consoleFunction = 'error';
+      const extraLogProcessor1 = jest.fn();
+      const extraLogProcessor2 = jest.fn();
+      const prefixTest = 'prefix-test';
+      const textTest = 'some random text';
+      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
+        error: [extraLogProcessor1, extraLogProcessor2]
+      };
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixTest,
+        useLoggerProcessors: true,
+        loggerProcessors: loggerProcessors
+      });
+
+      saninnLogger[consoleFunction](textTest);
+
+      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
+    });
+
+    test('dir loggerProcessors', () => {
+      const consoleFunction = 'dir';
+      const extraLogProcessor1 = jest.fn();
+      const extraLogProcessor2 = jest.fn();
+      const prefixTest = 'prefix-test';
+      const textTest = 'some random text';
+      const loggerProcessors: LoggerTypesObject<LoggerProcessor[]> = {
+        dir: [extraLogProcessor1, extraLogProcessor2]
+      };
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixTest,
+        useLoggerProcessors: true,
+        loggerProcessors: loggerProcessors
+      });
+
+      saninnLogger[consoleFunction](textTest);
+
+      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
+    });
   });
 });

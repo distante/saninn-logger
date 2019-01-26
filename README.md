@@ -81,39 +81,66 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 ## Configuration Options
 
 ```ts
-/** The prefix to be appended before the log message */
-prefix?: string;
 
-/** A valid CSS string color for the prefix (where it is supported). Examples: red | #ffbbss | rgb(255,10,2) | rgba(255,10,2,1)  */
-prefixColors?: {log: string, warn: string, error: string};
+  /** The prefix to be appended before the log message */
+  prefix?: string;
 
-/** Call window.console / global.console or just call the preLoggerFunction */
-printToConsole?: boolean (default true);
+  /** A valid CSS string color for the prefix (where it is supported). Examples: red | #ffbbss | rgb(255,10,2) | rgba(255,10,2,1)  */
+  prefixColors?: LoggerTypesObjectForColors;
 
-/** This function will be called before the logger prints their output */
-preLoggerFunctions?: {log: () =>{}, dir: () =>{}, warn: () =>{}, error: () =>{}};
+  /**
+   * If enabled the log output will be printed locally in console.
+   * SaninnLogger will keep the line of the call unless [ILoggerConfig's useLoggerProcessors property]{@link ILoggerConfig#useLoggerProcessors} is true
+   */
+  printToConsole?: boolean;
+
+  /** This function will be called before the console prints their output */
+  globalPreLoggerFunctions?: LoggerTypesObject<Function>;
+
+  /**
+   * If actived the array of functions on extraLoggerFunctions will be called after
+   * every console function.
+   * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
+   * because there is no way to get the console message without proxy it.
+   */
+  useLoggerProcessors?: boolean;
+
+  /**
+   * Object containing an array of {@link LoggerProcessor}s to be called after console log
+   * when {@link ILoggerConfig#useLoggerProcessors} is true
+   */
+  loggerProcessors?: LoggerTypesObject<LoggerProcessor[]>;
 
 ```
 
 ## Full options usage
 
 ```js
-const loggerWithFullConfig = new SaninnLogger({
+const loggerWithFullConfigAndProcessors = new SaninnLogger({
   preLoggerFunctions: {
     dir: prefix => {
-      console.log('This is a DIR preLoggerFunction that is not the direct console.dir', 'thisIsTheFrefix ' + prefix);
+      console.log(
+        'This is a DIR preLoggerFunction that is not the direct console.dir',
+        'This is The Prefix:  ' + prefix
+      );
     },
     error: prefix => {
       console.log(
         'This is a ERROR preLoggerFunction that is not the direct console.error',
-        'thisIsTheFrefix ' + prefix
+        'This is The Prefix:  ' + prefix
       );
     },
     log: prefix => {
-      console.log('This is a LOG preLoggerFunction that is not the direct console.log', 'thisIsTheFrefix ' + prefix);
+      console.log(
+        'This is a LOG preLoggerFunction that is not the direct console.log',
+        'This is The Prefix:  ' + prefix
+      );
     },
     warn: prefix => {
-      console.log('This is a WARN preLoggerFunction that is not the direct console.warn', 'thisIsTheFrefix ' + prefix);
+      console.log(
+        'This is a WARN preLoggerFunction that is not the direct console.warn',
+        'This is The Prefix:  ' + prefix
+      );
     }
   },
   prefix: 'full-config-logger',
@@ -122,20 +149,45 @@ const loggerWithFullConfig = new SaninnLogger({
     log: 'green',
     warn: 'red'
   },
-  printToConsole: true
+  printToConsole: true,
+  useLoggerProcessors: true,
+  loggerProcessors: {
+    log: [
+      (prefix, args) => {
+        console.log('FIRST logger Processor para saninnLogger.log');
+        console.log('prefix: ', prefix);
+        console.log('args: ', args);
+      },
+      (prefix, args) => {
+        console.log('SECOND logger Processor para saninnLogger.log');
+        console.log('prefix: ', prefix);
+        console.log('args: ', args);
+      }
+    ]
+  }
 });
 
-loggerWithString.log();
-loggerWithString.log('Regular log');
-loggerWithFullConfig.log('trying log');
-loggerWithFullConfig.dir('trying dir');
-loggerWithFullConfig.warn('trying warn');
-loggerWithFullConfig.error('trying error');
+const dummyObject = {
+  a: 1,
+  b: 2,
+  c: {
+    d: 3,
+    e: 4
+  }
+};
+
+const dummyFunction = function() {
+  console.log('dummy function');
+};
+loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors', dummyObject, dummyFunction);
+loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessors');
+loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
+loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors');
 ```
 
 ![console output][output]
 
-[output]: https://i.imgur.com/6A8IT7H.png 'console output'
+[output]: https://i.imgur.com/LyJFI7R.png 'console output'
 
 ## License
 
@@ -149,7 +201,7 @@ You can see the [Wiki](https://github.com/distante/saninn-logger/wiki) for ideas
 
 ❤
 
-# Contact me at
+# Find me 🏃‍
 
 - Website [https://www.saninnsalas.com](https://www.saninnsalas.com)
 - Twitter [@SaninnSalas](https://twitter.com/saninnsalas)

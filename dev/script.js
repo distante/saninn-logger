@@ -1,8 +1,8 @@
 // tslint:disable:object-literal-sort-keys
 // tslint:disable:no-console
 import { SaninnLogger } from '../dist/index.js';
-console.dir(SaninnLogger);
-const loggerWithString = new SaninnLogger('just-with-string');
+// console.dir(SaninnLogger);
+// const loggerWithString = new SaninnLogger('just-with-string');
 const loggerWithFullConfig = new SaninnLogger({
   preLoggerFunctions: {
     dir: prefix => {
@@ -76,17 +76,24 @@ const loggerWithFullConfigAndProcessors = new SaninnLogger({
   useLoggerProcessors: true,
   loggerProcessors: {
     log: [
-      (prefix, message) => {
-        console.log('logger Processor para saninnLogger.log');
+      (prefix, args) => {
+        console.log('FIRST logger Processor para saninnLogger.log');
+        console.log('prefix: ', prefix);
+        console.log('args: ', args);
+      },
+      (prefix, args) => {
+        console.log('SECOND logger Processor para saninnLogger.log');
+        console.log('prefix: ', prefix);
+        console.log('args: ', args);
       }
     ]
   }
 });
 
-console.log('loggerWithString\n', loggerWithString);
-console.log('loggerWithFullConfig\n', loggerWithFullConfig);
-console.log('loggerWithFullConfigAndProcessors\n', loggerWithFullConfigAndProcessors);
-console.log('\n\n');
+// console.log('loggerWithString\n', loggerWithString);
+// console.log('loggerWithFullConfig\n', loggerWithFullConfig);
+// console.log('loggerWithFullConfigAndProcessors\n', loggerWithFullConfigAndProcessors);
+// console.log('\n\n');
 // loggerWithString.log();
 // loggerWithString.log('Regular log');
 // loggerWithFullConfig.log('trying log');
@@ -96,4 +103,23 @@ console.log('\n\n');
 
 // loggerWithString.log('log of loggerWithString');
 // loggerWithFullConfig.log('log of loggerWithFullConfig');
-loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors');
+// loggerWithFullConfig.warn('warn of loggerWithFullConfig');
+// loggerWithFullConfig.error('error of loggerWithFullConfig');
+// loggerWithFullConfig.dir('dir of loggerWithFullConfig');
+
+const dummyObject = {
+  a: 1,
+  b: 2,
+  c: {
+    d: 3,
+    e: 4
+  }
+};
+
+const dummyFunction = function() {
+  console.log('dummy function');
+};
+loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors', dummyObject, dummyFunction);
+loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessors');
+loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
+loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors');
