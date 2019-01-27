@@ -119,7 +119,8 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 
 ```js
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
-  preLoggerFunctions: {
+  useGlobalPreLoggerFunctions: true,
+  globalPreLoggerFunctions: {
     dir: prefix => {
       console.log(
         'This is a DIR preLoggerFunction that is not the direct console.dir',
@@ -191,6 +192,15 @@ loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors'
 
 [output]: https://i.imgur.com/LyJFI7R.png 'console output'
 
+## API
+
+- `enableGlobalLoggerFunctions(): void`
+- `disableGlobalLoggerFunctions(): void`
+- `enableLoggerProcessors(): void`
+- `disableLoggerProcessors(): void`
+- `addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
+- `removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
+
 ## License
 
 ## Use cases
@@ -215,6 +225,12 @@ There are 3 scripts I use together for dev (each in their own console): 'watch',
 - 'npm run watch' will look for Typescript changes and compile it to es6.
 - 'npm run serve' will load a local server with './index-es6.html' as entry point. It uses './script.js' as module loader.
 - 'npm run test -- --watch --coverage --silent' will run jest tests on each typescript change.
+
+* TODO: Pack all in one script...
+
+### ToDo
+
+- Generate Auto Docs
 
 ## Pull Requests Are Welcome
 

@@ -1,4 +1,4 @@
-import { LoggerProcessor, LoggerTypesObject, LoggerTypesObjectForColors } from './type-definitions';
+import { LoggerProcessor, LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './type-definitions';
 
 export interface ILoggerConfig {
   /** The prefix to be appended before the log message */
@@ -13,11 +13,21 @@ export interface ILoggerConfig {
    */
   printToConsole?: boolean;
 
-  /** This function will be called before the console prints their output */
-  globalPreLoggerFunctions?: LoggerTypesObject<Function>;
+  /**
+   * If actived the function declared on globalPreLoggerFunctions will be called before
+   * every loggerProcessor and console function.
+   * It DOES NOT Prevent the console to print the correct call line
+   */
+  useGlobalPreLoggerFunctions?: boolean;
 
   /**
-   * If actived the array of functions on extraLoggerFunctions will be called after
+   * This function will be called before the console prints their output,
+   * [ILoggerConfig's useGlobalPreLoggerFunctions property]{@link ILoggerConfig#useGlobalPreLoggerFunctions} is true
+   */
+  globalPreLoggerFunctions?: LoggerTypesObject<PreLoggerFunction>;
+
+  /**
+   * If actived the array of functions on extraLoggerFunctions will be called before
    * every console function.
    * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
    * because there is no way to get the console message without proxy it.

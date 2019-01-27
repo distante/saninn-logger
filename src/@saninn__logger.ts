@@ -16,17 +16,19 @@ import { LoggerProcessor, LoggerTypesObject, RequiredLoggerConfig } from './mode
 
 const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
 export class SaninnLogger implements ILogger {
-  private config: RequiredLoggerConfig = {
+  private readonly config: RequiredLoggerConfig = {
     prefix: '',
     prefixColors: {},
     printToConsole: true,
+    useGlobalPreLoggerFunctions: false,
     globalPreLoggerFunctions: {},
     useLoggerProcessors: false,
     loggerProcessors: {}
   };
 
-  private consoleFunctionProxys: LoggerTypesObject<Function> = {};
-  private consoleProxyHandler: ProxyHandler<Console> = {
+  // tslint:disable-next-line:no-empty
+  private readonly consoleFunctionProxys: LoggerTypesObject<Function> = {};
+  private readonly consoleProxyHandler: ProxyHandler<Console> = {
     get: (target: Console, prop: LoggerTypesEnum) => {
       if (this.config.useLoggerProcessors) {
         return this.consoleFunctionProxys[prop];
@@ -36,7 +38,7 @@ export class SaninnLogger implements ILogger {
     }
   };
 
-  private consoleProxy = new Proxy(console, this.consoleProxyHandler);
+  private readonly consoleProxy = new Proxy(console, this.consoleProxyHandler);
 
   constructor(loggerConfig?: string | ILoggerConfig) {
     // saninnLoggerInstanceCounter++;
@@ -61,6 +63,8 @@ export class SaninnLogger implements ILogger {
       this.initializeLoggerProcessorsWith(loggerConfig.loggerProcessors);
     }
 
+    this.config.useGlobalPreLoggerFunctions = !!loggerConfig.useGlobalPreLoggerFunctions;
+
     // Since printToConsole is true by default this is the safest way to assign it.
     if (typeof loggerConfig.printToConsole !== 'undefined') {
       this.config.printToConsole = loggerConfig.printToConsole;
@@ -84,20 +88,29 @@ export class SaninnLogger implements ILogger {
   //    ██      ██    ██ ██   ██ ██      ██ ██
   //    ██       ██████  ██████  ███████ ██  ██████
 
-  public addLoggerProcessor() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
+  public addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
+    this.config.loggerProcessors[logType]!.push(loggerProcessor);
   }
 
-  public removeLoggerProcessor() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
+  public removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
+    const indexToRemove = this.config.loggerProcessors[logType]!.indexOf(loggerProcessor);
+    this.config.loggerProcessors[logType]!.splice(indexToRemove, 1);
   }
 
   public enableLoggerProcessors() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
+    this.config.useLoggerProcessors = true;
   }
 
   public disableLoggerProcessors() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
+    this.config.useLoggerProcessors = false;
+  }
+
+  public enableGlobalLoggerFunctions() {
+    this.config.useGlobalPreLoggerFunctions = true;
+  }
+
+  public disableGlobalLoggerFunctions() {
+    this.config.useGlobalPreLoggerFunctions = false;
   }
 
   //    ██████  ███████ ████████ ████████ ███████ ██████  ███████
@@ -107,6 +120,7 @@ export class SaninnLogger implements ILogger {
   //    ██████  ███████    ██       ██    ███████ ██   ██ ███████
 
   // TODO: There should be a way to make this automatically from the Enum...
+  // TODO: Or could I use Proxy here???
   get log(): Function {
     return this.getConsoleHandlerFor(LoggerTypesEnum.log);
   }
@@ -132,6 +146,16 @@ export class SaninnLogger implements ILogger {
   //    ██████  ██████  ██ ██    ██ ███████    ██    █████
   //    ██      ██   ██ ██  ██  ██  ██   ██    ██    ██
   //    ██      ██   ██ ██   ████   ██   ██    ██    ███████
+
+  /**
+   * This function will be retorned as console[log|warn|dir,etc] handle when
+   * the output is disabled with {@link SaninnSalas#config.printToConsole} = false
+   *
+   * @private
+   * @memberof SaninnLogger
+   */
+  // tslint:disable-next-line:no-empty
+  private readonly emptyConsoleFunction = () => {};
 
   private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
     LOG_TYPES_ARRAY.forEach(logType => {
@@ -174,7 +198,11 @@ export class SaninnLogger implements ILogger {
     if (this.config.loggerProcessors[logType] && this.config.loggerProcessors[logType]!.length) {
       this.runLoggerProcessorsOf(logType, argumentsList);
     }
-    return nativeConsoleFunction(...argumentsList);
+    if (this.config.printToConsole) {
+      // Needed for IE10 https://stackoverflow.com/a/5539378/1255819
+      const bindedFunction = Function.prototype.bind.call(nativeConsoleFunction, console);
+      return bindedFunction.apply(void 0, argumentsList);
+    }
   }
 
   private runLoggerProcessorsOf(logType: LoggerTypesEnum, rawArgumentList: any[]) {
@@ -197,14 +225,15 @@ export class SaninnLogger implements ILogger {
 
   private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
     const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions[logType];
+
     // TODO: add an callback for when this function is done?????
-    if (extraFunctionForThisLogType) {
+    if (this.config.useGlobalPreLoggerFunctions && extraFunctionForThisLogType) {
       extraFunctionForThisLogType(this.config.prefix);
     }
 
-    if (!this.config.printToConsole) {
+    if (!this.config.printToConsole && !this.config.useLoggerProcessors) {
       // tslint:disable-next-line:no-empty
-      return () => {};
+      return this.emptyConsoleFunction;
     }
 
     if (!this.config.prefix) {
