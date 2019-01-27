@@ -4,6 +4,7 @@
     "exclude": ["dist", "node_modules"]
   },
   "rules": {
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "no-redundant-jsdoc": true
   }
 }
