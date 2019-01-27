@@ -354,11 +354,14 @@ describe('External logger processors', () => {
       useLoggerProcessors: true,
       printToConsole: false
     });
-    const returnedLogGet = saninnLogger.log;
+    const proxyFunctionSpy = jest.fn();
+
+    // @ts-ignore
+    spyOn(saninnLogger.consoleFunctionProxys, 'log').and.callFake(proxyFunctionSpy);
 
     saninnLogger.log('test');
-    // @ts-ignore
-    expect(returnedLogGet).toEqual(saninnLogger.emptyConsoleFunction);
+
+    expect(proxyFunctionSpy).toHaveBeenCalled();
   });
 
   describe('the given loggerProcessor function should be called', () => {
@@ -446,7 +449,25 @@ describe('External logger processors', () => {
       expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
     });
   });
+  describe('the given loggerProcessor function should be called WITHOUT print to console', () => {
+    test('log loggerProcessors', () => {
+      const consoleFunction = 'log';
+      const extraLogProcessor = jest.fn();
+      const prefixTest = 'prefix-test';
+      const textTest = 'some random text';
+      const saninnLogger = new SaninnLogger({
+        printToConsole: false,
+        prefix: prefixTest,
+        useLoggerProcessors: true,
+        loggerProcessors: {
+          log: [extraLogProcessor]
+        }
+      });
 
+      saninnLogger[consoleFunction](textTest);
+      expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, [textTest]);
+    });
+  });
   test('excludes the color argument', () => {
     const consoleFunction = 'log';
     const extraLogProcessor = jest.fn();

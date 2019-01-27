@@ -110,11 +110,11 @@ export class SaninnLogger implements ILogger {
   // TODO: There should be a way to make this automatically from the Enum...
   // TODO: Or could I use Proxy here???
   get log(): Function {
-    return this.getConsoleFunctionToReturn(LoggerTypesEnum.log);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.log);
   }
 
   get warn(): Function {
-    return this.getConsoleFunctionToReturn(LoggerTypesEnum.warn);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
   }
 
   /**
@@ -122,11 +122,11 @@ export class SaninnLogger implements ILogger {
    * if you log `logger.dir(x,y)` `y` will be ignored
    */
   get dir(): Function {
-    return this.getConsoleFunctionToReturn(LoggerTypesEnum.dir);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
   }
 
   get error(): Function {
-    return this.getConsoleFunctionToReturn(LoggerTypesEnum.error);
+    return this.getConsoleHandlerFor(LoggerTypesEnum.error);
   }
 
   //    ██████  ██████  ██ ██    ██  █████  ████████ ███████
@@ -145,14 +145,6 @@ export class SaninnLogger implements ILogger {
   // tslint:disable-next-line:no-empty
   private readonly emptyConsoleFunction = () => {};
 
-  private getConsoleFunctionToReturn(logType: LoggerTypesEnum): Function {
-    const consoleHandler = this.getConsoleHandlerFor(logType);
-    if (this.config.printToConsole) {
-      return consoleHandler;
-    } else {
-      return this.emptyConsoleFunction;
-    }
-  }
   private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
     LOG_TYPES_ARRAY.forEach(logType => {
       if (loggerProcessors[logType]) {
@@ -196,8 +188,6 @@ export class SaninnLogger implements ILogger {
     }
     if (this.config.printToConsole) {
       return nativeConsoleFunction(...argumentsList);
-    } else {
-      return this.emptyConsoleFunction;
     }
   }
 
@@ -229,7 +219,7 @@ export class SaninnLogger implements ILogger {
 
     if (!this.config.printToConsole && !this.config.useLoggerProcessors) {
       // tslint:disable-next-line:no-empty
-      return () => {};
+      return this.emptyConsoleFunction;
     }
 
     if (!this.config.prefix) {

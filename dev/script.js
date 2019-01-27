@@ -77,12 +77,63 @@ const loggerWithFullConfigAndProcessors = new SaninnLogger({
   loggerProcessors: {
     log: [
       (prefix, args) => {
-        console.log('FIRST logger Processor para saninnLogger.log');
+        console.log('FIRST logger Processor para loggerWithFullConfigAndProcessors');
         console.log('prefix: ', prefix);
         console.log('args: ', args);
       },
       (prefix, args) => {
-        console.log('SECOND logger Processor para saninnLogger.log');
+        console.log('SECOND logger Processor para loggerWithFullConfigAndProcessors');
+        console.log('prefix: ', prefix);
+        console.log('args: ', args);
+      }
+    ]
+  }
+});
+
+const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
+  preLoggerFunctions: {
+    dir: prefix => {
+      console.log(
+        'This is a DIR preLoggerFunction that is not the direct console.dir',
+        'This is The Prefix:  ' + prefix
+      );
+    },
+    error: prefix => {
+      console.log(
+        'This is a ERROR preLoggerFunction that is not the direct console.error',
+        'This is The Prefix:  ' + prefix
+      );
+    },
+    log: prefix => {
+      console.log(
+        'This is a LOG preLoggerFunction that is not the direct console.log',
+        'This is The Prefix:  ' + prefix
+      );
+    },
+    warn: prefix => {
+      console.log(
+        'This is a WARN preLoggerFunction that is not the direct console.warn',
+        'This is The Prefix:  ' + prefix
+      );
+    }
+  },
+  prefix: 'full-config-logger',
+  prefixColors: {
+    error: 'blue',
+    log: 'green',
+    warn: 'red'
+  },
+  printToConsole: false,
+  useLoggerProcessors: true,
+  loggerProcessors: {
+    log: [
+      (prefix, args) => {
+        console.log('FIRST logger Processor para loggerWithFullConfigAndProcessorsButNoOutput');
+        console.log('prefix: ', prefix);
+        console.log('args: ', args);
+      },
+      (prefix, args) => {
+        console.log('SECOND logger Processor para loggerWithFullConfigAndProcessorsButNoOutput');
         console.log('prefix: ', prefix);
         console.log('args: ', args);
       }
@@ -123,3 +174,9 @@ loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors'
 loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessors');
 loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
 loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors');
+console.log('loggerWithFullConfigAndProcessorsButNoOutput', loggerWithFullConfigAndProcessorsButNoOutput);
+loggerWithFullConfigAndProcessorsButNoOutput.log(
+  'log of loggerWithFullConfigAndProcessorsButNoOutput',
+  dummyObject,
+  dummyFunction
+);
