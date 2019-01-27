@@ -119,6 +119,7 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 
 ```js
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
+  useGlobalPreLoggerFunctions: true,
   globalPreLoggerFunctions: {
     dir: prefix => {
       console.log(

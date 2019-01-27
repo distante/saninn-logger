@@ -199,7 +199,9 @@ export class SaninnLogger implements ILogger {
       this.runLoggerProcessorsOf(logType, argumentsList);
     }
     if (this.config.printToConsole) {
-      return nativeConsoleFunction(...argumentsList);
+      // Needed for IE10 https://stackoverflow.com/a/5539378/1255819
+      const bindedFunction = Function.prototype.bind.call(nativeConsoleFunction, console);
+      return bindedFunction.apply(void 0, argumentsList);
     }
   }
 

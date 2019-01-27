@@ -3,9 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 const polyfillPath = path.join(process.cwd(), 'node_modules', 'proxy-polyfill', 'proxy.min.js');
-const iifePath = path.join(process.cwd(), 'dist-bundles', 'iife', '@saninn__logger.js');
+// const objectKeysPath = path.join(process.cwd(), 'node_modules', 'object.keys', 'index.js');
+const bundlePath = path.join(process.cwd(), 'dist-bundles', 'iife', '@saninn__logger.js');
 
-const files = [polyfillPath, iifePath];
+const files = [polyfillPath, bundlePath];
 
 var output = files
   .map(f => {
@@ -13,4 +14,4 @@ var output = files
   })
   .join(';');
 
-fs.writeFileSync(iifePath, output);
+fs.writeFileSync(bundlePath, output);
