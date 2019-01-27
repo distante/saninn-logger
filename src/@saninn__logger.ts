@@ -16,7 +16,7 @@ import { LoggerProcessor, LoggerTypesObject, RequiredLoggerConfig } from './mode
 
 const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
 export class SaninnLogger implements ILogger {
-  private config: RequiredLoggerConfig = {
+  private readonly config: RequiredLoggerConfig = {
     prefix: '',
     prefixColors: {},
     printToConsole: true,
@@ -25,8 +25,9 @@ export class SaninnLogger implements ILogger {
     loggerProcessors: {}
   };
 
-  private consoleFunctionProxys: LoggerTypesObject<Function> = {};
-  private consoleProxyHandler: ProxyHandler<Console> = {
+  // tslint:disable-next-line:no-empty
+  private readonly consoleFunctionProxys: LoggerTypesObject<Function> = {};
+  private readonly consoleProxyHandler: ProxyHandler<Console> = {
     get: (target: Console, prop: LoggerTypesEnum) => {
       if (this.config.useLoggerProcessors) {
         return this.consoleFunctionProxys[prop];
@@ -36,7 +37,7 @@ export class SaninnLogger implements ILogger {
     }
   };
 
-  private consoleProxy = new Proxy(console, this.consoleProxyHandler);
+  private readonly consoleProxy = new Proxy(console, this.consoleProxyHandler);
 
   constructor(loggerConfig?: string | ILoggerConfig) {
     // saninnLoggerInstanceCounter++;
@@ -107,12 +108,13 @@ export class SaninnLogger implements ILogger {
   //    ██████  ███████    ██       ██    ███████ ██   ██ ███████
 
   // TODO: There should be a way to make this automatically from the Enum...
+  // TODO: Or could I use Proxy here???
   get log(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.log);
+    return this.getConsoleFunctionToReturn(LoggerTypesEnum.log);
   }
 
   get warn(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
+    return this.getConsoleFunctionToReturn(LoggerTypesEnum.warn);
   }
 
   /**
@@ -120,11 +122,11 @@ export class SaninnLogger implements ILogger {
    * if you log `logger.dir(x,y)` `y` will be ignored
    */
   get dir(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
+    return this.getConsoleFunctionToReturn(LoggerTypesEnum.dir);
   }
 
   get error(): Function {
-    return this.getConsoleHandlerFor(LoggerTypesEnum.error);
+    return this.getConsoleFunctionToReturn(LoggerTypesEnum.error);
   }
 
   //    ██████  ██████  ██ ██    ██  █████  ████████ ███████
@@ -133,6 +135,24 @@ export class SaninnLogger implements ILogger {
   //    ██      ██   ██ ██  ██  ██  ██   ██    ██    ██
   //    ██      ██   ██ ██   ████   ██   ██    ██    ███████
 
+  /**
+   * This function will be retorned as console[log|warn|dir,etc] handle when
+   * the output is disabled with {@link SaninnSalas#config.printToConsole} = false
+   *
+   * @private
+   * @memberof SaninnLogger
+   */
+  // tslint:disable-next-line:no-empty
+  private readonly emptyConsoleFunction = () => {};
+
+  private getConsoleFunctionToReturn(logType: LoggerTypesEnum): Function {
+    const consoleHandler = this.getConsoleHandlerFor(logType);
+    if (this.config.printToConsole) {
+      return consoleHandler;
+    } else {
+      return this.emptyConsoleFunction;
+    }
+  }
   private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
     LOG_TYPES_ARRAY.forEach(logType => {
       if (loggerProcessors[logType]) {
@@ -174,7 +194,11 @@ export class SaninnLogger implements ILogger {
     if (this.config.loggerProcessors[logType] && this.config.loggerProcessors[logType]!.length) {
       this.runLoggerProcessorsOf(logType, argumentsList);
     }
-    return nativeConsoleFunction(...argumentsList);
+    if (this.config.printToConsole) {
+      return nativeConsoleFunction(...argumentsList);
+    } else {
+      return this.emptyConsoleFunction;
+    }
   }
 
   private runLoggerProcessorsOf(logType: LoggerTypesEnum, rawArgumentList: any[]) {
@@ -197,12 +221,13 @@ export class SaninnLogger implements ILogger {
 
   private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
     const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions[logType];
+
     // TODO: add an callback for when this function is done?????
     if (extraFunctionForThisLogType) {
       extraFunctionForThisLogType(this.config.prefix);
     }
 
-    if (!this.config.printToConsole) {
+    if (!this.config.printToConsole && !this.config.useLoggerProcessors) {
       // tslint:disable-next-line:no-empty
       return () => {};
     }

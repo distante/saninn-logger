@@ -216,6 +216,12 @@ There are 3 scripts I use together for dev (each in their own console): 'watch',
 - 'npm run serve' will load a local server with './index-es6.html' as entry point. It uses './script.js' as module loader.
 - 'npm run test -- --watch --coverage --silent' will run jest tests on each typescript change.
 
+* TODO: Pack all in one script...
+
+### ToDo
+
+- Generate Auto Docs
+
 ## Pull Requests Are Welcome
 
 ❤

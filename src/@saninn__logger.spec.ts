@@ -336,7 +336,7 @@ describe('prefixColor', () => {
 });
 
 describe('External logger processors', () => {
-  test('useLoggerProcessors should use the console proxy ', () => {
+  test('useLoggerProcessors should use the console proxy when useLoggerProcessors is true', () => {
     const saninnLogger = new SaninnLogger({
       useLoggerProcessors: true
     });
@@ -347,6 +347,18 @@ describe('External logger processors', () => {
     saninnLogger.log('test');
 
     expect(proxyFunctionSpy).toHaveBeenCalled();
+  });
+
+  test('useLoggerProcessors should use the console proxy when useLoggerProcessors AND printToConsole is false', () => {
+    const saninnLogger = new SaninnLogger({
+      useLoggerProcessors: true,
+      printToConsole: false
+    });
+    const returnedLogGet = saninnLogger.log;
+
+    saninnLogger.log('test');
+    // @ts-ignore
+    expect(returnedLogGet).toEqual(saninnLogger.emptyConsoleFunction);
   });
 
   describe('the given loggerProcessor function should be called', () => {

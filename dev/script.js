@@ -1,7 +1,7 @@
 // tslint:disable:object-literal-sort-keys
 // tslint:disable:no-console
 import { SaninnLogger } from '../dist/index.js';
-// console.dir(SaninnLogger);
+console.dir(SaninnLogger);
 // const loggerWithString = new SaninnLogger('just-with-string');
 const loggerWithFullConfig = new SaninnLogger({
   preLoggerFunctions: {
