@@ -20,6 +20,7 @@ export class SaninnLogger implements ILogger {
     prefix: '',
     prefixColors: {},
     printToConsole: true,
+    useGlobalPreLoggerFunctions: false,
     globalPreLoggerFunctions: {},
     useLoggerProcessors: false,
     loggerProcessors: {}
@@ -62,6 +63,8 @@ export class SaninnLogger implements ILogger {
       this.initializeLoggerProcessorsWith(loggerConfig.loggerProcessors);
     }
 
+    this.config.useGlobalPreLoggerFunctions = !!loggerConfig.useGlobalPreLoggerFunctions;
+
     // Since printToConsole is true by default this is the safest way to assign it.
     if (typeof loggerConfig.printToConsole !== 'undefined') {
       this.config.printToConsole = loggerConfig.printToConsole;
@@ -85,20 +88,29 @@ export class SaninnLogger implements ILogger {
   //    ██      ██    ██ ██   ██ ██      ██ ██
   //    ██       ██████  ██████  ███████ ██  ██████
 
-  public addLoggerProcessor() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
+  public addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
+    this.config.loggerProcessors[logType]!.push(loggerProcessor);
   }
 
-  public removeLoggerProcessor() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
+  public removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
+    const indexToRemove = this.config.loggerProcessors[logType]!.indexOf(loggerProcessor);
+    this.config.loggerProcessors[logType]!.splice(indexToRemove, 1);
   }
 
   public enableLoggerProcessors() {
-    console.error(this.addLoggerProcessor.name + ' not implemented');
+    this.config.useLoggerProcessors = true;
   }
 
   public disableLoggerProcessors() {
-    console.error(this.removeLoggerProcessor.name + ' not implemented');
+    this.config.useLoggerProcessors = false;
+  }
+
+  public enableGlobalLoggerFunctions() {
+    this.config.useGlobalPreLoggerFunctions = true;
+  }
+
+  public disableGlobalLoggerFunctions() {
+    this.config.useGlobalPreLoggerFunctions = false;
   }
 
   //    ██████  ███████ ████████ ████████ ███████ ██████  ███████
@@ -213,7 +225,7 @@ export class SaninnLogger implements ILogger {
     const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions[logType];
 
     // TODO: add an callback for when this function is done?????
-    if (extraFunctionForThisLogType) {
+    if (this.config.useGlobalPreLoggerFunctions && extraFunctionForThisLogType) {
       extraFunctionForThisLogType(this.config.prefix);
     }
 

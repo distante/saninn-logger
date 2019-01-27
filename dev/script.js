@@ -4,7 +4,7 @@ import { SaninnLogger } from '../dist/index.js';
 console.dir(SaninnLogger);
 // const loggerWithString = new SaninnLogger('just-with-string');
 const loggerWithFullConfig = new SaninnLogger({
-  preLoggerFunctions: {
+  globalPreLoggerFunctions: {
     dir: prefix => {
       console.log(
         'This is a DIR preLoggerFunction that is not the direct console.dir',
@@ -40,7 +40,7 @@ const loggerWithFullConfig = new SaninnLogger({
 });
 
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
-  preLoggerFunctions: {
+  globalPreLoggerFunctions: {
     dir: prefix => {
       console.log(
         'This is a DIR preLoggerFunction that is not the direct console.dir',
@@ -91,7 +91,7 @@ const loggerWithFullConfigAndProcessors = new SaninnLogger({
 });
 
 const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
-  preLoggerFunctions: {
+  globalPreLoggerFunctions: {
     dir: prefix => {
       console.log(
         'This is a DIR preLoggerFunction that is not the direct console.dir',
@@ -170,13 +170,13 @@ const dummyObject = {
 const dummyFunction = function() {
   console.log('dummy function');
 };
-loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors', dummyObject, dummyFunction);
-loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessors');
-loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
-loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors');
-console.log('loggerWithFullConfigAndProcessorsButNoOutput', loggerWithFullConfigAndProcessorsButNoOutput);
-loggerWithFullConfigAndProcessorsButNoOutput.log(
-  'log of loggerWithFullConfigAndProcessorsButNoOutput',
-  dummyObject,
-  dummyFunction
-);
+console.log('loggerWithFullConfigAndProcessors', loggerWithFullConfigAndProcessors);
+// loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors', dummyObject, dummyFunction);
+// loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessors');
+// loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
+// loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors');
+// loggerWithFullConfigAndProcessorsButNoOutput.log(
+//   'log of loggerWithFullConfigAndProcessorsButNoOutput',
+//   dummyObject,
+//   dummyFunction
+// );

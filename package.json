@@ -22,7 +22,7 @@
   },
   "scripts": {
     "test": "jest",
-    "test:watch:coverage:silent": "jest --watch --coverage --silent",
+    "test:watch:coverage:silent": "jest --watch --coverage --silent --no-cache",
     "test:ci": "jest --runInBand --no-cache --watch false --coverage true",
     "test:codecov": "codecov",
     "tsc:check": "tsc --noEmit",

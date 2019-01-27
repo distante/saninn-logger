@@ -11,6 +11,8 @@ export type RequiredLoggerConfig = Required<ILoggerConfig>;
 
 export type LoggerProcessor = (prefix: string, args: any[]) => void;
 
+export type PreLoggerFunction = (prefix: string) => void;
+
 // export type LoggerProcessor<T = void> = (prefix: string, args: any[]) => T;
 
 // export type LoggerTypesForColorObject<T> = Omit<LoggerTypesObject<T>, LoggerTypesEnum.dir>;

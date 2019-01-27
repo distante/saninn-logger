@@ -119,7 +119,7 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 
 ```js
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
-  preLoggerFunctions: {
+  globalPreLoggerFunctions: {
     dir: prefix => {
       console.log(
         'This is a DIR preLoggerFunction that is not the direct console.dir',
@@ -190,6 +190,15 @@ loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors'
 ![console output][output]
 
 [output]: https://i.imgur.com/LyJFI7R.png 'console output'
+
+## API
+
+- `enableGlobalLoggerFunctions(): void`
+- `disableGlobalLoggerFunctions(): void`
+- `enableLoggerProcessors(): void`
+- `disableLoggerProcessors(): void`
+- `addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
+- `removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
 
 ## License
 
