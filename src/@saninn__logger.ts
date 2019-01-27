@@ -171,7 +171,7 @@ export class SaninnLogger implements ILogger {
     argumentsList: any[],
     logType: LoggerTypesEnum
   ) {
-    if (this.config.loggerProcessors[logType]!.length) {
+    if (this.config.loggerProcessors[logType] && this.config.loggerProcessors[logType]!.length) {
       this.runLoggerProcessorsOf(logType, argumentsList);
     }
     return nativeConsoleFunction(...argumentsList);
@@ -181,10 +181,8 @@ export class SaninnLogger implements ILogger {
     let initialIndexOfArguments = 0;
     const prefix = this.config.prefix;
 
-    if (logType !== LoggerTypesEnum.dir) {
-      if (this.config.prefix) {
-        initialIndexOfArguments++;
-      }
+    if (logType !== LoggerTypesEnum.dir && this.config.prefix) {
+      initialIndexOfArguments++;
       if (this.config.prefixColors[logType]) {
         initialIndexOfArguments++;
       }

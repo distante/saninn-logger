@@ -434,4 +434,64 @@ describe('External logger processors', () => {
       expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
     });
   });
+
+  test('excludes the color argument', () => {
+    const consoleFunction = 'log';
+    const extraLogProcessor = jest.fn();
+    const prefixTest = 'prefix-test';
+    const textTest = 'some random text';
+    const saninnLogger = new SaninnLogger({
+      prefix: prefixTest,
+      useLoggerProcessors: true,
+      prefixColors: {
+        log: 'red'
+      },
+      loggerProcessors: {
+        log: [extraLogProcessor]
+      }
+    });
+
+    saninnLogger[consoleFunction](textTest);
+
+    expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, [textTest]);
+  });
+
+  test('excludes the color argument BUT keeps the prefix', () => {
+    const consoleFunction = 'log';
+    const extraLogProcessor = jest.fn();
+    const prefixTest = 'prefix-test';
+    const textTest = 'some random text';
+    const saninnLogger = new SaninnLogger({
+      prefix: prefixTest,
+      useLoggerProcessors: true,
+      prefixColors: {
+        log: 'red'
+      },
+      loggerProcessors: {
+        log: [extraLogProcessor]
+      }
+    });
+
+    saninnLogger[consoleFunction](textTest);
+
+    expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, [textTest]);
+  });
+
+  test('if no processor is registered nothing breaks', () => {
+    const consoleFunction = 'log';
+    const textTest = 'some random text';
+    const someRandomObject = { a: 1, b: 2 };
+    const saninnLogger = new SaninnLogger({
+      useLoggerProcessors: true
+    });
+    // @ts-ignore
+    const proxyFunctionSpy = spyOn(saninnLogger.consoleFunctionProxys, 'log').and.callThrough();
+    // @ts-ignore
+    const runLoggerProcessorSpy = spyOn(saninnLogger, 'runLoggerProcessorsOf').and.callThrough();
+
+    saninnLogger[consoleFunction](textTest, someRandomObject);
+
+    expect(runLoggerProcessorSpy).not.toHaveBeenCalled();
+    expect(proxyFunctionSpy).toHaveBeenCalledWith(textTest, someRandomObject);
+  });
 });
