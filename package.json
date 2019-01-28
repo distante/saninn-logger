@@ -78,7 +78,7 @@
   },
   "release-it": {
     "scripts": {
-      "beforeStart": "node ./scripts/release_1_before-start.js",
+      "beforeStart": "typedoc --out ./docs ./src/@saninn__logger.ts --hideGenerator && node ./scripts/release_1_before-start.js",
       "afterBump": "node ./scripts/release_3_after-Bump.js ${version}",
       "afterRelease": "echo Successfully released ${name} v${version} to https://${repo.host}/${repo.repository}/releases/tag/v${version}"
     },
