@@ -80,52 +80,25 @@ var myLogger = new SaninnLogger('my-logger-prefix');
 myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 ```
 
-## Configuration Options
+## API and Documentation
 
-```ts
+- [Configuration](https://logger.saninnsalas.com/interfaces/_models_logger_config_interface_.iloggerconfig.html)
+- [API](https://logger.saninnsalas.com/classes/__saninn__logger_.saninnlogger.html)
 
-  /** The prefix to be appended before the log message */
-  prefix?: string;
+* `enableGlobalLoggerFunctions(): void`
+* `disableGlobalLoggerFunctions(): void`
+* `enableLoggerProcessors(): void`
+* `disableLoggerProcessors(): void`
+* `addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
+* `removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
 
-  /** A valid CSS string color for the prefix (where it is supported). Examples: red | #ffbbss | rgb(255,10,2) | rgba(255,10,2,1)  */
-  prefixColors?: LoggerTypesObjectForColors;
+See the Documentation in [https://logger.saninnsalas.com](https://logger.saninnsalas.com) for full details.
 
-  /**
-   * If enabled the log output will be printed locally in console.
-   * SaninnLogger will keep the line of the call unless [ILoggerConfig's useLoggerProcessors property]{@link ILoggerConfig#useLoggerProcessors} is true
-   */
-  printToConsole?: boolean;
+## Use cases
 
-  /**
-   * If actived the function declared on globalPreLoggerFunctions will be called before
-   * every loggerProcessor and console function.
-   * It DOES NOT Prevent the console to print the correct call line
-   */
-  useGlobalPreLoggerFunctions?: boolean;
+You can see the [Wiki](https://github.com/distante/saninn-logger/wiki) for ideas and use cases where @saninn/logger can help you!
 
-  /**
-   * This function will be called before the console prints their output,
-   * [ILoggerConfig's useGlobalPreLoggerFunctions property]{@link ILoggerConfig#useGlobalPreLoggerFunctions} is true
-   */
-  globalPreLoggerFunctions?: LoggerTypesObject<PreLoggerFunction>;
-
-  /**
-   * If actived the array of functions on extraLoggerFunctions will be called before
-   * every console function.
-   * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
-   * because there is no way to get the console message without proxy it.
-   */
-  useLoggerProcessors?: boolean;
-
-  /**
-   * Object containing an array of {@link LoggerProcessor}s to be called after console log
-   * when {@link ILoggerConfig#useLoggerProcessors} is true
-   */
-  loggerProcessors?: LoggerTypesObject<LoggerProcessor[]>;
-
-```
-
-## Full options usage
+## Full options example
 
 ```js
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
@@ -202,20 +175,7 @@ loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors'
 
 [output]: https://i.imgur.com/LyJFI7R.png 'console output'
 
-## API
-
-- `enableGlobalLoggerFunctions(): void`
-- `disableGlobalLoggerFunctions(): void`
-- `enableLoggerProcessors(): void`
-- `disableLoggerProcessors(): void`
-- `addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
-- `removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
-
 ## License
-
-## Use cases
-
-You can see the [Wiki](https://github.com/distante/saninn-logger/wiki) for ideas and use cases where @saninn/logger can help you!
 
 [MIT](/LICENSE)
 
@@ -228,7 +188,7 @@ This project uses:
 - [commitlint](https://github.com/marionebl/commitlint) to assure the commits follow the [conventional commit format](https://www.conventionalcommits.org/).
 - [jest](https://jestjs.io/) as test runner.
 
-### scripts
+### Scripts
 
 There are 3 scripts I use together for dev (each in their own console): 'watch', 'serve' and 'test'.
 
@@ -242,7 +202,7 @@ There are 3 scripts I use together for dev (each in their own console): 'watch',
 
 - Generate Auto Docs
 
-## Pull Requests Are Welcome
+## Pull requests are welcome
 
 ❤
 

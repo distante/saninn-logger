@@ -1,178 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html class="default no-js">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>@saninn/logger</title>
-    <meta name="description" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/css/main.css" />
-  </head>
-  <body>
-    <header>
-      <div class="tsd-page-toolbar">
-        <div class="container">
-          <div class="table-wrap">
-            <div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
-              <div class="field">
-                <label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-                <input id="tsd-search-field" type="text" />
-              </div>
-              <ul class="results">
-                <li class="state loading">Preparing search index...</li>
-                <li class="state failure">The search index is not available</li>
-              </ul>
-              <a href="index.html" class="title">@saninn/logger</a>
-            </div>
-            <div class="table-cell" id="tsd-widgets">
-              <div id="tsd-filter">
-                <a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-                <div class="tsd-filter-group">
-                  <div class="tsd-select" id="tsd-filter-visibility">
-                    <span class="tsd-select-label">All</span>
-                    <ul class="tsd-select-list">
-                      <li data-value="public">Public</li>
-                      <li data-value="protected">Public/Protected</li>
-                      <li data-value="private" class="selected">All</li>
-                    </ul>
-                  </div>
-                  <input type="checkbox" id="tsd-filter-inherited" checked />
-                  <label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-                  <input type="checkbox" id="tsd-filter-externals" checked />
-                  <label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-                  <input type="checkbox" id="tsd-filter-only-exported" />
-                  <label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
-                </div>
-              </div>
-              <a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="tsd-page-title">
-        <div class="container">
-          <ul class="tsd-breadcrumb">
-            <li>
-              <a href="globals.html">Globals</a>
-            </li>
-          </ul>
-          <h1>@saninn/logger</h1>
-        </div>
-      </div>
-    </header>
-    <div class="container container-main">
-      <div class="row">
-        <div class="col-8 col-content">
-          <div class="tsd-panel tsd-typography">
-            <div align="center">
-              <h1>@saninn/logger</h1>
-              <p><span style="font-size:2em">👨‍💻💻</span></p>
-              <p>A configurable wrapper of the console that keeps the log call position.</p>
-              <p>Made with Typescript, usable as es6 module and iife (with IE10 support).</p>
-              <div align="center">
-                <p>
-                  <a href="https://travis-ci.org/distante/saninn-logger"
-                    ><img src="https://travis-ci.org/distante/saninn-logger.svg?branch=master" alt="Build Status"
-                  /></a>
-                  <a href="https://codecov.io/gh/distante/saninn-logger"
-                    ><img src="https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg" alt="codecov"
-                  /></a>
-                  <a href="https://greenkeeper.io/"
-                    ><img src="https://badges.greenkeeper.io/distante/saninn-logger.svg" alt="Greenkeeper badge"
-                  /></a>
-                  <img src="https://img.shields.io/github/license/distante/saninn-logger.svg" alt="" />
-                </p>
-              </div>
-            </div>
-            <hr />
-            <h2 id="the-problem">The Problem</h2>
-            <p>
-              You need to control when activate or deactivate your app or website logging but when your put
-              <code>console.log</code> inside another class or function the console call position is lost. Well not
-              anymore!
-            </p>
-            <p><img src="https://i.imgur.com/NQSB5f5.png" alt="example" title="Saninn Logger Example" /></p>
-            <h2 id="install">Install</h2>
-            <p><code>npm install @saninn/logger</code>.</p>
-            <p>
-              If you want to use it as es6, commonjs or iife download the respective assets in the
-              <a href="https://github.com/distante/saninn-logger/releases/">Releases Page</a>. As alternative you can
-              clone this project, run <code>npm install</code> and <code>npm run build-bundles</code>.
-            </p>
-            <p><em>Note: The iife version contains a Polyfill for Javascript Proxy Api.</em></p>
-            <h2 id="basic-usage">Basic usage</h2>
-            <h3 id="typescript">Typescript</h3>
-            <pre><code class="language-ts"><span class="hljs-keyword">import</span> { SaninnLogger } <span class="hljs-keyword">from</span> <span class="hljs-string">'@saninn/logger'</span>;
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>@saninn/logger</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">@saninn/logger</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> @saninn/logger</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<div align="center">
+					<h1>@saninn/logger</h1>
+					<p><span style="font-size:2em">👨‍💻💻</span></p>
+					<p>A configurable wrapper of the console that keeps the log call position.</p>
+					<p>Made with Typescript, usable as es6 module and iife (with IE10 support).</p>
+					<div align="center">
+						<p><a href="https://travis-ci.org/distante/saninn-logger"><img src="https://travis-ci.org/distante/saninn-logger.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/distante/saninn-logger"><img src="https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/distante/saninn-logger.svg" alt="Greenkeeper badge"></a> <a href="https://codeclimate.com/github/distante/saninn-logger/maintainability"><img src="https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability" alt="Maintainability"></a> <img src="https://img.shields.io/github/license/distante/saninn-logger.svg" alt="Licence"></p>
+					</div>
+				</div>
+				<hr />
+				<h2 id="the-problem">The Problem</h2>
+				<p>You need to control when activate or deactivate your app or website logging but when your put <code>console.log</code> inside another class or function the console call position is lost. Well not anymore!</p>
+				<p><img src="https://i.imgur.com/NQSB5f5.png" alt="example" title="Saninn Logger Example"></p>
+				<h2 id="install">Install</h2>
+				<p><code>npm install @saninn/logger</code>.</p>
+				<p>If you want to use it as es6, commonjs or iife download the respective assets in the <a href="https://github.com/distante/saninn-logger/releases/">Releases Page</a>. As alternative you can clone this project, run <code>npm install</code> and <code>npm run build-bundles</code>.</p>
+				<p><em>Note: The iife version contains a Polyfill for Javascript Proxy Api.</em></p>
+				<h2 id="basic-usage">Basic usage</h2>
+				<h3 id="typescript">Typescript</h3>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { SaninnLogger } <span class="hljs-keyword">from</span> <span class="hljs-string">'@saninn/logger'</span>;
 <span class="hljs-keyword">const</span> myLogger = <span class="hljs-keyword">new</span> SaninnLogger(<span class="hljs-string">'my-logger-prefix'</span>);
 myLogger.log(<span class="hljs-string">'this is a log'</span>); <span class="hljs-comment">// [my-logger-prefix]: this is a log.</span></code></pre>
-            <h3 id="javascript-es6-module-">Javascript (es6 module)</h3>
-            <h4 id="index-html">index.html</h4>
-            <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+				<h3 id="javascript-es6-module-">Javascript (es6 module)</h3>
+				<h4 id="index-html">index.html</h4>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"module"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></code></pre>
-            <h4 id="main-js">main.js</h4>
-            <pre><code class="language-js"><span class="hljs-keyword">import</span> { SaninnLogger } <span class="hljs-keyword">from</span> <span class="hljs-string">'./node_modules/@saninn/logger/dist/@saninn__logger.js'</span>;
+				<h4 id="main-js">main.js</h4>
+				<pre><code class="language-js"><span class="hljs-keyword">import</span> { SaninnLogger } <span class="hljs-keyword">from</span> <span class="hljs-string">'./node_modules/@saninn/logger/dist/@saninn__logger.js'</span>;
 <span class="hljs-keyword">const</span> myLogger = <span class="hljs-keyword">new</span> SaninnLogger(<span class="hljs-string">'my-logger-prefix'</span>);
 myLogger.log(<span class="hljs-string">'this is a log'</span>); <span class="hljs-comment">// [my-logger-prefix]: this is a log.</span></code></pre>
-            <h3 id="javascript-es5-">Javascript (es5)</h3>
-            <ul>
-              <li>
-                First download the Immediately-invoked function expression (iife) from the
-                <a href="https://github.com/distante/saninn-logger/releases/">Releases Page</a> and import it before
-                your javascript entry point
-              </li>
-            </ul>
-            <h4 id="index-html">index.html</h4>
-            <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+				<h3 id="javascript-es5-">Javascript (es5)</h3>
+				<ul>
+					<li>First download the Immediately-invoked function expression (iife) from the <a href="https://github.com/distante/saninn-logger/releases/">Releases Page</a> and import it before your javascript entry point</li>
+				</ul>
+				<h4 id="index-html">index.html</h4>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"@saninn__logger.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"main.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></code></pre>
-            <h4 id="main-js">main.js</h4>
-            <pre><code class="language-js"><span class="hljs-keyword">var</span> myLogger = <span class="hljs-keyword">new</span> SaninnLogger(<span class="hljs-string">'my-logger-prefix'</span>);
+				<h4 id="main-js">main.js</h4>
+				<pre><code class="language-js"><span class="hljs-keyword">var</span> myLogger = <span class="hljs-keyword">new</span> SaninnLogger(<span class="hljs-string">'my-logger-prefix'</span>);
 myLogger.log(<span class="hljs-string">'this is a log'</span>); <span class="hljs-comment">// [my-logger-prefix]: this is a log.</span></code></pre>
-            <h2 id="configuration-options">Configuration Options</h2>
-            <pre><code class="language-ts">
-  <span class="hljs-comment">/** The prefix to be appended before the log message */</span>
-  prefix?: <span class="hljs-built_in">string</span>;
-
-  <span class="hljs-comment">/** A valid CSS string color for the prefix (where it is supported). Examples: red | #ffbbss | rgb(255,10,2) | rgba(255,10,2,1)  */</span>
-  prefixColors?: LoggerTypesObjectForColors;
-
-  <span class="hljs-comment">/**
-   * If enabled the log output will be printed locally in console.
-   * SaninnLogger will keep the line of the call unless [ILoggerConfig's useLoggerProcessors property]{@link ILoggerConfig#useLoggerProcessors} is true
-   */</span>
-  printToConsole?: <span class="hljs-built_in">boolean</span>;
-
-  <span class="hljs-comment">/**
-   * If actived the function declared on globalPreLoggerFunctions will be called before
-   * every loggerProcessor and console function.
-   * It DOES NOT Prevent the console to print the correct call line
-   */</span>
-  useGlobalPreLoggerFunctions?: <span class="hljs-built_in">boolean</span>;
-
-  <span class="hljs-comment">/**
-   * This function will be called before the console prints their output,
-   * [ILoggerConfig's useGlobalPreLoggerFunctions property]{@link ILoggerConfig#useGlobalPreLoggerFunctions} is true
-   */</span>
-  globalPreLoggerFunctions?: LoggerTypesObject&lt;PreLoggerFunction&gt;;
-
-  <span class="hljs-comment">/**
-   * If actived the array of functions on extraLoggerFunctions will be called before
-   * every console function.
-   * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
-   * because there is no way to get the console message without proxy it.
-   */</span>
-  useLoggerProcessors?: <span class="hljs-built_in">boolean</span>;
-
-  <span class="hljs-comment">/**
-   * Object containing an array of &lt;a href="modules/_models_type_definitions_.html#loggerprocessor"&gt;LoggerProcessor&lt;/a&gt;s to be called after console log
-   * when {@link ILoggerConfig#useLoggerProcessors} is true
-   */</span>
-  loggerProcessors?: LoggerTypesObject&lt;LoggerProcessor[]&gt;;
-</code></pre>
-            <h2 id="full-options-usage">Full options usage</h2>
-            <pre><code class="language-js"><span class="hljs-keyword">const</span> loggerWithFullConfigAndProcessors = <span class="hljs-keyword">new</span> SaninnLogger({
+				<h2 id="api-and-documentation">API and Documentation</h2>
+				<ul>
+					<li><code>enableGlobalLoggerFunctions(): void</code></li>
+					<li><code>disableGlobalLoggerFunctions(): void</code></li>
+					<li><code>enableLoggerProcessors(): void</code></li>
+					<li><code>disableLoggerProcessors(): void</code></li>
+					<li><code>addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void</code></li>
+					<li><code>removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void</code></li>
+				</ul>
+				<p>See the Documentation in <a href="https://logger.saninnsalas.com">https://logger.saninnsalas.com</a> for full details.</p>
+				<h2 id="use-cases">Use cases</h2>
+				<p>You can see the <a href="https://github.com/distante/saninn-logger/wiki">Wiki</a> for ideas and use cases where @saninn/logger can help you!</p>
+				<h2 id="full-options-example">Full options example</h2>
+				<pre><code class="language-js"><span class="hljs-keyword">const</span> loggerWithFullConfigAndProcessors = <span class="hljs-keyword">new</span> SaninnLogger({
   <span class="hljs-attr">useGlobalPreLoggerFunctions</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">globalPreLoggerFunctions</span>: {
     <span class="hljs-attr">dir</span>: <span class="hljs-function"><span class="hljs-params">prefix</span> =&gt;</span> {
@@ -240,208 +188,141 @@ loggerWithFullConfigAndProcessors.log(<span class="hljs-string">'log of loggerWi
 loggerWithFullConfigAndProcessors.warn(<span class="hljs-string">'warn of loggerWithFullConfigAndProcessors'</span>);
 loggerWithFullConfigAndProcessors.error(<span class="hljs-string">'error of loggerWithFullConfigAndProcessors'</span>);
 loggerWithFullConfigAndProcessors.dir(<span class="hljs-string">'dir of loggerWithFullConfigAndProcessors'</span>);</code></pre>
-            <p><img src="https://i.imgur.com/LyJFI7R.png" alt="console output" title="console output" /></p>
-            <h2 id="api">API</h2>
-            <ul>
-              <li><code>enableGlobalLoggerFunctions(): void</code></li>
-              <li><code>disableGlobalLoggerFunctions(): void</code></li>
-              <li><code>enableLoggerProcessors(): void</code></li>
-              <li><code>disableLoggerProcessors(): void</code></li>
-              <li><code>addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void</code></li>
-              <li>
-                <code>removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void</code>
-              </li>
-            </ul>
-            <h2 id="license">License</h2>
-            <h2 id="use-cases">Use cases</h2>
-            <p>
-              You can see the <a href="https://github.com/distante/saninn-logger/wiki">Wiki</a> for ideas and use cases
-              where @saninn/logger can help you!
-            </p>
-            <p><a href="/LICENSE">MIT</a></p>
-            <h2 id="development">Development</h2>
-            <p>This project uses:</p>
-            <ul>
-              <li><a href="https://www.npmjs.com/package/typescript">Typescript</a> in strict mode.</li>
-              <li><a href="https://github.com/prettier/prettier">Prettier</a> as code formater.</li>
-              <li>
-                <a href="https://github.com/marionebl/commitlint">commitlint</a> to assure the commits follow the
-                <a href="https://www.conventionalcommits.org/">conventional commit format</a>.
-              </li>
-              <li><a href="https://jestjs.io/">jest</a> as test runner.</li>
-            </ul>
-            <h3 id="scripts">scripts</h3>
-            <p>
-              There are 3 scripts I use together for dev (each in their own console): &#39;watch&#39;, &#39;serve&#39;
-              and &#39;test&#39;.
-            </p>
-            <ul>
-              <li>&#39;npm run watch&#39; will look for Typescript changes and compile it to es6.</li>
-              <li>
-                &#39;npm run serve&#39; will load a local server with &#39;./index-es6.html&#39; as entry point. It uses
-                &#39;./script.js&#39; as module loader.
-              </li>
-              <li>
-                <p>
-                  &#39;npm run test -- --watch --coverage --silent&#39; will run jest tests on each typescript change.
-                </p>
-              </li>
-              <li><p>TODO: Pack all in one script...</p></li>
-            </ul>
-            <h3 id="todo">ToDo</h3>
-            <ul>
-              <li>Generate Auto Docs</li>
-            </ul>
-            <h2 id="pull-requests-are-welcome">Pull Requests Are Welcome</h2>
-            <p>❤</p>
-            <h1 id="find-me-">Find me 🏃‍</h1>
-            <ul>
-              <li>Website <a href="https://www.saninnsalas.com">https://www.saninnsalas.com</a></li>
-              <li>Twitter <a href="https://twitter.com/saninnsalas">@SaninnSalas</a></li>
-              <li>Facebook <a href="https://www.facebook.com/SaninnSD/">@SaninnSalas</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-          <nav class="tsd-navigation primary">
-            <ul>
-              <li class="globals  ">
-                <a href="globals.html"><em>Globals</em></a>
-              </li>
-              <li class="label tsd-is-external">
-                <span>Internals</span>
-              </li>
-              <li class=" tsd-kind-external-module">
-                <a href="modules/__saninn__logger_.html">"@saninn__logger"</a>
-              </li>
-              <li class="label tsd-is-external">
-                <span>Externals</span>
-              </li>
-              <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_models_log_types_enum_.html">"models/log-<wbr />types.enum"</a>
-              </li>
-              <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_models_logger_actions_interface_.html">"models/logger-<wbr />actions.interface"</a>
-              </li>
-              <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_models_logger_config_interface_.html">"models/logger-<wbr />config.interface"</a>
-              </li>
-              <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_models_logger_interface_.html">"models/logger.interface"</a>
-              </li>
-              <li class=" tsd-kind-external-module tsd-is-external">
-                <a href="modules/_models_type_definitions_.html">"models/type-<wbr />definitions"</a>
-              </li>
-            </ul>
-          </nav>
-          <nav class="tsd-navigation secondary menu-sticky">
-            <ul class="before-current"></ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-    <footer class="with-border-bottom">
-      <div class="container">
-        <h2>Legend</h2>
-        <div class="tsd-legend-group">
-          <ul class="tsd-legend">
-            <li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-            <li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-            <li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-            <li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-            <li class="tsd-kind-function tsd-has-type-parameter">
-              <span class="tsd-kind-icon">Function with type parameter</span>
-            </li>
-            <li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-            <li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-          </ul>
-          <ul class="tsd-legend">
-            <li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-            <li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-            <li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-            <li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-          </ul>
-          <ul class="tsd-legend">
-            <li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-            <li class="tsd-kind-interface tsd-has-type-parameter">
-              <span class="tsd-kind-icon">Interface with type parameter</span>
-            </li>
-            <li class="tsd-kind-constructor tsd-parent-kind-interface">
-              <span class="tsd-kind-icon">Constructor</span>
-            </li>
-            <li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-            <li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-            <li class="tsd-kind-index-signature tsd-parent-kind-interface">
-              <span class="tsd-kind-icon">Index signature</span>
-            </li>
-          </ul>
-          <ul class="tsd-legend">
-            <li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-            <li class="tsd-kind-class tsd-has-type-parameter">
-              <span class="tsd-kind-icon">Class with type parameter</span>
-            </li>
-            <li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-            <li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-            <li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-            <li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-            <li class="tsd-kind-index-signature tsd-parent-kind-class">
-              <span class="tsd-kind-icon">Index signature</span>
-            </li>
-          </ul>
-          <ul class="tsd-legend">
-            <li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-              <span class="tsd-kind-icon">Inherited constructor</span>
-            </li>
-            <li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited">
-              <span class="tsd-kind-icon">Inherited property</span>
-            </li>
-            <li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-              <span class="tsd-kind-icon">Inherited method</span>
-            </li>
-            <li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited">
-              <span class="tsd-kind-icon">Inherited accessor</span>
-            </li>
-          </ul>
-          <ul class="tsd-legend">
-            <li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected">
-              <span class="tsd-kind-icon">Protected property</span>
-            </li>
-            <li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected">
-              <span class="tsd-kind-icon">Protected method</span>
-            </li>
-            <li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected">
-              <span class="tsd-kind-icon">Protected accessor</span>
-            </li>
-          </ul>
-          <ul class="tsd-legend">
-            <li class="tsd-kind-property tsd-parent-kind-class tsd-is-private">
-              <span class="tsd-kind-icon">Private property</span>
-            </li>
-            <li class="tsd-kind-method tsd-parent-kind-class tsd-is-private">
-              <span class="tsd-kind-icon">Private method</span>
-            </li>
-            <li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private">
-              <span class="tsd-kind-icon">Private accessor</span>
-            </li>
-          </ul>
-          <ul class="tsd-legend">
-            <li class="tsd-kind-property tsd-parent-kind-class tsd-is-static">
-              <span class="tsd-kind-icon">Static property</span>
-            </li>
-            <li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static">
-              <span class="tsd-kind-icon">Static method</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </footer>
-    <div class="container tsd-generator">
-      <p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
-    </div>
-    <div class="overlay"></div>
-    <script src="assets/js/main.js"></script>
-    <script>
-      if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');
-    </script>
-  </body>
+				<p><img src="https://i.imgur.com/LyJFI7R.png" alt="console output" title="console output"></p>
+				<h2 id="license">License</h2>
+				<p><a href="/LICENSE">MIT</a></p>
+				<h2 id="development">Development</h2>
+				<p>This project uses:</p>
+				<ul>
+					<li><a href="https://www.npmjs.com/package/typescript">Typescript</a> in strict mode.</li>
+					<li><a href="https://github.com/prettier/prettier">Prettier</a> as code formater.</li>
+					<li><a href="https://github.com/marionebl/commitlint">commitlint</a> to assure the commits follow the <a href="https://www.conventionalcommits.org/">conventional commit format</a>.</li>
+					<li><a href="https://jestjs.io/">jest</a> as test runner.</li>
+				</ul>
+				<h3 id="scripts">scripts</h3>
+				<p>There are 3 scripts I use together for dev (each in their own console): &#39;watch&#39;, &#39;serve&#39; and &#39;test&#39;.</p>
+				<ul>
+					<li>&#39;npm run watch&#39; will look for Typescript changes and compile it to es6.</li>
+					<li>&#39;npm run serve&#39; will load a local server with &#39;./index-es6.html&#39; as entry point. It uses &#39;./script.js&#39; as module loader.</li>
+					<li><p>&#39;npm run test -- --watch --coverage --silent&#39; will run jest tests on each typescript change.</p>
+					</li>
+					<li><p>TODO: Pack all in one script...</p>
+					</li>
+				</ul>
+				<h3 id="todo">ToDo</h3>
+				<ul>
+					<li>Generate Auto Docs</li>
+				</ul>
+				<h2 id="pull-requests-are-welcome">Pull Requests Are Welcome</h2>
+				<p>❤</p>
+				<h1 id="find-me-">Find me 🏃‍</h1>
+				<ul>
+					<li>Website <a href="https://www.saninnsalas.com">https://www.saninnsalas.com</a></li>
+					<li>Twitter <a href="https://twitter.com/saninnsalas">@SaninnSalas</a></li>
+					<li>Facebook <a href="https://www.facebook.com/SaninnSD/">@SaninnSalas</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Internals</span>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/__saninn__logger_.html">"@saninn__logger"</a>
+					</li>
+					<li class="label tsd-is-external">
+						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_models_log_types_enum_.html">"models/log-<wbr>types.enum"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_models_logger_actions_interface_.html">"models/logger-<wbr>actions.interface"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_models_logger_config_interface_.html">"models/logger-<wbr>config.interface"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_models_logger_interface_.html">"models/logger.interface"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_models_type_definitions_.html">"models/type-<wbr>definitions"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer>
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
 </html>
