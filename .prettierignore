@@ -17,6 +17,9 @@ npm-debug.log*
 coverage/
 _test-reports/
 dist/
+dist-bundles/
+dist-zips/
+docs/
 node_modules/
 tmp/
 temp/
