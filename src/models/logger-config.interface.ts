@@ -9,7 +9,7 @@ export interface ILoggerConfig {
 
   /**
    * If enabled the log output will be printed locally in console.
-   * SaninnLogger will keep the line of the call unless [ILoggerConfig's useLoggerProcessors property]{@link ILoggerConfig#useLoggerProcessors} is true
+   * The log call line will not be overwritten unless {@link ILoggerConfig.useLoggerProcessors} is true
    */
   printToConsole?: boolean;
 
@@ -21,8 +21,7 @@ export interface ILoggerConfig {
   useGlobalPreLoggerFunctions?: boolean;
 
   /**
-   * This function will be called before the console prints their output,
-   * [ILoggerConfig's useGlobalPreLoggerFunctions property]{@link ILoggerConfig#useGlobalPreLoggerFunctions} is true
+   * This function will be called before the console prints their output when {@link ILoggerConfig.useGlobalPreLoggerFunctions} is true
    */
   globalPreLoggerFunctions?: LoggerTypesObject<PreLoggerFunction>;
 
@@ -35,8 +34,8 @@ export interface ILoggerConfig {
   useLoggerProcessors?: boolean;
 
   /**
-   * Object containing an array of {@link LoggerProcessor}s to be called after console log
-   * when {@link ILoggerConfig#useLoggerProcessors} is true
+   * Object containing an array of [LoggerProcessors]{@link LoggerProcessor} to be called after console log
+   * when {@link ILoggerConfig.useLoggerProcessors} is true
    */
   loggerProcessors?: LoggerTypesObject<LoggerProcessor[]>;
 }

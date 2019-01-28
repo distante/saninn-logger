@@ -5,3 +5,4 @@ scripts/
 .editorconfig
 dist-bundles/
 dist-zips/
+docs/

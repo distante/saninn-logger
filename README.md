@@ -3,13 +3,13 @@
 
 <span style="font-size:2em">👨‍💻💻</span>
 
-A configurable wrapper of the console that keeps the log call position. The only dependency is an included Polyfill!
+A configurable wrapper of the console that keeps the log call position.
 
 Made with Typescript, usable as es6 module and iife (with IE10 support).
 
 <div align="center">
 
-[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) [![Greenkeeper badge](https://badges.greenkeeper.io/distante/saninn-logger.svg)](https://greenkeeper.io/) ![](https://img.shields.io/github/license/distante/saninn-logger.svg)
+[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) [![Greenkeeper badge](https://badges.greenkeeper.io/distante/saninn-logger.svg)](https://greenkeeper.io/) [![Maintainability](https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability)](https://codeclimate.com/github/distante/saninn-logger/maintainability) ![Licence](https://img.shields.io/github/license/distante/saninn-logger.svg)
 
 </div>
 </div>
@@ -96,11 +96,21 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
    */
   printToConsole?: boolean;
 
-  /** This function will be called before the console prints their output */
-  globalPreLoggerFunctions?: LoggerTypesObject<Function>;
+  /**
+   * If actived the function declared on globalPreLoggerFunctions will be called before
+   * every loggerProcessor and console function.
+   * It DOES NOT Prevent the console to print the correct call line
+   */
+  useGlobalPreLoggerFunctions?: boolean;
 
   /**
-   * If actived the array of functions on extraLoggerFunctions will be called after
+   * This function will be called before the console prints their output,
+   * [ILoggerConfig's useGlobalPreLoggerFunctions property]{@link ILoggerConfig#useGlobalPreLoggerFunctions} is true
+   */
+  globalPreLoggerFunctions?: LoggerTypesObject<PreLoggerFunction>;
+
+  /**
+   * If actived the array of functions on extraLoggerFunctions will be called before
    * every console function.
    * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
    * because there is no way to get the console message without proxy it.

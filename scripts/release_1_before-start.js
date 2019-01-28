@@ -40,6 +40,7 @@ runScript(packageScripts.tscCheck); // npm run tsc:check
 shell.exec('rm -rf ./dist-bundles/*');
 runScript(packageScripts.build); // npm run build
 runScript(packageScripts.buildBundles); // npm run build-bundles"
+//  TODO: > -> Uglyfiy
 runScript(packageScripts.zipBundles); // create zip versions
 
 console.log(`\n👍  ${scriptName} done 👍 `);
