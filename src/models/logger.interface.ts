@@ -4,6 +4,10 @@ import { LoggerProcessor } from './type-definitions';
 
 export interface ILogger extends ILoggerActions {
   setPrefixTo(newPrefix: string): void;
+  /**
+   * Will set all outputs like {@link ILoggerConfig.printToConsole}, {@link ILoggerConfig.useLoggerProcessors}, {@link ILoggerConfig.useGlobalPreLoggerFunctions} to false.
+   */
+  disableAll(): void;
   enablePrintToConsole(): void;
   disablePrintToConsole(): void;
   enableGlobalLoggerFunctions(): void;

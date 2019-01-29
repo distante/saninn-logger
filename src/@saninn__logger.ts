@@ -14,9 +14,8 @@ import { LoggerProcessor, LoggerTypesObject, RequiredLoggerConfig } from './mode
 
 // let saninnLoggerInstanceCounter = 0;
 
-const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
-
 export class SaninnLogger implements ILogger {
+  public static readonly LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
   private readonly config: RequiredLoggerConfig = {
     prefix: '',
     prefixColors: {},
@@ -91,6 +90,12 @@ export class SaninnLogger implements ILogger {
 
   public setPrefixTo(newPrefix: string) {
     this.config.prefix = newPrefix;
+  }
+
+  public disableAll() {
+    this.disablePrintToConsole();
+    this.disableLoggerProcessors();
+    this.disableGlobalLoggerFunctions();
   }
 
   public enablePrintToConsole() {
@@ -171,7 +176,7 @@ export class SaninnLogger implements ILogger {
   private readonly emptyConsoleFunction = () => {};
 
   private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
-    LOG_TYPES_ARRAY.forEach(logType => {
+    SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
       if (loggerProcessors[logType]) {
         this.config.loggerProcessors[logType] = loggerProcessors[logType];
       } else {
@@ -181,7 +186,7 @@ export class SaninnLogger implements ILogger {
   }
 
   private initProxy() {
-    LOG_TYPES_ARRAY.forEach(logType => {
+    SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
       const consoleFunctionHandler: ProxyHandler<Function> = {
         // tslint:disable-next-line:object-literal-shorthand
         apply: (target, consoleObject, argumentsList) =>
@@ -231,6 +236,7 @@ export class SaninnLogger implements ILogger {
 
     const argumentsList = rawArgumentList.slice(initialIndexOfArguments);
 
+    // TODO: Use it with the observer pattern?
     this.config.loggerProcessors[logType]!.forEach(loggerProcessor => {
       loggerProcessor(prefix, argumentsList);
     });
@@ -278,7 +284,7 @@ export class SaninnLogger implements ILogger {
       return;
     }
 
-    LOG_TYPES_ARRAY.forEach(logType => {
+    SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
       if (configs[logType]) {
         object[logType] = configs[logType];
       }

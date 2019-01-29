@@ -1,4 +1,5 @@
 import 'jest-extended';
+import { ILoggerConfig } from '../dist';
 import { SaninnLogger } from './@saninn__logger';
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './models/type-definitions';
@@ -686,4 +687,58 @@ test('prefix can be changed using #setPrefixTo', () => {
   saninnLogger.log();
 
   expect(console.log).toHaveBeenCalledWith(fullFinalPrefix);
+});
+
+test('can be completely disable', () => {
+  const spyFunction = jest.fn();
+  SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+    spyOn(console, logType).and.callFake(spyFunction);
+  });
+
+  const fullConfig: ILoggerConfig = {
+    useGlobalPreLoggerFunctions: true,
+    globalPreLoggerFunctions: {
+      dir: prefix => {
+        spyFunction(prefix);
+      },
+      error: prefix => {
+        spyFunction(prefix);
+      },
+      log: prefix => {
+        spyFunction(prefix);
+      },
+      warn: prefix => {
+        spyFunction(prefix);
+      }
+    },
+
+    prefix: 'full-config-logger',
+    prefixColors: {
+      error: 'blue',
+      log: 'green',
+      warn: 'red'
+    },
+    printToConsole: false,
+    useLoggerProcessors: true,
+    loggerProcessors: {
+      log: [
+        (prefix, args) => {
+          spyFunction(prefix, args);
+        },
+        (prefix, args) => {
+          spyFunction(prefix, args);
+        }
+      ]
+    }
+  };
+
+  const saninnLogger = new SaninnLogger(fullConfig);
+
+  saninnLogger.disableAll();
+
+  SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+    saninnLogger[logType]('I should not be called!');
+  });
+
+  expect(spyFunction).not.toHaveBeenCalled();
 });
