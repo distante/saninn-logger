@@ -32,6 +32,16 @@ If you want to use it as es6, commonjs or iife download the respective assets in
 
 _Note: The iife version contains a Polyfill for Javascript Proxy Api._
 
+## What can I do?
+
+- Set a prefix to all your console calls(log, warn, error, etc) so it is easy to filter while debugging;
+- Add a color to each console calls (supported in all browsers but Internet Explorer).
+- Process external loggers (like server side) with the same call as the local log.
+- Process just external loggers.
+- Procces just local loggers.
+- Register external loggers on run time.
+- Remove external loggers on run time.
+
 ## Basic usage
 
 ### Typescript
@@ -196,11 +206,9 @@ There are 3 scripts I use together for dev (each in their own console): 'watch',
 - 'npm run serve' will load a local server with './index-es6.html' as entry point. It uses './script.js' as module loader.
 - 'npm run test -- --watch --coverage --silent' will run jest tests on each typescript change.
 
-* TODO: Pack all in one script...
-
 ### ToDo
 
-- Generate Auto Docs
+- Pack all development scripts into just one...
 
 ## Pull requests are welcome
 

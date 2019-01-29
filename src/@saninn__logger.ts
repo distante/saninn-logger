@@ -14,8 +14,8 @@ import { LoggerProcessor, LoggerTypesObject, RequiredLoggerConfig } from './mode
 
 // let saninnLoggerInstanceCounter = 0;
 
-const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
 export class SaninnLogger implements ILogger {
+  public static readonly LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
   private readonly config: RequiredLoggerConfig = {
     prefix: '',
     prefixColors: {},
@@ -88,6 +88,24 @@ export class SaninnLogger implements ILogger {
   //    ██      ██    ██ ██   ██ ██      ██ ██
   //    ██       ██████  ██████  ███████ ██  ██████
 
+  public setPrefixTo(newPrefix: string) {
+    this.config.prefix = newPrefix;
+  }
+
+  public disableAll() {
+    this.disablePrintToConsole();
+    this.disableLoggerProcessors();
+    this.disableGlobalLoggerFunctions();
+  }
+
+  public enablePrintToConsole() {
+    this.config.printToConsole = true;
+  }
+
+  public disablePrintToConsole() {
+    this.config.printToConsole = false;
+  }
+
   public addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
     this.config.loggerProcessors[logType]!.push(loggerProcessor);
   }
@@ -151,14 +169,13 @@ export class SaninnLogger implements ILogger {
    * This function will be retorned as console[log|warn|dir,etc] handle when
    * the output is disabled with {@link SaninnSalas#config.printToConsole} = false
    *
-   * @private
-   * @memberof SaninnLogger
    */
   // tslint:disable-next-line:no-empty
   private readonly emptyConsoleFunction = () => {};
 
   private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
-    LOG_TYPES_ARRAY.forEach(logType => {
+    SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+      // tslint:disable-next-line:prefer-conditional-expression
       if (loggerProcessors[logType]) {
         this.config.loggerProcessors[logType] = loggerProcessors[logType];
       } else {
@@ -168,7 +185,7 @@ export class SaninnLogger implements ILogger {
   }
 
   private initProxy() {
-    LOG_TYPES_ARRAY.forEach(logType => {
+    SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
       const consoleFunctionHandler: ProxyHandler<Function> = {
         // tslint:disable-next-line:object-literal-shorthand
         apply: (target, consoleObject, argumentsList) =>
@@ -180,13 +197,10 @@ export class SaninnLogger implements ILogger {
   }
 
   /**
-   * @private
-   * @param {Function} nativeConsoleFunction - The native console.log Function
-   * @param {Console} _nativeConsoleObject - window.console / global.console
-   * @param {any[]} argumentsList - contains all arguments sended to console.x(), including prefix, color, etc
-   * @param {LoggerTypesEnum} logType
+   * @param nativeConsoleFunction - The native console.log Function
+   * @param _nativeConsoleObject - window.console / global.console
+   * @param argumentsList - contains all arguments sended to console.x(), including prefix, color, etc
    * @returns void
-   * @memberof SaninnLogger
    */
   private consoleFunctionProxyApply(
     nativeConsoleFunction: Function,
@@ -218,6 +232,7 @@ export class SaninnLogger implements ILogger {
 
     const argumentsList = rawArgumentList.slice(initialIndexOfArguments);
 
+    // TODO: Use it with the observer pattern?
     this.config.loggerProcessors[logType]!.forEach(loggerProcessor => {
       loggerProcessor(prefix, argumentsList);
     });
@@ -265,7 +280,7 @@ export class SaninnLogger implements ILogger {
       return;
     }
 
-    LOG_TYPES_ARRAY.forEach(logType => {
+    SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
       if (configs[logType]) {
         object[logType] = configs[logType];
       }

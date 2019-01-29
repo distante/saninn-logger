@@ -110,6 +110,7 @@ loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcess
 loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors');
 
 const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
+  useGlobalPreLoggerFunctions: true,
   globalPreLoggerFunctions: {
     dir: prefix => {
       console.log(
