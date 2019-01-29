@@ -96,11 +96,15 @@
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#addloggerprocessor" class="tsd-kind-icon">add<wbr>Logger<wbr>Processor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#disableall" class="tsd-kind-icon">disable<wbr>All</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#disablegloballoggerfunctions" class="tsd-kind-icon">disable<wbr>Global<wbr>Logger<wbr>Functions</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#disableloggerprocessors" class="tsd-kind-icon">disable<wbr>Logger<wbr>Processors</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#disableprinttoconsole" class="tsd-kind-icon">disable<wbr>Print<wbr>ToConsole</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#enablegloballoggerfunctions" class="tsd-kind-icon">enable<wbr>Global<wbr>Logger<wbr>Functions</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#enableloggerprocessors" class="tsd-kind-icon">enable<wbr>Logger<wbr>Processors</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#enableprinttoconsole" class="tsd-kind-icon">enable<wbr>Print<wbr>ToConsole</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#removeloggerprocessor" class="tsd-kind-icon">remove<wbr>Logger<wbr>Processor</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_interface_.ilogger.html#setprefixto" class="tsd-kind-icon">set<wbr>Prefix<wbr>To</a></li>
 							</ul>
 						</section>
 					</div>
@@ -118,7 +122,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/30422d1/src/models/logger.interface.ts#L10">models/logger.interface.ts:10</a></li>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L17">models/logger.interface.ts:17</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -135,6 +139,28 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+					<a name="disableall" class="tsd-anchor"></a>
+					<h3>disable<wbr>All</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">disable<wbr>All<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L10">models/logger.interface.ts:10</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Will set all outputs like <a href="_models_logger_config_interface_.iloggerconfig.html#printtoconsole">ILoggerConfig.printToConsole</a>, <a href="_models_logger_config_interface_.iloggerconfig.html#useloggerprocessors">ILoggerConfig.useLoggerProcessors</a>, <a href="_models_logger_config_interface_.iloggerconfig.html#useglobalpreloggerfunctions">ILoggerConfig.useGlobalPreLoggerFunctions</a> to false.</p>
+								</div>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 					<a name="disablegloballoggerfunctions" class="tsd-anchor"></a>
 					<h3>disable<wbr>Global<wbr>Logger<wbr>Functions</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
@@ -144,7 +170,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/30422d1/src/models/logger.interface.ts#L7">models/logger.interface.ts:7</a></li>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L14">models/logger.interface.ts:14</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -161,7 +187,24 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/30422d1/src/models/logger.interface.ts#L9">models/logger.interface.ts:9</a></li>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L16">models/logger.interface.ts:16</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+					<a name="disableprinttoconsole" class="tsd-anchor"></a>
+					<h3>disable<wbr>Print<wbr>ToConsole</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">disable<wbr>Print<wbr>ToConsole<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L12">models/logger.interface.ts:12</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -178,7 +221,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/30422d1/src/models/logger.interface.ts#L6">models/logger.interface.ts:6</a></li>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L13">models/logger.interface.ts:13</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -195,7 +238,24 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/30422d1/src/models/logger.interface.ts#L8">models/logger.interface.ts:8</a></li>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L15">models/logger.interface.ts:15</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+					<a name="enableprinttoconsole" class="tsd-anchor"></a>
+					<h3>enable<wbr>Print<wbr>ToConsole</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">enable<wbr>Print<wbr>ToConsole<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L11">models/logger.interface.ts:11</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -212,7 +272,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/30422d1/src/models/logger.interface.ts#L11">models/logger.interface.ts:11</a></li>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L18">models/logger.interface.ts:18</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -222,6 +282,29 @@
 								</li>
 								<li>
 									<h5>loggerProcessor: <a href="../modules/_models_type_definitions_.html#loggerprocessor" class="tsd-signature-type">LoggerProcessor</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+					<a name="setprefixto" class="tsd-anchor"></a>
+					<h3>set<wbr>Prefix<wbr>To</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">set<wbr>Prefix<wbr>To<span class="tsd-signature-symbol">(</span>newPrefix<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/6c76099/src/models/logger.interface.ts#L6">models/logger.interface.ts:6</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>newPrefix: <span class="tsd-signature-type">string</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
@@ -273,10 +356,16 @@
 								<a href="_models_logger_interface_.ilogger.html#addloggerprocessor" class="tsd-kind-icon">add<wbr>Logger<wbr>Processor</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+								<a href="_models_logger_interface_.ilogger.html#disableall" class="tsd-kind-icon">disable<wbr>All</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 								<a href="_models_logger_interface_.ilogger.html#disablegloballoggerfunctions" class="tsd-kind-icon">disable<wbr>Global<wbr>Logger<wbr>Functions</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 								<a href="_models_logger_interface_.ilogger.html#disableloggerprocessors" class="tsd-kind-icon">disable<wbr>Logger<wbr>Processors</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+								<a href="_models_logger_interface_.ilogger.html#disableprinttoconsole" class="tsd-kind-icon">disable<wbr>Print<wbr>ToConsole</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 								<a href="_models_logger_interface_.ilogger.html#enablegloballoggerfunctions" class="tsd-kind-icon">enable<wbr>Global<wbr>Logger<wbr>Functions</a>
@@ -285,7 +374,13 @@
 								<a href="_models_logger_interface_.ilogger.html#enableloggerprocessors" class="tsd-kind-icon">enable<wbr>Logger<wbr>Processors</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+								<a href="_models_logger_interface_.ilogger.html#enableprinttoconsole" class="tsd-kind-icon">enable<wbr>Print<wbr>ToConsole</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
 								<a href="_models_logger_interface_.ilogger.html#removeloggerprocessor" class="tsd-kind-icon">remove<wbr>Logger<wbr>Processor</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface tsd-is-external">
+								<a href="_models_logger_interface_.ilogger.html#setprefixto" class="tsd-kind-icon">set<wbr>Prefix<wbr>To</a>
 							</li>
 						</ul>
 					</li>

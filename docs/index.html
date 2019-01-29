@@ -81,6 +81,16 @@
 				<p><code>npm install @saninn/logger</code>.</p>
 				<p>If you want to use it as es6, commonjs or iife download the respective assets in the <a href="https://github.com/distante/saninn-logger/releases/">Releases Page</a>. As alternative you can clone this project, run <code>npm install</code> and <code>npm run build-bundles</code>.</p>
 				<p><em>Note: The iife version contains a Polyfill for Javascript Proxy Api.</em></p>
+				<h2 id="what-can-i-do-">What can I do?</h2>
+				<ul>
+					<li>Set a prefix to all your console calls(log, warn, error, etc) so it is easy to filter while debugging;</li>
+					<li>Add a color to each console calls (supported in all browsers but Internet Explorer).</li>
+					<li>Process external loggers (like server side) with the same call as the local log.</li>
+					<li>Process just external loggers.</li>
+					<li>Procces just local loggers.</li>
+					<li>Register external loggers on run time.</li>
+					<li>Remove external loggers on run time.</li>
+				</ul>
 				<h2 id="basic-usage">Basic usage</h2>
 				<h3 id="typescript">Typescript</h3>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> { SaninnLogger } <span class="hljs-keyword">from</span> <span class="hljs-string">'@saninn/logger'</span>;
@@ -109,7 +119,11 @@ myLogger.log(<span class="hljs-string">'this is a log'</span>); <span class="hlj
 myLogger.log(<span class="hljs-string">'this is a log'</span>); <span class="hljs-comment">// [my-logger-prefix]: this is a log.</span></code></pre>
 				<h2 id="api-and-documentation">API and Documentation</h2>
 				<ul>
-					<li><code>enableGlobalLoggerFunctions(): void</code></li>
+					<li><a href="https://logger.saninnsalas.com/interfaces/_models_logger_config_interface_.iloggerconfig.html">Configuration</a></li>
+					<li><p><a href="https://logger.saninnsalas.com/classes/__saninn__logger_.saninnlogger.html">API</a></p>
+					</li>
+					<li><p><code>enableGlobalLoggerFunctions(): void</code></p>
+					</li>
 					<li><code>disableGlobalLoggerFunctions(): void</code></li>
 					<li><code>enableLoggerProcessors(): void</code></li>
 					<li><code>disableLoggerProcessors(): void</code></li>
@@ -199,21 +213,18 @@ loggerWithFullConfigAndProcessors.dir(<span class="hljs-string">'dir of loggerWi
 					<li><a href="https://github.com/marionebl/commitlint">commitlint</a> to assure the commits follow the <a href="https://www.conventionalcommits.org/">conventional commit format</a>.</li>
 					<li><a href="https://jestjs.io/">jest</a> as test runner.</li>
 				</ul>
-				<h3 id="scripts">scripts</h3>
+				<h3 id="scripts">Scripts</h3>
 				<p>There are 3 scripts I use together for dev (each in their own console): &#39;watch&#39;, &#39;serve&#39; and &#39;test&#39;.</p>
 				<ul>
 					<li>&#39;npm run watch&#39; will look for Typescript changes and compile it to es6.</li>
 					<li>&#39;npm run serve&#39; will load a local server with &#39;./index-es6.html&#39; as entry point. It uses &#39;./script.js&#39; as module loader.</li>
-					<li><p>&#39;npm run test -- --watch --coverage --silent&#39; will run jest tests on each typescript change.</p>
-					</li>
-					<li><p>TODO: Pack all in one script...</p>
-					</li>
+					<li>&#39;npm run test -- --watch --coverage --silent&#39; will run jest tests on each typescript change.</li>
 				</ul>
 				<h3 id="todo">ToDo</h3>
 				<ul>
-					<li>Generate Auto Docs</li>
+					<li>Pack all development scripts into just one...</li>
 				</ul>
-				<h2 id="pull-requests-are-welcome">Pull Requests Are Welcome</h2>
+				<h2 id="pull-requests-are-welcome">Pull requests are welcome</h2>
 				<p>❤</p>
 				<h1 id="find-me-">Find me 🏃‍</h1>
 				<ul>
