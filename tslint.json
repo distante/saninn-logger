@@ -5,6 +5,7 @@
   },
   "rules": {
     "object-literal-sort-keys": false,
-    "no-redundant-jsdoc": true
+    "no-redundant-jsdoc": true,
+    "ban-types": [false, ["Function"]]
   }
 }

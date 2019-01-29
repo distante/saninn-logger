@@ -1,3 +1,4 @@
+// tslint:disable-next-line:no-implicit-dependencies
 import 'jest-extended';
 import { ILoggerConfig } from '../dist';
 import { SaninnLogger } from './@saninn__logger';
@@ -71,7 +72,7 @@ describe('globalPreLoggerFunctions', () => {
       consoleBindMock();
     });
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction as PreLoggerFunction;
     const saninnLogger = new SaninnLogger({
       useGlobalPreLoggerFunctions: true,
@@ -87,7 +88,7 @@ describe('globalPreLoggerFunctions', () => {
   test(`log globalPreLoggerFunction is NOT called when disabled with #disableGlobalLoggerFunctions`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       useGlobalPreLoggerFunctions: true,
@@ -103,7 +104,7 @@ describe('globalPreLoggerFunctions', () => {
   test(`log globalPreLoggerFunction IS called when enabled with #enableGlobalLoggerFunctions`, () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       useGlobalPreLoggerFunctions: true,
@@ -122,7 +123,7 @@ describe('globalPreLoggerFunctions', () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
     const loggerPrefix = 'test-logger-prefix';
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
@@ -143,7 +144,7 @@ describe('globalPreLoggerFunctions', () => {
       consoleBindMock();
     });
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       useGlobalPreLoggerFunctions: true,
@@ -160,7 +161,7 @@ describe('globalPreLoggerFunctions', () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.dir;
     const loggerPrefix = 'test-logger-prefix';
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
@@ -181,7 +182,7 @@ describe('globalPreLoggerFunctions', () => {
       consoleBindMock();
     });
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       useGlobalPreLoggerFunctions: true,
@@ -198,7 +199,7 @@ describe('globalPreLoggerFunctions', () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.warn;
     const loggerPrefix = 'test-logger-prefix';
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
@@ -219,7 +220,7 @@ describe('globalPreLoggerFunctions', () => {
       consoleBindMock();
     });
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       useGlobalPreLoggerFunctions: true,
@@ -236,7 +237,7 @@ describe('globalPreLoggerFunctions', () => {
     const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.error;
     const loggerPrefix = 'test-logger-prefix';
     const mockFunction = jest.fn();
-    const loggerFunctionConfigs = {} as LoggerTypesObject<PreLoggerFunction>;
+    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
     loggerFunctionConfigs[consoleFunction] = mockFunction;
     const saninnLogger = new SaninnLogger({
       prefix: loggerPrefix,
@@ -325,7 +326,7 @@ describe('prefixColor', () => {
     // @ts-ignore
     document.documentMode = true;
     const initSpy = spyOn(SaninnLogger.prototype as any, 'initializeObjectsBasedOnEnumsLogTypes');
-    // tslint:disable-next-line:no-unused-new
+    // tslint:disable-next-line:no-unused-expression
     new SaninnLogger({
       prefix: prefixText,
       prefixColors: colors
@@ -681,12 +682,12 @@ test('prefix can be changed using #setPrefixTo', () => {
     prefix: initialPrefix
   });
 
-  spyOn(console, 'log');
+  const consoleSpy = spyOn(console, 'log');
 
   saninnLogger.setPrefixTo(finalPrefix);
   saninnLogger.log();
 
-  expect(console.log).toHaveBeenCalledWith(fullFinalPrefix);
+  expect(consoleSpy).toHaveBeenCalledWith(fullFinalPrefix);
 });
 
 test('can be completely disable', () => {
