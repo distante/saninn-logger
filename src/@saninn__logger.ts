@@ -15,6 +15,7 @@ import { LoggerProcessor, LoggerTypesObject, RequiredLoggerConfig } from './mode
 // let saninnLoggerInstanceCounter = 0;
 
 const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
+
 export class SaninnLogger implements ILogger {
   private readonly config: RequiredLoggerConfig = {
     prefix: '',
@@ -87,6 +88,18 @@ export class SaninnLogger implements ILogger {
   //    ██████  ██    ██ ██████  ██      ██ ██
   //    ██      ██    ██ ██   ██ ██      ██ ██
   //    ██       ██████  ██████  ███████ ██  ██████
+
+  public setPrefixTo(newPrefix: string) {
+    this.config.prefix = newPrefix;
+  }
+
+  public enablePrintToConsole() {
+    this.config.printToConsole = true;
+  }
+
+  public disablePrintToConsole() {
+    this.config.printToConsole = false;
+  }
 
   public addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
     this.config.loggerProcessors[logType]!.push(loggerProcessor);

@@ -644,3 +644,46 @@ describe('Add and remove logger Processors', () => {
     expect(loggerProcessor).toHaveBeenCalledTimes(1);
   });
 });
+
+test('#disablePrintToConsole deactivate console Prints', () => {
+  const saninnLogger = new SaninnLogger({
+    prefix: 'test'
+  });
+
+  const loggerActive = saninnLogger.log;
+  saninnLogger.disablePrintToConsole();
+  const loggerInactive = saninnLogger.log;
+
+  expect(loggerActive).not.toBe(loggerInactive);
+  expect(loggerInactive).toBe((saninnLogger as any).emptyConsoleFunction);
+});
+
+test('#enablePrintToConsole activates console Prints', () => {
+  const saninnLogger = new SaninnLogger({
+    prefix: 'test',
+    printToConsole: false
+  });
+
+  const loggerInactive = saninnLogger.log;
+  saninnLogger.enablePrintToConsole();
+  const loggerActive = saninnLogger.log;
+
+  expect(loggerActive).not.toBe(loggerInactive);
+  expect(loggerInactive).toBe((saninnLogger as any).emptyConsoleFunction);
+});
+
+test('prefix can be changed using #setPrefixTo', () => {
+  const initialPrefix = 'initial prefix';
+  const finalPrefix = 'final prefix';
+  const fullFinalPrefix = `[${finalPrefix}]:`;
+  const saninnLogger = new SaninnLogger({
+    prefix: initialPrefix
+  });
+
+  spyOn(console, 'log');
+
+  saninnLogger.setPrefixTo(finalPrefix);
+  saninnLogger.log();
+
+  expect(console.log).toHaveBeenCalledWith(fullFinalPrefix);
+});

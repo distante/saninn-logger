@@ -3,6 +3,9 @@ import { ILoggerActions } from './logger-actions.interface';
 import { LoggerProcessor } from './type-definitions';
 
 export interface ILogger extends ILoggerActions {
+  setPrefixTo(newPrefix: string): void;
+  enablePrintToConsole(): void;
+  disablePrintToConsole(): void;
   enableGlobalLoggerFunctions(): void;
   disableGlobalLoggerFunctions(): void;
   enableLoggerProcessors(): void;
