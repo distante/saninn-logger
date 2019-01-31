@@ -15,6 +15,16 @@ fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function(err) {
   console.log('CNAME saved! in ' + cnameFile);
 });
 
+//create .nojekyll fix
+const cnameFile = path.join(process.cwd(), 'docs', '.nojekyll');
+fs.writeFileSync(cnameFile, '', function(err) {
+  if (err) {
+    throw err;
+  }
+  // tslint:disable-next-line:no-console
+  console.log('CNAME saved! in ' + cnameFile);
+});
+
 const packageScripts = {
   build: objectWithRawScripts['build'],
   buildBundles: objectWithRawScripts['build-bundles'],
