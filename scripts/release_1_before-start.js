@@ -5,6 +5,16 @@ const shell = require('shelljs');
 const path = require('path');
 const objectWithRawScripts = require(path.join(process.cwd(), 'package.json')).scripts;
 
+//Create CNAME for docs
+const cnameFile = path.join(process.cwd(), 'docs', 'CNAME');
+fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function(err) {
+  if (err) {
+    throw err;
+  }
+  // tslint:disable-next-line:no-console
+  console.log('CNAME saved! in ' + cnameFile);
+});
+
 const packageScripts = {
   build: objectWithRawScripts['build'],
   buildBundles: objectWithRawScripts['build-bundles'],
