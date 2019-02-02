@@ -3,6 +3,8 @@
 const scriptName = 'RELEASE IT BEFORE START';
 const shell = require('shelljs');
 const path = require('path');
+const fs = require('fs');
+
 const objectWithRawScripts = require(path.join(process.cwd(), 'package.json')).scripts;
 
 //Create CNAME for docs
