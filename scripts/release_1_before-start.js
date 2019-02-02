@@ -16,13 +16,13 @@ fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function(err) {
 });
 
 //create .nojekyll fix
-const cnameFile = path.join(process.cwd(), 'docs', '.nojekyll');
-fs.writeFileSync(cnameFile, '', function(err) {
+const nojekyll = path.join(process.cwd(), 'docs', '.nojekyll');
+fs.writeFileSync(nojekyll, '', function(err) {
   if (err) {
     throw err;
   }
   // tslint:disable-next-line:no-console
-  console.log('CNAME saved! in ' + cnameFile);
+  console.log('nojekyll saved! in ' + nojekyll);
 });
 
 const packageScripts = {
