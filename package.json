@@ -26,6 +26,7 @@
     "test:ci": "jest --runInBand --no-cache --watch false --coverage true",
     "test:codecov": "codecov",
     "tsc:check": "tsc --noEmit",
+    "make-docs": "typedoc --out ./docs ./src/@saninn__logger.ts --hideGenerator",
     "prettier:check": "pretty-quick --staged",
     "saninn": "run-p watch live-server",
     "watch": "run-s clean:module && tsc && npm-watch",
@@ -78,7 +79,7 @@
   },
   "release-it": {
     "scripts": {
-      "beforeStart": "typedoc --out ./docs ./src/@saninn__logger.ts --hideGenerator && node ./scripts/release_1_before-start.js",
+      "beforeStart": "node ./scripts/release_1_before-start.js",
       "afterBump": "node ./scripts/release_3_after-Bump.js ${version}",
       "afterRelease": "echo Successfully released ${name} v${version} to https://${repo.host}/${repo.repository}/releases/tag/v${version}"
     },

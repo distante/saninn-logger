@@ -7,29 +7,10 @@ const fs = require('fs');
 
 const objectWithRawScripts = require(path.join(process.cwd(), 'package.json')).scripts;
 
-//Create CNAME for docs
-const cnameFile = path.join(process.cwd(), 'docs', 'CNAME');
-fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function(err) {
-  if (err) {
-    throw err;
-  }
-  // tslint:disable-next-line:no-console
-  console.log('CNAME saved! in ' + cnameFile);
-});
-
-//create .nojekyll fix
-const nojekyll = path.join(process.cwd(), 'docs', '.nojekyll');
-fs.writeFileSync(nojekyll, '', function(err) {
-  if (err) {
-    throw err;
-  }
-  // tslint:disable-next-line:no-console
-  console.log('nojekyll saved! in ' + nojekyll);
-});
-
 const packageScripts = {
   build: objectWithRawScripts['build'],
   buildBundles: objectWithRawScripts['build-bundles'],
+  makeDocs: objectWithRawScripts['make-docs'],
   prettierCheck: objectWithRawScripts['prettier:check'],
   test: objectWithRawScripts['test'],
   tscCheck: objectWithRawScripts['tsc:check'],
@@ -64,5 +45,26 @@ runScript(packageScripts.build); // npm run build
 runScript(packageScripts.buildBundles); // npm run build-bundles"
 //  TODO: > -> Uglyfiy
 runScript(packageScripts.zipBundles); // create zip versions
+runScript(packageScripts.makeDocs); // create docs
+
+//Create CNAME for docs
+const cnameFile = path.join(process.cwd(), 'docs', 'CNAME');
+fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function(err) {
+  if (err) {
+    throw err;
+  }
+  // tslint:disable-next-line:no-console
+  console.log('CNAME saved! in ' + cnameFile);
+});
+
+//create .nojekyll fix
+const nojekyll = path.join(process.cwd(), 'docs', '.nojekyll');
+fs.writeFileSync(nojekyll, '', function(err) {
+  if (err) {
+    throw err;
+  }
+  // tslint:disable-next-line:no-console
+  console.log('nojekyll saved! in ' + nojekyll);
+});
 
 console.log(`\n👍  ${scriptName} done 👍 `);
