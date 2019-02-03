@@ -70,14 +70,16 @@ export class SaninnLogger implements ILogger {
       this.config.printToConsole = loggerConfig.printToConsole;
     }
 
-    this.initializeObjectsBasedOnEnumsLogTypes(
-      this.config.globalPreLoggerFunctions,
-      loggerConfig.globalPreLoggerFunctions
-    );
+    if (this.config.globalPreLoggerFunctions) {
+      this.initializeObjectsBasedOnEnumsLogTypes(
+        this.config.globalPreLoggerFunctions,
+        loggerConfig.globalPreLoggerFunctions
+      );
+    }
 
     // IE does not support colors!
     const isIE = this.isIE();
-    if (!isIE) {
+    if (this.config.prefixColors && !isIE) {
       this.initializeObjectsBasedOnEnumsLogTypes(this.config.prefixColors, loggerConfig.prefixColors);
     }
   }
@@ -107,12 +109,14 @@ export class SaninnLogger implements ILogger {
   }
 
   public addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
-    this.config.loggerProcessors[logType]!.push(loggerProcessor);
+    this.config.loggerProcessors![logType]!.push(loggerProcessor);
   }
 
   public removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
-    const indexToRemove = this.config.loggerProcessors[logType]!.indexOf(loggerProcessor);
-    this.config.loggerProcessors[logType]!.splice(indexToRemove, 1);
+    const indexToRemove = this.config.loggerProcessors![logType]!.indexOf(loggerProcessor);
+    if (indexToRemove !== -1) {
+      this.config.loggerProcessors![logType]!.splice(indexToRemove, 1);
+    }
   }
 
   public enableLoggerProcessors() {
@@ -177,9 +181,9 @@ export class SaninnLogger implements ILogger {
     SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
       // tslint:disable-next-line:prefer-conditional-expression
       if (loggerProcessors[logType]) {
-        this.config.loggerProcessors[logType] = loggerProcessors[logType];
+        this.config.loggerProcessors![logType] = loggerProcessors[logType];
       } else {
-        this.config.loggerProcessors[logType] = [];
+        this.config.loggerProcessors![logType] = [];
       }
     });
   }
@@ -209,7 +213,7 @@ export class SaninnLogger implements ILogger {
     argumentsList: any[],
     logType: LoggerTypesEnum
   ) {
-    if (this.config.loggerProcessors[logType] && this.config.loggerProcessors[logType]!.length) {
+    if (this.config.loggerProcessors![logType] && this.config.loggerProcessors![logType]!.length) {
       this.runLoggerProcessorsOf(logType, argumentsList);
     }
     if (this.config.printToConsole) {
@@ -225,7 +229,7 @@ export class SaninnLogger implements ILogger {
 
     if (logType !== LoggerTypesEnum.dir && this.config.prefix) {
       initialIndexOfArguments++;
-      if (this.config.prefixColors[logType]) {
+      if (this.config.prefixColors![logType]) {
         initialIndexOfArguments++;
       }
     }
@@ -233,17 +237,17 @@ export class SaninnLogger implements ILogger {
     const argumentsList = rawArgumentList.slice(initialIndexOfArguments);
 
     // TODO: Use it with the observer pattern?
-    this.config.loggerProcessors[logType]!.forEach(loggerProcessor => {
-      loggerProcessor(prefix, argumentsList);
+    this.config.loggerProcessors![logType]!.forEach(loggerProcessor => {
+      loggerProcessor(prefix!, argumentsList);
     });
   }
 
   private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
-    const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions[logType];
+    const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions![logType];
 
     // TODO: add an callback for when this function is done?????
     if (this.config.useGlobalPreLoggerFunctions && extraFunctionForThisLogType) {
-      extraFunctionForThisLogType(this.config.prefix);
+      extraFunctionForThisLogType(this.config.prefix!);
     }
 
     if (!this.config.printToConsole && !this.config.useLoggerProcessors) {
@@ -265,11 +269,15 @@ export class SaninnLogger implements ILogger {
       return this.consoleProxy[logType].bind(console);
     }
 
-    if (!this.config.prefixColors[logType]) {
+    if (!this.config.prefixColors![logType]) {
       return this.consoleProxy[logType].bind(console, prefixString);
     }
 
-    return this.consoleProxy[logType].bind(console, `%c${prefixString}`, `color: ${this.config.prefixColors[logType]}`);
+    return this.consoleProxy[logType].bind(
+      console,
+      `%c${prefixString}`,
+      `color: ${this.config.prefixColors![logType]}`
+    );
   }
 
   private initializeObjectsBasedOnEnumsLogTypes(

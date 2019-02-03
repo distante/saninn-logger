@@ -593,6 +593,23 @@ describe('Add and remove logger Processors', () => {
     expect(runTimeAddedLoggerProcessor).toHaveBeenCalledTimes(1);
   });
 
+  test('I a logger processor to remove with #removeLoggerProcessor does not exist, nothing breaks', () => {
+    const createTimeProcessor = jest.fn();
+    const runTimeAddedLoggerProcessor = jest.fn();
+    const saninnLogger = new SaninnLogger({
+      useLoggerProcessors: true,
+      loggerProcessors: {
+        log: [createTimeProcessor]
+      }
+    });
+
+    saninnLogger.removeLoggerProcessor(LoggerTypesEnum.log, runTimeAddedLoggerProcessor);
+    saninnLogger.log('just one processor should run');
+
+    expect(createTimeProcessor).toHaveBeenCalledTimes(1);
+    expect(runTimeAddedLoggerProcessor).not.toHaveBeenCalled();
+  });
+
   test('A new logger processor is not called after removed with #removeLoggerProcessor', () => {
     const createTimeProcessor = jest.fn();
     const runTimeAddedLoggerProcessor = jest.fn();
