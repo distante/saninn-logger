@@ -2,18 +2,16 @@ import { LoggerTypesEnum } from './log-types.enum';
 import { ILoggerConfig } from './logger-config.interface';
 
 /**
- * Exclude from T those types that are assignable to U
- */
-type Exclude<T, U> = T extends U ? never : T;
-
-/**
  * Make all properties in T required
  */
 type Required<T> = { [P in keyof T]-?: T[P] };
+// https://www.stevefenton.co.uk/2017/11/typescript-mighty-morphing-mapped-types/
+type Remove<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
 
 export type LoggerTypesObject<T> = { [key in LoggerTypesEnum]?: T };
 
-export type LoggerTypesObjectForColors = { [key in Exclude<LoggerTypesEnum, LoggerTypesEnum.dir>]?: string };
+// export type LoggerTypesObjectForColors = { [key in Exclude<LoggerTypesEnum, LoggerTypesEnum.dir>]?: string }; // TS +2.8
+export type LoggerTypesObjectForColors = { [key in Remove<LoggerTypesEnum, LoggerTypesEnum.dir>]?: string };
 
 export type Private<T> = { [P in keyof T]: T[P] };
 
