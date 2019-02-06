@@ -185,6 +185,14 @@ loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors'
 
 [output]: https://i.imgur.com/LyJFI7R.png 'console output'
 
+## Use with JEST as test runner.
+
+If you use [jest]() as test runner you need to tell jest not to transform _@saninn/logger_ using this in your jest config:
+
+```
+transformIgnorePatterns: ['<rootDir>/node_modules/(?!@saninn|@someOtherPackage)']
+```
+
 ## License
 
 [MIT](/LICENSE)
