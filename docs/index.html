@@ -203,7 +203,9 @@ loggerWithFullConfigAndProcessors.warn(<span class="hljs-string">'warn of logger
 loggerWithFullConfigAndProcessors.error(<span class="hljs-string">'error of loggerWithFullConfigAndProcessors'</span>);
 loggerWithFullConfigAndProcessors.dir(<span class="hljs-string">'dir of loggerWithFullConfigAndProcessors'</span>);</code></pre>
 				<p><img src="https://i.imgur.com/LyJFI7R.png" alt="console output" title="console output"></p>
-				<h2 id="license">License</h2>
+				<h2 id="use-with-jest-as-test-runner-">Use with JEST as test runner.</h2>
+				<p>If you use <a href="">jest</a> as test runner you need to tell jest not to transform <em>@saninn/logger</em> using this in your jest config:</p>
+				<pre><code>transformIgnorePatterns: ['<span class="hljs-variable">&lt;rootDir&gt;</span>/node_modules/(?!<span class="hljs-meta">@saninn|</span><span class="hljs-meta">@someOtherPackage)']</span></code></pre><h2 id="license">License</h2>
 				<p><a href="/LICENSE">MIT</a></p>
 				<h2 id="development">Development</h2>
 				<p>This project uses:</p>
