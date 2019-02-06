@@ -143,11 +143,11 @@ export class SaninnLogger implements ILogger {
 
   // TODO: There should be a way to make this automatically from the Enum...
   // TODO: Or could I use Proxy here???
-  get log(): Function {
+  get log(): typeof console.log {
     return this.getConsoleHandlerFor(LoggerTypesEnum.log);
   }
 
-  get warn(): Function {
+  get warn(): typeof console.warn {
     return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
   }
 
@@ -155,11 +155,11 @@ export class SaninnLogger implements ILogger {
    * console.dir does not accept multiparameters
    * if you log `logger.dir(x,y)` `y` will be ignored
    */
-  get dir(): Function {
+  get dir(): typeof console.dir {
     return this.getConsoleHandlerFor(LoggerTypesEnum.dir);
   }
 
-  get error(): Function {
+  get error(): typeof console.error {
     return this.getConsoleHandlerFor(LoggerTypesEnum.error);
   }
 
@@ -242,7 +242,7 @@ export class SaninnLogger implements ILogger {
     });
   }
 
-  private getConsoleHandlerFor(logType: LoggerTypesEnum): Function {
+  private getConsoleHandlerFor(logType: LoggerTypesEnum): typeof console[LoggerTypesEnum] {
     const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions![logType];
 
     // TODO: add an callback for when this function is done?????
@@ -251,12 +251,11 @@ export class SaninnLogger implements ILogger {
     }
 
     if (!this.config.printToConsole && !this.config.useLoggerProcessors) {
-      // tslint:disable-next-line:no-empty
-      return this.emptyConsoleFunction;
+      return this.emptyConsoleFunction as any;
     }
 
     if (!this.config.prefix) {
-      return this.consoleProxy[logType].bind(console);
+      return this.consoleProxy[logType].bind(console) as any;
     }
 
     const prefixString = `[${this.config.prefix}]:`;
@@ -266,18 +265,18 @@ export class SaninnLogger implements ILogger {
     if (logType === LoggerTypesEnum.dir) {
       // tslint:disable-next-line:no-console
       console.log(prefixString + '(dir after this line)');
-      return this.consoleProxy[logType].bind(console);
+      return this.consoleProxy[logType].bind(console) as any;
     }
 
     if (!this.config.prefixColors![logType]) {
-      return this.consoleProxy[logType].bind(console, prefixString);
+      return this.consoleProxy[logType].bind(console, prefixString) as any;
     }
 
     return this.consoleProxy[logType].bind(
       console,
       `%c${prefixString}`,
       `color: ${this.config.prefixColors![logType]}`
-    );
+    ) as any;
   }
 
   private initializeObjectsBasedOnEnumsLogTypes(
