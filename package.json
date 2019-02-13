@@ -99,7 +99,7 @@
   "devDependencies": {
     "@commitlint/cli": "^7.3.2",
     "@commitlint/config-conventional": "^7.3.1",
-    "@types/jest": "^24.0.0",
+    "@types/jest": "^24.0.4",
     "codecov": "^3.1.0",
     "filehound": "^1.16.7",
     "http-server": "^0.11.1",
