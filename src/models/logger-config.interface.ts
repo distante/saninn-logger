@@ -38,4 +38,20 @@ export interface ILoggerConfig {
    * when {@link ILoggerConfig.useLoggerProcessors} is true
    */
   loggerProcessors?: LoggerTypesObject<LoggerProcessor[]>;
+
+  /**
+   * Prints the logger name after after the log contents (except for .dir)
+   * ```
+   * const logger = new SaninnLogger({
+   *    showLoggerFunctionNames: true
+   *  });
+   * logger.log('test') // --> [LOG]: test
+   *
+   * * const logger = new SaninnLogger({
+   *    prefix: 'my-logger',
+   *    showLoggerFunctionNames: true
+   *  });
+   * logger.log('test') // --> [my-logger][LOG]: test
+   */
+  showLoggerFunctionNames?: boolean;
 }

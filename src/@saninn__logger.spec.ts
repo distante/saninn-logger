@@ -379,6 +379,102 @@ describe('prefixColor', () => {
   });
 });
 
+describe('showLoggerFunctionNames', () => {
+  describe('should print the name of the loggerFunction', () => {
+    test('when no prefix is given and no message', () => {
+      const logger = new SaninnLogger({
+        showLoggerFunctionNames: true
+      });
+
+      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+        if (logType === LoggerTypesEnum.dir) {
+          return;
+        }
+        spyOn(console, logType);
+        logger[logType]();
+        expect(console[logType]).toHaveBeenCalledWith(`[${logType.toUpperCase()}]:`);
+      });
+    });
+
+    test('when no prefix is given and a message', () => {
+      const logger = new SaninnLogger({
+        showLoggerFunctionNames: true
+      });
+
+      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+        const myMessage = 'some message';
+        if (logType === LoggerTypesEnum.dir) {
+          return;
+        }
+        spyOn(console, logType);
+        logger[logType](myMessage);
+        expect(console[logType]).toHaveBeenCalledWith(`[${logType.toUpperCase()}]:`, myMessage);
+      });
+    });
+
+    test('when a prefix is given', () => {
+      const loggerPrefix = 'logger-prefix';
+      const logger = new SaninnLogger({
+        prefix: loggerPrefix,
+        showLoggerFunctionNames: true
+      });
+
+      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+        if (logType === LoggerTypesEnum.dir) {
+          return;
+        }
+        spyOn(console, logType);
+        logger[logType]();
+        expect(console[logType]).toHaveBeenCalledWith(`[${loggerPrefix}][${logType.toUpperCase()}]:`);
+      });
+    });
+
+    test('when a prefix and a message is given', () => {
+      const loggerPrefix = 'logger-prefix';
+      const myMessage = 'some message';
+      const logger = new SaninnLogger({
+        prefix: loggerPrefix,
+        showLoggerFunctionNames: true
+      });
+
+      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+        if (logType === LoggerTypesEnum.dir) {
+          return;
+        }
+        spyOn(console, logType);
+        logger[logType](myMessage);
+        expect(console[logType]).toHaveBeenCalledWith(`[${loggerPrefix}][${logType.toUpperCase()}]:`, myMessage);
+      });
+    });
+  });
+
+  test('should not print the loggerFunction for .dir without prefix', () => {
+    const logger = new SaninnLogger({
+      showLoggerFunctionNames: true
+    });
+
+    const dirSpy = spyOn(console, 'dir');
+    logger.dir();
+
+    const callInfo = dirSpy.calls.mostRecent();
+    expect(callInfo.args.length).toBe(0);
+  });
+
+  test('should not print the loggerFunction for .dir with prefix', () => {
+    const loggerPrefix = 'logger-prefix';
+    const logger = new SaninnLogger({
+      showLoggerFunctionNames: true,
+      prefix: loggerPrefix
+    });
+
+    const dirSpy = spyOn(console, 'dir');
+    logger.dir();
+
+    const callInfo = dirSpy.calls.mostRecent();
+    expect(callInfo.args.length).toBe(0);
+  });
+});
+
 describe('External logger processors', () => {
   test('useLoggerProcessors should use the console proxy when useLoggerProcessors is true', () => {
     const saninnLogger = new SaninnLogger({
