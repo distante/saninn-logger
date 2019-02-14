@@ -23,7 +23,8 @@ export class SaninnLogger implements ILogger {
     useGlobalPreLoggerFunctions: false,
     globalPreLoggerFunctions: {},
     useLoggerProcessors: false,
-    loggerProcessors: {}
+    loggerProcessors: {},
+    showLoggerFunctionNames: false
   };
 
   // tslint:disable-next-line:no-empty
@@ -58,6 +59,8 @@ export class SaninnLogger implements ILogger {
     this.config.prefix = loggerConfig.prefix || '';
 
     this.config.useLoggerProcessors = !!loggerConfig.useLoggerProcessors;
+
+    this.config.showLoggerFunctionNames = !!loggerConfig.showLoggerFunctionNames;
 
     if (loggerConfig.loggerProcessors) {
       this.initializeLoggerProcessorsWith(loggerConfig.loggerProcessors);
@@ -254,11 +257,20 @@ export class SaninnLogger implements ILogger {
       return this.emptyConsoleFunction as any;
     }
 
-    if (!this.config.prefix) {
+    let logTypeToPrint = '';
+    if (this.config.showLoggerFunctionNames && logType !== LoggerTypesEnum.dir) {
+      logTypeToPrint = `[${logType.toUpperCase()}]`;
+    }
+
+    if (!this.config.prefix && !this.config.showLoggerFunctionNames) {
+      return this.consoleProxy[logType].bind(console) as any;
+    } else if (!this.config.prefix && logTypeToPrint.length && logType !== LoggerTypesEnum.dir) {
+      return this.consoleProxy[logType].bind(console, logTypeToPrint + ':') as any;
+    } else if (!this.config.prefix) {
       return this.consoleProxy[logType].bind(console) as any;
     }
 
-    const prefixString = `[${this.config.prefix}]:`;
+    const prefixString = `[${this.config.prefix}]${logTypeToPrint}:`;
 
     // Console.dir does not accept multiparameters,
     // We will add a raw console.log before the dir print
