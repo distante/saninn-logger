@@ -114,7 +114,7 @@
     "prettier": "1.16.1",
     "pretty-quick": "^1.10.0",
     "proxy-polyfill": "^0.3.0",
-    "rollup": "^1.1.2",
+    "rollup": "^1.6.0",
     "rollup-plugin-typescript": "^1.0.0",
     "shx": "^0.3.2",
     "ts-jest": "^24.0.0",
