@@ -121,7 +121,7 @@
     "tslib": "^1.9.3",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.4",
+    "typescript": "^3.3.3",
     "uglify-js": "^3.4.9"
   },
   "dependencies": {}
