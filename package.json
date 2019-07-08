@@ -103,7 +103,7 @@
     "codecov": "^3.1.0",
     "filehound": "^1.16.7",
     "http-server": "^0.11.1",
-    "husky": "^2.0.0",
+    "husky": "^3.0.0",
     "jest": "^23.6.0",
     "jest-extended": "^0.11.1",
     "jest-html-reporter": "^2.4.3",
