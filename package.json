@@ -112,7 +112,7 @@
     "npm-watch": "^0.6.0",
     "object.keys": "^0.1.0",
     "prettier": "1.18.1",
-    "pretty-quick": "^1.10.0",
+    "pretty-quick": "^2.0.1",
     "proxy-polyfill": "^0.3.0",
     "rollup": "^1.6.0",
     "rollup-plugin-typescript": "^1.0.0",
