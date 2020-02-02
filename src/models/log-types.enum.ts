@@ -6,6 +6,7 @@
 export enum LoggerTypesEnum {
   debug = 'debug',
   log = 'log',
+  info = 'info',
   dir = 'dir',
   warn = 'warn',
   error = 'error'

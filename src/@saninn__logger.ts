@@ -150,6 +150,10 @@ export class SaninnLogger implements ILogger {
     return this.getConsoleHandlerFor(LoggerTypesEnum.log);
   }
 
+  get info(): typeof console.info {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.info);
+  }
+
   get warn(): typeof console.warn {
     return this.getConsoleHandlerFor(LoggerTypesEnum.warn);
   }
