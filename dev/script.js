@@ -2,6 +2,9 @@
 // tslint:disable:no-console
 import { SaninnLogger } from '../dist/index.js';
 console.dir(SaninnLogger);
+// tslint:disable-next-line: no-string-literal
+window['SaninnLogger'] = SaninnLogger;
+
 const loggerWithString = new SaninnLogger('just-with-string');
 const loggerWithFullConfig = new SaninnLogger({
   useGlobalPreLoggerFunctions: true,
@@ -162,29 +165,29 @@ const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
 });
 
 console.log('loggerWithString\n', loggerWithString);
-// console.log('loggerWithFullConfig\n', loggerWithFullConfig);
-// console.log('loggerWithFullConfigAndProcessors\n', loggerWithFullConfigAndProcessors);
-// console.log('\n\n');
-// loggerWithString.log();
-// loggerWithString.log('Regular log');
-// loggerWithFullConfig.log('trying log');
-// loggerWithFullConfig.dir('trying dir');
-// loggerWithFullConfig.warn('trying warn');
-// loggerWithFullConfig.error('trying error');
+console.log('loggerWithFullConfig\n', loggerWithFullConfig);
+console.log('loggerWithFullConfigAndProcessors\n', loggerWithFullConfigAndProcessors);
+console.log('\n\n');
+loggerWithString.log();
+loggerWithString.log('Regular log');
+loggerWithFullConfig.log('trying log');
+loggerWithFullConfig.dir('trying dir');
+loggerWithFullConfig.warn('trying warn');
+loggerWithFullConfig.error('trying error');
 
 loggerWithString.log('log of loggerWithString');
-// loggerWithFullConfig.log('log of loggerWithFullConfig');
-// loggerWithFullConfig.warn('warn of loggerWithFullConfig');
-// loggerWithFullConfig.error('error of loggerWithFullConfig');
-// loggerWithFullConfig.dir('dir of loggerWithFullConfig');
+loggerWithFullConfig.log('log of loggerWithFullConfig');
+loggerWithFullConfig.warn('warn of loggerWithFullConfig');
+loggerWithFullConfig.error('error of loggerWithFullConfig');
+loggerWithFullConfig.dir('dir of loggerWithFullConfig');
 
-// console.log('loggerWithFullConfigAndProcessors', loggerWithFullConfigAndProcessors);
-// loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors', dummyObject, dummyFunction);
-// loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessors');
-// loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
-// loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors');
-// loggerWithFullConfigAndProcessorsButNoOutput.log(
-//   'log of loggerWithFullConfigAndProcessorsButNoOutput',
-//   dummyObject,
-//   dummyFunction
-// );
+console.log('loggerWithFullConfigAndProcessors', loggerWithFullConfigAndProcessors);
+loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors', dummyObject, dummyFunction);
+loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessors');
+loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
+loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors');
+loggerWithFullConfigAndProcessorsButNoOutput.log(
+  'log of loggerWithFullConfigAndProcessorsButNoOutput',
+  dummyObject,
+  dummyFunction
+);
