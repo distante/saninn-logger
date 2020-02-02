@@ -64,190 +64,74 @@ test('Each call to a getter (using LoggerTypesEnum Keys) should return the corre
 });
 
 describe('globalPreLoggerFunctions', () => {
-  test(`log globalPreLoggerFunction is called before bind to console`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
+  const loggerFunctions: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
+  loggerFunctions.forEach((consoleFunction: LoggerTypesEnum) => {
+    test(`${consoleFunction} globalPreLoggerFunction is called before bind to console`, () => {
+      const consoleBindMock = jest.fn();
+      spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
+        consoleBindMock();
+      });
+      const mockFunction = jest.fn();
+      const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
+      loggerFunctionConfigs[consoleFunction] = mockFunction as PreLoggerFunction;
+      const saninnLogger = new SaninnLogger({
+        useGlobalPreLoggerFunctions: true,
+        globalPreLoggerFunctions: loggerFunctionConfigs
+      });
 
-    const consoleBindMock = jest.fn();
-    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
-      consoleBindMock();
-    });
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction as PreLoggerFunction;
-    const saninnLogger = new SaninnLogger({
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
-    });
+      saninnLogger[consoleFunction]();
 
-    saninnLogger[consoleFunction]();
-
-    expect(mockFunction).toHaveBeenCalledTimes(1);
-    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
-  });
-
-  test(`log globalPreLoggerFunction is NOT called when disabled with #disableGlobalLoggerFunctions`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
+      expect(mockFunction).toHaveBeenCalledTimes(1);
+      expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
     });
 
-    saninnLogger.disableGlobalLoggerFunctions();
-    saninnLogger[consoleFunction]();
+    test(`${consoleFunction} globalPreLoggerFunction is NOT called when disabled with #disableGlobalLoggerFunctions`, () => {
+      const mockFunction = jest.fn();
+      const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
+      loggerFunctionConfigs[consoleFunction] = mockFunction;
+      const saninnLogger = new SaninnLogger({
+        useGlobalPreLoggerFunctions: true,
+        globalPreLoggerFunctions: loggerFunctionConfigs
+      });
 
-    expect(mockFunction).not.toHaveBeenCalled();
-  });
+      saninnLogger.disableGlobalLoggerFunctions();
+      saninnLogger[consoleFunction]();
 
-  test(`log globalPreLoggerFunction IS called when enabled with #enableGlobalLoggerFunctions`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
+      expect(mockFunction).not.toHaveBeenCalled();
     });
 
-    saninnLogger.disableGlobalLoggerFunctions();
-    saninnLogger[consoleFunction]();
-    saninnLogger.enableGlobalLoggerFunctions();
-    saninnLogger[consoleFunction]();
+    test(`${consoleFunction} globalPreLoggerFunction IS called when enabled with #enableGlobalLoggerFunctions`, () => {
+      const mockFunction = jest.fn();
+      const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
+      loggerFunctionConfigs[consoleFunction] = mockFunction;
+      const saninnLogger = new SaninnLogger({
+        useGlobalPreLoggerFunctions: true,
+        globalPreLoggerFunctions: loggerFunctionConfigs
+      });
 
-    expect(mockFunction).toHaveBeenCalled();
-  });
+      saninnLogger.disableGlobalLoggerFunctions();
+      saninnLogger[consoleFunction]();
+      saninnLogger.enableGlobalLoggerFunctions();
+      saninnLogger[consoleFunction]();
 
-  test(`log globalPreLoggerFunction is called with the prefix`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
-    const loggerPrefix = 'test-logger-prefix';
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      prefix: loggerPrefix,
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
+      expect(mockFunction).toHaveBeenCalled();
     });
 
-    saninnLogger[consoleFunction]();
+    test(`${consoleFunction} globalPreLoggerFunction is called with the prefix`, () => {
+      const loggerPrefix = 'test-logger-prefix';
+      const mockFunction = jest.fn();
+      const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
+      loggerFunctionConfigs[consoleFunction] = mockFunction;
+      const saninnLogger = new SaninnLogger({
+        prefix: loggerPrefix,
+        useGlobalPreLoggerFunctions: true,
+        globalPreLoggerFunctions: loggerFunctionConfigs
+      });
 
-    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
-  });
+      saninnLogger[consoleFunction]();
 
-  test(`dir globalPreLoggerFunction is called before bind to console`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.dir;
-
-    const consoleBindMock = jest.fn();
-    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
-      consoleBindMock();
+      expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
     });
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
-    });
-
-    saninnLogger[consoleFunction]();
-
-    expect(mockFunction).toHaveBeenCalledTimes(1);
-    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
-  });
-
-  test(`dir globalPreLoggerFunction is called with the prefix`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.dir;
-    const loggerPrefix = 'test-logger-prefix';
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      prefix: loggerPrefix,
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
-    });
-
-    saninnLogger[consoleFunction]();
-
-    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
-  });
-
-  test(`warn globalPreLoggerFunction is called before bind to console`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.warn;
-
-    const consoleBindMock = jest.fn();
-    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
-      consoleBindMock();
-    });
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
-    });
-
-    saninnLogger[consoleFunction]();
-
-    expect(mockFunction).toHaveBeenCalledTimes(1);
-    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
-  });
-
-  test(`warn globalPreLoggerFunction is called with the prefix`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.warn;
-    const loggerPrefix = 'test-logger-prefix';
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      prefix: loggerPrefix,
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
-    });
-
-    saninnLogger[consoleFunction]();
-
-    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
-  });
-
-  test(`error globalPreLoggerFunction is called before bind to console`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.error;
-
-    const consoleBindMock = jest.fn();
-    spyOn(console[consoleFunction] as Function, 'bind').and.returnValue(() => {
-      consoleBindMock();
-    });
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
-    });
-
-    saninnLogger[consoleFunction]();
-
-    expect(mockFunction).toHaveBeenCalledTimes(1);
-    expect(mockFunction).toHaveBeenCalledBefore(consoleBindMock);
-  });
-
-  test(`error globalPreLoggerFunction is called with the prefix`, () => {
-    const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.error;
-    const loggerPrefix = 'test-logger-prefix';
-    const mockFunction = jest.fn();
-    const loggerFunctionConfigs: LoggerTypesObject<PreLoggerFunction> = {};
-    loggerFunctionConfigs[consoleFunction] = mockFunction;
-    const saninnLogger = new SaninnLogger({
-      prefix: loggerPrefix,
-      useGlobalPreLoggerFunctions: true,
-      globalPreLoggerFunctions: loggerFunctionConfigs
-    });
-
-    saninnLogger[consoleFunction]();
-
-    expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
   });
 });
 
