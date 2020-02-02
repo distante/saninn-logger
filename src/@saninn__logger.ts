@@ -166,6 +166,10 @@ export class SaninnLogger implements ILogger {
     return this.getConsoleHandlerFor(LoggerTypesEnum.error);
   }
 
+  get debug(): typeof console.debug {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.debug);
+  }
+
   //    ██████  ██████  ██ ██    ██  █████  ████████ ███████
   //    ██   ██ ██   ██ ██ ██    ██ ██   ██    ██    ██
   //    ██████  ██████  ██ ██    ██ ███████    ██    █████

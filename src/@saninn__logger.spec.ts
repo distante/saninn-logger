@@ -805,27 +805,18 @@ test('prefix can be changed using #setPrefixTo', () => {
 
 test('can be completely disable', () => {
   const spyFunction = jest.fn();
+  const globalPreLoggerFunctions: { [key: string]: (prefix: any) => void } = {};
+
   SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
     spyOn(console, logType).and.callFake(spyFunction);
+    globalPreLoggerFunctions[logType] = prefix => {
+      spyFunction(prefix);
+    };
   });
 
   const fullConfig: ILoggerConfig = {
     useGlobalPreLoggerFunctions: true,
-    globalPreLoggerFunctions: {
-      dir: prefix => {
-        spyFunction(prefix);
-      },
-      error: prefix => {
-        spyFunction(prefix);
-      },
-      log: prefix => {
-        spyFunction(prefix);
-      },
-      warn: prefix => {
-        spyFunction(prefix);
-      }
-    },
-
+    globalPreLoggerFunctions,
     prefix: 'full-config-logger',
     prefixColors: {
       error: 'blue',

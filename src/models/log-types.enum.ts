@@ -4,6 +4,7 @@
  * object that needs to be indivisual to every logger function.
  */
 export enum LoggerTypesEnum {
+  debug = 'debug',
   log = 'log',
   dir = 'dir',
   warn = 'warn',
