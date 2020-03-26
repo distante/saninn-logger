@@ -1,7 +1,11 @@
 // tslint:disable-next-line:no-implicit-dependencies
 import 'jest-extended';
+
 import { ILoggerConfig } from '../dist';
 import { SaninnLogger } from './@saninn__logger';
+import { Helpers } from './classes/helpers/helpers';
+import { LoggerConfig } from './classes/logger-config/logger-config';
+import { LogLevelsEnum } from './models/log-levels.enum';
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './models/type-definitions';
 
@@ -209,7 +213,8 @@ describe('prefixColor', () => {
   test('should not have any prefixColor value if we are in IE', () => {
     // @ts-ignore
     document.documentMode = true;
-    const initSpy = spyOn(SaninnLogger.prototype as any, 'initializeObjectsBasedOnEnumsLogTypes');
+    // TODO: Move this to logger-config.spec.ts
+    const initSpy = spyOn(LoggerConfig.prototype as any, 'initializeObjectsBasedOnEnumsLogTypes');
     // tslint:disable-next-line:no-unused-expression
     new SaninnLogger({
       prefix: prefixText,
@@ -270,7 +275,7 @@ describe('showLoggerFunctionNames', () => {
         showLoggerFunctionNames: true
       });
 
-      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
         if (logType === LoggerTypesEnum.dir) {
           return;
         }
@@ -285,7 +290,7 @@ describe('showLoggerFunctionNames', () => {
         showLoggerFunctionNames: true
       });
 
-      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
         const myMessage = 'some message';
         if (logType === LoggerTypesEnum.dir) {
           return;
@@ -303,7 +308,7 @@ describe('showLoggerFunctionNames', () => {
         showLoggerFunctionNames: true
       });
 
-      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
         if (logType === LoggerTypesEnum.dir) {
           return;
         }
@@ -321,7 +326,7 @@ describe('showLoggerFunctionNames', () => {
         showLoggerFunctionNames: true
       });
 
-      SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
         if (logType === LoggerTypesEnum.dir) {
           return;
         }
@@ -654,7 +659,7 @@ test('#disablePrintToConsole deactivate console Prints', () => {
   const loggerInactive = saninnLogger.log;
 
   expect(loggerActive).not.toBe(loggerInactive);
-  expect(loggerInactive).toBe((saninnLogger as any).emptyConsoleFunction);
+  expect(loggerInactive).toBe(SaninnLogger.__emptyConsoleFunction);
 });
 
 test('#enablePrintToConsole activates console Prints', () => {
@@ -668,7 +673,7 @@ test('#enablePrintToConsole activates console Prints', () => {
   const loggerActive = saninnLogger.log;
 
   expect(loggerActive).not.toBe(loggerInactive);
-  expect(loggerInactive).toBe((saninnLogger as any).emptyConsoleFunction);
+  expect(loggerInactive).toBe(SaninnLogger.__emptyConsoleFunction);
 });
 
 test('prefix can be changed using #setPrefixTo', () => {
@@ -687,11 +692,25 @@ test('prefix can be changed using #setPrefixTo', () => {
   expect(consoleSpy).toHaveBeenCalledWith(fullFinalPrefix);
 });
 
+describe('#setLogLevelTo', () => {
+  const logLevelsKeys = Object.keys(LogLevelsEnum).filter(levelKey => isNaN(parseInt(levelKey, 10)));
+  test.each(logLevelsKeys)('sets the level to the given level param', (levelKey: keyof LogLevelsEnum) => {
+    const config = LoggerConfig.createInstance();
+    jest.spyOn(LoggerConfig, 'createInstance').mockReturnValue(config);
+    const wantedLevel = LogLevelsEnum[levelKey];
+    const logger = new SaninnLogger();
+
+    logger.setLogLevelTo(wantedLevel);
+
+    expect(config.logLevel).toBe(wantedLevel);
+  });
+});
+
 test('can be completely disable', () => {
   const spyFunction = jest.fn();
   const globalPreLoggerFunctions: { [key: string]: (prefix: any) => void } = {};
 
-  SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+  Helpers.LOG_TYPES_ARRAY.forEach(logType => {
     spyOn(console, logType).and.callFake(spyFunction);
     globalPreLoggerFunctions[logType] = prefix => {
       spyFunction(prefix);
@@ -725,9 +744,124 @@ test('can be completely disable', () => {
 
   saninnLogger.disableAll();
 
-  SaninnLogger.LOG_TYPES_ARRAY.forEach(logType => {
+  Helpers.LOG_TYPES_ARRAY.forEach(logType => {
     saninnLogger[logType]('I should not be called!');
   });
 
   expect(spyFunction).not.toHaveBeenCalled();
+});
+
+describe('LogLevels', () => {
+  let getBindedConsoleProxySpy: jest.SpyInstance;
+
+  beforeEach(() => {
+    getBindedConsoleProxySpy = jest.spyOn(Helpers, 'getBindedConsoleProxy');
+  });
+
+  test.each(consoleFunctionNames)(
+    '[%i] if the debug level is set to OFF then no call to getBindedConsoleProxy should be done',
+    (consoleFunction: LoggerTypesEnum) => {
+      const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.OFF });
+
+      saninnLogger[consoleFunction]('something');
+
+      expect(getBindedConsoleProxySpy).not.toHaveBeenCalled();
+    }
+  );
+
+  test(`setting a log level of ${LogLevelsEnum[LogLevelsEnum.DEBUG]} should allow all calls`, () => {
+    const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.DEBUG });
+    const firstParameters: LoggerTypesEnum[] = [];
+    consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
+      saninnLogger[consoleFunction]('something');
+      const callFirstParameter = getBindedConsoleProxySpy.mock.calls[index][0];
+      firstParameters.push(callFirstParameter);
+    });
+
+    expect(firstParameters).toEqual(consoleFunctionNames);
+  });
+
+  test(`setting a log level of ${LogLevelsEnum[LogLevelsEnum.INFO]} should no allow Debug calls`, () => {
+    const notAllowedCalls: LoggerTypesEnum[] = [LoggerTypesEnum.debug];
+    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.INFO });
+
+    consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
+      saninnLogger[consoleFunction]('something');
+    });
+
+    const calls = getBindedConsoleProxySpy.mock.calls;
+    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+
+    expect(firstParameters).toEqual(allowedCalls);
+  });
+
+  test(`setting a log level of ${
+    LogLevelsEnum[LogLevelsEnum.WARN]
+  } should no allow Debug and Info(info,log,dir) level calls`, () => {
+    const notAllowedCalls: LoggerTypesEnum[] = [
+      LoggerTypesEnum.debug,
+      LoggerTypesEnum.info,
+      LoggerTypesEnum.log,
+      LoggerTypesEnum.dir
+    ];
+    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.WARN });
+
+    consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
+      saninnLogger[consoleFunction]('something');
+    });
+
+    const calls = getBindedConsoleProxySpy.mock.calls;
+    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+
+    expect(firstParameters).toEqual(allowedCalls);
+  });
+
+  test(`setting a log level of ${
+    LogLevelsEnum[LogLevelsEnum.ERROR]
+  } should no allow Debug, Info(info,log,dir) and Warn level calls`, () => {
+    const notAllowedCalls: LoggerTypesEnum[] = [
+      LoggerTypesEnum.debug,
+      LoggerTypesEnum.info,
+      LoggerTypesEnum.log,
+      LoggerTypesEnum.dir,
+      LoggerTypesEnum.warn
+    ];
+    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.ERROR });
+
+    consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
+      saninnLogger[consoleFunction]('something');
+    });
+
+    const calls = getBindedConsoleProxySpy.mock.calls;
+    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+
+    expect(firstParameters).toEqual(allowedCalls);
+  });
+
+  xtest(`setting a log level of ${
+    LogLevelsEnum[LogLevelsEnum.FATAL]
+  } should no allow Debug, Info(info,log,dir), Warn and Error level calls`, () => {
+    const notAllowedCalls: LoggerTypesEnum[] = [
+      LoggerTypesEnum.debug,
+      LoggerTypesEnum.info,
+      LoggerTypesEnum.log,
+      LoggerTypesEnum.dir,
+      LoggerTypesEnum.warn,
+      LoggerTypesEnum.error
+    ];
+    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.FATAL });
+
+    consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
+      saninnLogger[consoleFunction]('something');
+    });
+
+    const calls = getBindedConsoleProxySpy.mock.calls;
+    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+
+    expect(firstParameters).toEqual(allowedCalls);
+  });
 });

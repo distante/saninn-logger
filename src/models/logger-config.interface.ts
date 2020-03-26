@@ -1,3 +1,4 @@
+import { LogLevelsEnum } from './log-levels.enum';
 import { LoggerProcessor, LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './type-definitions';
 
 export interface ILoggerConfig {
@@ -10,6 +11,8 @@ export interface ILoggerConfig {
   /**
    * If enabled the log output will be printed locally in console.
    * The log call line will not be overwritten unless {@link ILoggerConfig.useLoggerProcessors} is true
+   *
+   * @deprecated set {@link ILoggerConfig.logLevel} to OFF to disable console output
    */
   printToConsole?: boolean;
 
@@ -26,10 +29,11 @@ export interface ILoggerConfig {
   globalPreLoggerFunctions?: LoggerTypesObject<PreLoggerFunction>;
 
   /**
-   * If actived the array of functions on extraLoggerFunctions will be called before
-   * every console function.
+   * If actived the array of functions on {@link ILoggerConfig.loggerProcessors} will be called before
+   * every console function, util if you need to send the logs to third party libs or analytics services.
    * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
    * because there is no way to get the console message without proxy it.
+   *
    */
   useLoggerProcessors?: boolean;
 
@@ -54,4 +58,10 @@ export interface ILoggerConfig {
    * logger.log('test') // --> [my-logger][LOG]: test
    */
   showLoggerFunctionNames?: boolean;
+
+  /**
+   * Any value from  {@link LogLevelsEnum} defaults to LogLevelsEnum.DEBUG
+   *
+   */
+  logLevel?: LogLevelsEnum;
 }

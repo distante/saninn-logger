@@ -6,6 +6,7 @@
   "rules": {
     "object-literal-sort-keys": false,
     "no-redundant-jsdoc": true,
+    "no-namespace": false,
     "ban-types": [false, ["Function"]]
   }
 }
