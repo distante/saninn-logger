@@ -36,6 +36,7 @@ _Note: The iife version contains a Polyfill for Javascript Proxy Api._
 
 - Set a prefix to all your console calls(log, warn, error, etc) so it is easy to filter while debugging;
 - Add a color to each console calls (supported in all browsers but Internet Explorer).
+- Set logger levels to prevent console flood (Debug, Info, Warn, Error and Fatal);
 - Process external loggers (like server side) with the same call as the local log.
 - Process just external loggers.
 - Procces just local loggers.
@@ -101,6 +102,11 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 * `disableLoggerProcessors(): void`
 * `addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
 * `removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void`
+* `setLoggerLevelTo(level: LogLevelsEnum): void`
+
+**Important!!**
+
+A log level set to `INFO` will print `logger.log()`, `logger.info()` and `logger.dir()` calls.
 
 See the Documentation in [https://logger.saninnsalas.com](https://logger.saninnsalas.com) for full details.
 
@@ -217,6 +223,7 @@ There are 3 scripts I use together for dev (each in their own console): 'watch',
 ### ToDo
 
 - Pack all development scripts into just one...
+- [Project](https://github.com/distante/saninn-logger/projects/1)
 
 ## Pull requests are welcome
 

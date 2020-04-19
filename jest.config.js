@@ -21,7 +21,7 @@ module.exports = {
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: null,
-  collectCoverageFrom: ['src/**/*.ts', '!**/*.module.ts', '!src/index.ts'],
+  collectCoverageFrom: ['src/**/*.ts', '!**/*.module.ts', '!src/index.ts', '!src/**/*.enum.ts', '!src/**/*.spec.ts'],
   // The directory where Jest should output its coverage files
   coverageDirectory: './coverage',
 
@@ -56,6 +56,7 @@ module.exports = {
   // A set of global variables that need to be available in all test environments
   globals: {
     'ts-jest': {
+      diagnostics: false,
       tsConfig: 'tsconfig.json'
     }
   },
@@ -141,7 +142,7 @@ module.exports = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: ['**/src/*.spec.+(ts|tsx|js)'],
+  testMatch: ['**/src/**/*.spec.+(ts|tsx|js)'],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [
