@@ -70,7 +70,7 @@
 					<p>A configurable wrapper of the console that keeps the log call position.</p>
 					<p>Made with Typescript, usable as es6 module and iife (with IE10 support).</p>
 					<div align="center">
-						<p><a href="https://travis-ci.org/distante/saninn-logger"><img src="https://travis-ci.org/distante/saninn-logger.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/distante/saninn-logger"><img src="https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/distante/saninn-logger.svg" alt="Greenkeeper badge"></a> <a href="https://codeclimate.com/github/distante/saninn-logger/maintainability"><img src="https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability" alt="Maintainability"></a> <img src="https://img.shields.io/github/license/distante/saninn-logger.svg" alt="Licence"></p>
+						<p><a href="https://travis-ci.org/distante/saninn-logger"><img src="https://travis-ci.org/distante/saninn-logger.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/distante/saninn-logger"><img src="https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://snyk.io/test/github/distante/saninn?targetFile=package.json"><img src="https://snyk.io/test/github/distante/saninn/badge.svg?targetFile=package.json" alt="Known Vulnerabilities"></a> <a href="https://codeclimate.com/github/distante/saninn-logger/maintainability"><img src="https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability" alt="Maintainability"></a> <img src="https://img.shields.io/github/license/distante/saninn-logger.svg" alt="Licence"></p>
 					</div>
 				</div>
 				<hr />
@@ -85,6 +85,7 @@
 				<ul>
 					<li>Set a prefix to all your console calls(log, warn, error, etc) so it is easy to filter while debugging;</li>
 					<li>Add a color to each console calls (supported in all browsers but Internet Explorer).</li>
+					<li>Set logger levels to prevent console flood (Debug, Info, Warn, Error and Fatal);</li>
 					<li>Process external loggers (like server side) with the same call as the local log.</li>
 					<li>Process just external loggers.</li>
 					<li>Procces just local loggers.</li>
@@ -129,7 +130,10 @@ myLogger.log(<span class="hljs-string">'this is a log'</span>); <span class="hlj
 					<li><code>disableLoggerProcessors(): void</code></li>
 					<li><code>addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void</code></li>
 					<li><code>removeLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor): void</code></li>
+					<li><code>setLoggerLevelTo(level: LogLevelsEnum): void</code></li>
 				</ul>
+				<p><strong>Important!!</strong></p>
+				<p>A log level set to <code>INFO</code> will print <code>logger.log()</code>, <code>logger.info()</code> and <code>logger.dir()</code> calls.</p>
 				<p>See the Documentation in <a href="https://logger.saninnsalas.com">https://logger.saninnsalas.com</a> for full details.</p>
 				<h2 id="use-cases">Use cases</h2>
 				<p>You can see the <a href="https://github.com/distante/saninn-logger/wiki">Wiki</a> for ideas and use cases where @saninn/logger can help you!</p>
@@ -225,6 +229,7 @@ loggerWithFullConfigAndProcessors.dir(<span class="hljs-string">'dir of loggerWi
 				<h3 id="todo">ToDo</h3>
 				<ul>
 					<li>Pack all development scripts into just one...</li>
+					<li><a href="https://github.com/distante/saninn-logger/projects/1">Project</a></li>
 				</ul>
 				<h2 id="pull-requests-are-welcome">Pull requests are welcome</h2>
 				<p>❤</p>
@@ -250,6 +255,15 @@ loggerWithFullConfigAndProcessors.dir(<span class="hljs-string">'dir of loggerWi
 					</li>
 					<li class="label tsd-is-external">
 						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_classes_helpers_helpers_.html">"classes/helpers/helpers"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_classes_logger_config_logger_config_.html">"classes/logger-<wbr>config/logger-<wbr>config"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="modules/_models_log_levels_enum_.html">"models/log-<wbr>levels.enum"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="modules/_models_log_types_enum_.html">"models/log-<wbr>types.enum"</a>

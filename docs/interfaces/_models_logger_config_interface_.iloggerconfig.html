@@ -85,6 +85,7 @@
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_config_interface_.iloggerconfig.html#globalpreloggerfunctions" class="tsd-kind-icon">global<wbr>Pre<wbr>Logger<wbr>Functions</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_config_interface_.iloggerconfig.html#loglevel" class="tsd-kind-icon">log<wbr>Level</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_config_interface_.iloggerconfig.html#loggerprocessors" class="tsd-kind-icon">logger<wbr>Processors</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_config_interface_.iloggerconfig.html#prefix" class="tsd-kind-icon">prefix</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-external"><a href="_models_logger_config_interface_.iloggerconfig.html#prefixcolors" class="tsd-kind-icon">prefix<wbr>Colors</a></li>
@@ -105,7 +106,7 @@
 					<div class="tsd-signature tsd-kind-icon">global<wbr>Pre<wbr>Logger<wbr>Functions<span class="tsd-signature-symbol">:</span> <a href="../modules/_models_type_definitions_.html#loggertypesobject" class="tsd-signature-type">LoggerTypesObject</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_models_type_definitions_.html#preloggerfunction" class="tsd-signature-type">PreLoggerFunction</a><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L26">models/logger-config.interface.ts:26</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L29">models/logger-config.interface.ts:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -115,12 +116,27 @@
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+					<a name="loglevel" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> log<wbr>Level</h3>
+					<div class="tsd-signature tsd-kind-icon">log<wbr>Level<span class="tsd-signature-symbol">:</span> <a href="../enums/_models_log_levels_enum_.loglevelsenum.html" class="tsd-signature-type">LogLevelsEnum</a></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L66">models/logger-config.interface.ts:66</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Any value from  <a href="../enums/_models_log_levels_enum_.loglevelsenum.html">LogLevelsEnum</a> defaults to LogLevelsEnum.DEBUG</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 					<a name="loggerprocessors" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> logger<wbr>Processors</h3>
 					<div class="tsd-signature tsd-kind-icon">logger<wbr>Processors<span class="tsd-signature-symbol">:</span> <a href="../modules/_models_type_definitions_.html#loggertypesobject" class="tsd-signature-type">LoggerTypesObject</a><span class="tsd-signature-symbol">&lt;</span><a href="../modules/_models_type_definitions_.html#loggerprocessor" class="tsd-signature-type">LoggerProcessor</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L40">models/logger-config.interface.ts:40</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L44">models/logger-config.interface.ts:44</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -136,7 +152,7 @@
 					<div class="tsd-signature tsd-kind-icon">prefix<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L5">models/logger-config.interface.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L6">models/logger-config.interface.ts:6</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -151,7 +167,7 @@
 					<div class="tsd-signature tsd-kind-icon">prefix<wbr>Colors<span class="tsd-signature-symbol">:</span> <a href="../modules/_models_type_definitions_.html#loggertypesobjectforcolors" class="tsd-signature-type">LoggerTypesObjectForColors</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L8">models/logger-config.interface.ts:8</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L9">models/logger-config.interface.ts:9</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -166,7 +182,7 @@
 					<div class="tsd-signature tsd-kind-icon">print<wbr>ToConsole<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L14">models/logger-config.interface.ts:14</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L17">models/logger-config.interface.ts:17</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -174,6 +190,11 @@
 							<p>If enabled the log output will be printed locally in console.
 							The log call line will not be overwritten unless <a href="_models_logger_config_interface_.iloggerconfig.html#useloggerprocessors">ILoggerConfig.useLoggerProcessors</a> is true</p>
 						</div>
+						<dl class="tsd-comment-tags">
+							<dt>deprecated</dt>
+							<dd><p>set <a href="_models_logger_config_interface_.iloggerconfig.html#loglevel">ILoggerConfig.logLevel</a> to OFF to disable console output</p>
+							</dd>
+						</dl>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-external">
@@ -182,7 +203,7 @@
 					<div class="tsd-signature tsd-kind-icon">show<wbr>Logger<wbr>Function<wbr>Names<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L56">models/logger-config.interface.ts:56</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L60">models/logger-config.interface.ts:60</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -209,7 +230,7 @@
 					<div class="tsd-signature tsd-kind-icon">use<wbr>Global<wbr>Pre<wbr>Logger<wbr>Functions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L21">models/logger-config.interface.ts:21</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L24">models/logger-config.interface.ts:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -226,13 +247,13 @@
 					<div class="tsd-signature tsd-kind-icon">use<wbr>Logger<wbr>Processors<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/157e779/src/models/logger-config.interface.ts#L34">models/logger-config.interface.ts:34</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/1692a1f/src/models/logger-config.interface.ts#L38">models/logger-config.interface.ts:38</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>If actived the array of functions on extraLoggerFunctions will be called before
-								every console function.
+							<p>If actived the array of functions on <a href="_models_logger_config_interface_.iloggerconfig.html#loggerprocessors">ILoggerConfig.loggerProcessors</a> will be called before
+								every console function, util if you need to send the logs to third party libs or analytics services.
 								IMPORTANT: when this is enabled the SaninnLogger will lose the console position
 							because there is no way to get the console message without proxy it.</p>
 						</div>
@@ -254,6 +275,15 @@
 					</li>
 					<li class="label tsd-is-external">
 						<span>Externals</span>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_classes_helpers_helpers_.html">"classes/helpers/helpers"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_classes_logger_config_logger_config_.html">"classes/logger-<wbr>config/logger-<wbr>config"</a>
+					</li>
+					<li class=" tsd-kind-external-module tsd-is-external">
+						<a href="../modules/_models_log_levels_enum_.html">"models/log-<wbr>levels.enum"</a>
 					</li>
 					<li class=" tsd-kind-external-module tsd-is-external">
 						<a href="../modules/_models_log_types_enum_.html">"models/log-<wbr>types.enum"</a>
@@ -281,6 +311,9 @@
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 								<a href="_models_logger_config_interface_.iloggerconfig.html#globalpreloggerfunctions" class="tsd-kind-icon">global<wbr>Pre<wbr>Logger<wbr>Functions</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
+								<a href="_models_logger_config_interface_.iloggerconfig.html#loglevel" class="tsd-kind-icon">log<wbr>Level</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-external">
 								<a href="_models_logger_config_interface_.iloggerconfig.html#loggerprocessors" class="tsd-kind-icon">logger<wbr>Processors</a>
