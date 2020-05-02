@@ -18,6 +18,8 @@ import { LoggerProcessor, LoggerTypesObject } from './models/type-definitions';
 // let saninnLoggerInstanceCounter = 0;
 
 export class SaninnLogger implements ILogger {
+  public static LOG_TYPES_ARRAY = Helpers.LOG_TYPES_ARRAY;
+
   //    ██████  ███████ ████████ ████████ ███████ ██████  ███████
   //   ██       ██         ██       ██    ██      ██   ██ ██
   //   ██   ███ █████      ██       ██    █████   ██████  ███████
@@ -81,7 +83,7 @@ export class SaninnLogger implements ILogger {
       } else {
         return target[prop];
       }
-    }
+    },
   };
 
   private readonly consoleProxy = new Proxy<Console>(console, this.consoleProxyHandler);
@@ -94,7 +96,7 @@ export class SaninnLogger implements ILogger {
 
     if (typeof loggerConfig === 'string') {
       loggerConfig = {
-        prefix: loggerConfig
+        prefix: loggerConfig,
       };
     }
 
@@ -157,11 +159,11 @@ export class SaninnLogger implements ILogger {
   }
 
   private initProxy() {
-    Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+    Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
       const consoleFunctionHandler: ProxyHandler<Function> = {
         // tslint:disable-next-line:object-literal-shorthand
         apply: (target, consoleObject, argumentsList) =>
-          this.consoleFunctionProxyApply(target, consoleObject, argumentsList, logType)
+          this.consoleFunctionProxyApply(target, consoleObject, argumentsList, logType),
       };
       this.consoleFunctionProxys[logType] = new Proxy(console[logType], consoleFunctionHandler);
       // console.error(this.consoleFunctionProxys[logType]);
@@ -205,7 +207,7 @@ export class SaninnLogger implements ILogger {
     const argumentsList = rawArgumentList.slice(initialIndexOfArguments);
 
     // TODO: Use it with the observer pattern?
-    this.config.loggerProcessors![logType]!.forEach(loggerProcessor => {
+    this.config.loggerProcessors![logType]!.forEach((loggerProcessor) => {
       loggerProcessor(prefix!, argumentsList);
     });
   }
