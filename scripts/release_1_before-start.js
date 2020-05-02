@@ -14,7 +14,7 @@ const packageScripts = {
   prettierCheck: objectWithRawScripts['prettier:check'],
   test: objectWithRawScripts['test'],
   tscCheck: objectWithRawScripts['tsc:check'],
-  zipBundles: objectWithRawScripts['zip-bundles']
+  zipBundles: objectWithRawScripts['zip-bundles'],
 };
 
 function runScript(scriptToRun) {
@@ -49,7 +49,7 @@ runScript(packageScripts.makeDocs); // create docs
 
 //Create CNAME for docs
 const cnameFile = path.join(process.cwd(), 'docs', 'CNAME');
-fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function(err) {
+fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function (err) {
   if (err) {
     throw err;
   }
@@ -59,7 +59,7 @@ fs.writeFileSync(cnameFile, 'logger.saninnsalas.com', function(err) {
 
 //create .nojekyll fix
 const nojekyll = path.join(process.cwd(), 'docs', '.nojekyll');
-fs.writeFileSync(nojekyll, '', function(err) {
+fs.writeFileSync(nojekyll, '', function (err) {
   if (err) {
     throw err;
   }
@@ -67,4 +67,6 @@ fs.writeFileSync(nojekyll, '', function(err) {
   console.log('nojekyll saved! in ' + nojekyll);
 });
 
+shell.exec('git add .');
+shell.exec('git commit -m "chore: updated Docs before Release"');
 console.log(`\n👍  ${scriptName} done 👍 `);
