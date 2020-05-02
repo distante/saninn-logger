@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>&quot;models/logger-actions.interface&quot; | @saninn/logger</title>
+	<title>Helpers | @saninn/logger</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,10 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="_models_logger_actions_interface_.html">&quot;models/logger-actions.interface&quot;</a>
+					<a href="_classes_helpers_helpers_.html">&quot;classes/helpers/helpers&quot;</a>
+				</li>
+				<li>
+					<a href="_classes_helpers_helpers_.helpers.html">Helpers</a>
 				</li>
 			</ul>
-			<h1>External module &quot;models/logger-actions.interface&quot;</h1>
+			<h1>Module Helpers</h1>
 		</div>
 	</div>
 </header>
@@ -71,35 +74,103 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section tsd-is-external">
-							<h3>Type aliases</h3>
+							<h3>Variables</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external"><a href="_models_logger_actions_interface_.html#iloggeractions" class="tsd-kind-icon">ILogger<wbr>Actions</a></li>
+								<li class="tsd-kind-variable tsd-parent-kind-module tsd-is-external"><a href="_classes_helpers_helpers_.helpers.html#log_types_array" class="tsd-kind-icon">LOG_<wbr>TYPES_<wbr>ARRAY</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-external">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-external"><a href="_classes_helpers_helpers_.helpers.html#getbindedconsoleproxy" class="tsd-kind-icon">get<wbr>Binded<wbr>Console<wbr>Proxy</a></li>
+								<li class="tsd-kind-function tsd-parent-kind-module tsd-is-external"><a href="_classes_helpers_helpers_.helpers.html#getloglevelof" class="tsd-kind-icon">get<wbr>Log<wbr>Level<wbr>Of</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group tsd-is-external">
-				<h2>Type aliases</h2>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external">
-					<a name="iloggeractions" class="tsd-anchor"></a>
-					<h3>ILogger<wbr>Actions</h3>
-					<div class="tsd-signature tsd-kind-icon">ILogger<wbr>Actions<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
+				<h2>Variables</h2>
+				<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-module tsd-is-external">
+					<a name="log_types_array" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> LOG_<wbr>TYPES_<wbr>ARRAY</h3>
+					<div class="tsd-signature tsd-kind-icon">LOG_<wbr>TYPES_<wbr>ARRAY<span class="tsd-signature-symbol">:</span> <a href="../enums/_models_log_types_enum_.loggertypesenum.html" class="tsd-signature-type">LoggerTypesEnum</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> =&nbsp;Object.keys(LoggerTypesEnum) as LoggerTypesEnum[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/852c3d1/src/models/logger-actions.interface.ts#L5">models/logger-actions.interface.ts:5</a></li>
+							<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/852c3d1/src/classes/helpers/helpers.ts#L6">classes/helpers/helpers.ts:6</a></li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Yes, this is a type but it will be used as an interface ;)</p>
-						</div>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-						</ul>
-					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-external">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-external">
+					<a name="getbindedconsoleproxy" class="tsd-anchor"></a>
+					<h3>get<wbr>Binded<wbr>Console<wbr>Proxy</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Binded<wbr>Console<wbr>Proxy<span class="tsd-signature-symbol">(</span>logType<span class="tsd-signature-symbol">: </span><a href="../enums/_models_log_types_enum_.loggertypesenum.html" class="tsd-signature-type">LoggerTypesEnum</a>, consoleProxy<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Console</span>, config<span class="tsd-signature-symbol">: </span><a href="_models_type_definitions_.html#requiredloggerconfig" class="tsd-signature-type">RequiredLoggerConfig</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">debug</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">log</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">info</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">dir</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">warn</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">error</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/852c3d1/src/classes/helpers/helpers.ts#L8">classes/helpers/helpers.ts:8</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>logType: <a href="../enums/_models_log_types_enum_.loggertypesenum.html" class="tsd-signature-type">LoggerTypesEnum</a></h5>
+								</li>
+								<li>
+									<h5>consoleProxy: <span class="tsd-signature-type">Console</span></h5>
+								</li>
+								<li>
+									<h5>config: <a href="_models_type_definitions_.html#requiredloggerconfig" class="tsd-signature-type">RequiredLoggerConfig</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">debug</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">log</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">info</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">dir</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">warn</span>
+								<span class="tsd-signature-symbol"> | </span>
+								<span class="tsd-signature-type">error</span>
+							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-module tsd-is-external">
+					<a name="getloglevelof" class="tsd-anchor"></a>
+					<h3>get<wbr>Log<wbr>Level<wbr>Of</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-module tsd-is-external">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Log<wbr>Level<wbr>Of<span class="tsd-signature-symbol">(</span>logType<span class="tsd-signature-symbol">: </span><a href="../enums/_models_log_types_enum_.loggertypesenum.html" class="tsd-signature-type">LoggerTypesEnum</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../enums/_models_log_levels_enum_.loglevelsenum.html" class="tsd-signature-type">LogLevelsEnum</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/distante/saninn-logger/blob/852c3d1/src/classes/helpers/helpers.ts#L50">classes/helpers/helpers.ts:50</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Maps LoggerTypesEnum to LogLevelsEnum values, allowing to set mo</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>logType: <a href="../enums/_models_log_types_enum_.loggertypesenum.html" class="tsd-signature-type">LoggerTypesEnum</a></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../enums/_models_log_levels_enum_.loglevelsenum.html" class="tsd-signature-type">LogLevelsEnum</a></h4>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -109,45 +180,18 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="label tsd-is-external">
-						<span>Internals</span>
-					</li>
-					<li class=" tsd-kind-external-module">
-						<a href="__saninn__logger_.html">"@saninn__logger"</a>
-					</li>
-					<li class="label tsd-is-external">
-						<span>Externals</span>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_classes_helpers_helpers_.html">"classes/helpers/helpers"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_classes_logger_config_logger_config_.html">"classes/logger-<wbr>config/logger-<wbr>config"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_models_log_levels_enum_.html">"models/log-<wbr>levels.enum"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_models_log_types_enum_.html">"models/log-<wbr>types.enum"</a>
-					</li>
-					<li class="current tsd-kind-external-module tsd-is-external">
-						<a href="_models_logger_actions_interface_.html">"models/logger-<wbr>actions.interface"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_models_logger_config_interface_.html">"models/logger-<wbr>config.interface"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_models_logger_interface_.html">"models/logger.interface"</a>
-					</li>
-					<li class=" tsd-kind-external-module tsd-is-external">
-						<a href="_models_type_definitions_.html">"models/type-<wbr>definitions"</a>
-					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module tsd-is-external">
-						<a href="_models_logger_actions_interface_.html#iloggeractions" class="tsd-kind-icon">ILogger<wbr>Actions</a>
+					<li class=" tsd-kind-variable tsd-parent-kind-module tsd-is-external">
+						<a href="_classes_helpers_helpers_.helpers.html#log_types_array" class="tsd-kind-icon">LOG_<wbr>TYPES_<wbr>ARRAY</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-external">
+						<a href="_classes_helpers_helpers_.helpers.html#getbindedconsoleproxy" class="tsd-kind-icon">get<wbr>Binded<wbr>Console<wbr>Proxy</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-module tsd-is-external">
+						<a href="_classes_helpers_helpers_.helpers.html#getloglevelof" class="tsd-kind-icon">get<wbr>Log<wbr>Level<wbr>Of</a>
 					</li>
 				</ul>
 			</nav>

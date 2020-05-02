@@ -44,13 +44,13 @@
     "fix-iife-export": "node ./scripts/fix-iife-export.js",
     "prepend-iife-polyfills": "node ./scripts/prepend-iife-polyfills.js",
     "bump:beta": "beta",
-    "release": "release-it",
-    "release:patch": "release-it patch -n",
-    "release:minor": "release-it minor -n",
-    "release:major": "release-it major -n",
-    "release:prepatch": "release-it prepatch -n",
-    "release:preminor": "release-it preminor -n",
-    "release:premajor": "release-it premajor -n",
+    "release": "release-it --verbose --ci",
+    "release:patch": "release-it patch --verbose --ci",
+    "release:minor": "release-it minor --verbose --ci",
+    "release:major": "release-it major --verbose --ci",
+    "release:prepatch": "release-it prepatch --verbose --ci",
+    "release:preminor": "release-it preminor --verbose --ci",
+    "release:premajor": "release-it premajor --verbose --ci",
     "zip-bundles": "run-s zip:*",
     "zip:module": "cd dist-bundles/es6 && bestzip ../es6.zip * && cd .. && cd ..",
     "zip:commonjs": "cd dist-bundles/commonjs && bestzip ../commonjs.zip * && cd .. && cd ..",
@@ -78,10 +78,10 @@
     }
   },
   "release-it": {
-    "scripts": {
-      "beforeStart": "node ./scripts/release_1_before-start.js",
-      "afterBump": "node ./scripts/release_3_after-Bump.js ${version}",
-      "afterRelease": "echo Successfully released ${name} v${version} to https://${repo.host}/${repo.repository}/releases/tag/v${version}"
+    "hooks": {
+      "before:init": "node ./scripts/release_1_before-start.js",
+      "after:bump": "node ./scripts/release_3_after-Bump.js ${version}",
+      "after:release": "echo Successfully released ${name} v${version} to https://${repo.host}/${repo.repository}/releases/tag/v${version}"
     },
     "git": {
       "commitMessage": "release: v${version}",
@@ -114,7 +114,7 @@
     "prettier": "2.0.0",
     "pretty-quick": "^2.0.1",
     "proxy-polyfill": "^0.3.0",
-    "release-it": "^13.5.4",
+    "release-it": "^13.5.7",
     "rollup": "^2.2.0",
     "rollup-plugin-typescript": "^1.0.0",
     "shx": "^0.3.2",
