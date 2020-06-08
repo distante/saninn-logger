@@ -7,6 +7,7 @@ import { Helpers } from './classes/helpers/helpers';
 import { LoggerConfig } from './classes/logger-config/logger-config';
 import { LogLevelsEnum } from './models/log-levels.enum';
 import { LoggerTypesEnum } from './models/log-types.enum';
+import { ILoggerProcessorFunctionParams } from './models/logger-procesor-function-params.interface';
 import { LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './models/type-definitions';
 
 /**
@@ -38,7 +39,7 @@ describe('It is possible to create a SaninnLogger instance', () => {
   test('With an config Object', () => {
     const saninnLogger = new SaninnLogger({
       prefix: 'hello',
-      printToConsole: false
+      printToConsole: false,
     });
     expect(saninnLogger).toBeTruthy();
   });
@@ -80,7 +81,7 @@ describe('globalPreLoggerFunctions', () => {
       loggerFunctionConfigs[consoleFunction] = mockFunction as PreLoggerFunction;
       const saninnLogger = new SaninnLogger({
         useGlobalPreLoggerFunctions: true,
-        globalPreLoggerFunctions: loggerFunctionConfigs
+        globalPreLoggerFunctions: loggerFunctionConfigs,
       });
 
       saninnLogger[consoleFunction]();
@@ -95,7 +96,7 @@ describe('globalPreLoggerFunctions', () => {
       loggerFunctionConfigs[consoleFunction] = mockFunction;
       const saninnLogger = new SaninnLogger({
         useGlobalPreLoggerFunctions: true,
-        globalPreLoggerFunctions: loggerFunctionConfigs
+        globalPreLoggerFunctions: loggerFunctionConfigs,
       });
 
       saninnLogger.disableGlobalLoggerFunctions();
@@ -110,7 +111,7 @@ describe('globalPreLoggerFunctions', () => {
       loggerFunctionConfigs[consoleFunction] = mockFunction;
       const saninnLogger = new SaninnLogger({
         useGlobalPreLoggerFunctions: true,
-        globalPreLoggerFunctions: loggerFunctionConfigs
+        globalPreLoggerFunctions: loggerFunctionConfigs,
       });
 
       saninnLogger.disableGlobalLoggerFunctions();
@@ -129,7 +130,7 @@ describe('globalPreLoggerFunctions', () => {
       const saninnLogger = new SaninnLogger({
         prefix: loggerPrefix,
         useGlobalPreLoggerFunctions: true,
-        globalPreLoggerFunctions: loggerFunctionConfigs
+        globalPreLoggerFunctions: loggerFunctionConfigs,
       });
 
       saninnLogger[consoleFunction]();
@@ -147,7 +148,7 @@ describe('printToConsole', () => {
       /* */
     });
     const saninnLogger = new SaninnLogger({
-      printToConsole: false
+      printToConsole: false,
     });
 
     saninnLogger[consoleFunction]();
@@ -202,12 +203,12 @@ describe('prefixColor', () => {
   const colors: LoggerTypesObjectForColors = {
     log: 'red',
     error: 'yellow',
-    warn: 'blue'
+    warn: 'blue',
   };
   const styles: LoggerTypesObjectForColors = {
     log: `color: ${colors.log}`,
     error: `color: ${colors.error}`,
-    warn: `color: ${colors.warn}`
+    warn: `color: ${colors.warn}`,
   };
 
   test('should not have any prefixColor value if we are in IE', () => {
@@ -218,7 +219,7 @@ describe('prefixColor', () => {
     // tslint:disable-next-line:no-unused-expression
     new SaninnLogger({
       prefix: prefixText,
-      prefixColors: colors
+      prefixColors: colors,
     });
 
     expect(initSpy).toHaveBeenCalledTimes(1);
@@ -232,7 +233,7 @@ describe('prefixColor', () => {
       spyOn(console, consoleFunction).and.callThrough();
       const saninnLogger = new SaninnLogger({
         prefix: prefixText,
-        prefixColors: colors
+        prefixColors: colors,
       });
 
       saninnLogger[consoleFunction](textExpected);
@@ -245,7 +246,7 @@ describe('prefixColor', () => {
       spyOn(console, consoleFunction).and.callThrough();
       const saninnLogger = new SaninnLogger({
         prefix: prefixText,
-        prefixColors: colors
+        prefixColors: colors,
       });
 
       saninnLogger[consoleFunction](textExpected);
@@ -258,7 +259,7 @@ describe('prefixColor', () => {
       spyOn(console, consoleFunction).and.callThrough();
       const saninnLogger = new SaninnLogger({
         prefix: prefixText,
-        prefixColors: colors
+        prefixColors: colors,
       });
 
       saninnLogger[consoleFunction](textExpected);
@@ -272,10 +273,10 @@ describe('showLoggerFunctionNames', () => {
   describe('should print the name of the loggerFunction', () => {
     test('when no prefix is given and no message', () => {
       const logger = new SaninnLogger({
-        showLoggerFunctionNames: true
+        showLoggerFunctionNames: true,
       });
 
-      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
         if (logType === LoggerTypesEnum.dir) {
           return;
         }
@@ -287,10 +288,10 @@ describe('showLoggerFunctionNames', () => {
 
     test('when no prefix is given and a message', () => {
       const logger = new SaninnLogger({
-        showLoggerFunctionNames: true
+        showLoggerFunctionNames: true,
       });
 
-      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
         const myMessage = 'some message';
         if (logType === LoggerTypesEnum.dir) {
           return;
@@ -305,10 +306,10 @@ describe('showLoggerFunctionNames', () => {
       const loggerPrefix = 'logger-prefix';
       const logger = new SaninnLogger({
         prefix: loggerPrefix,
-        showLoggerFunctionNames: true
+        showLoggerFunctionNames: true,
       });
 
-      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
         if (logType === LoggerTypesEnum.dir) {
           return;
         }
@@ -323,10 +324,10 @@ describe('showLoggerFunctionNames', () => {
       const myMessage = 'some message';
       const logger = new SaninnLogger({
         prefix: loggerPrefix,
-        showLoggerFunctionNames: true
+        showLoggerFunctionNames: true,
       });
 
-      Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+      Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
         if (logType === LoggerTypesEnum.dir) {
           return;
         }
@@ -339,7 +340,7 @@ describe('showLoggerFunctionNames', () => {
 
   test('should not print the loggerFunction for .dir without prefix', () => {
     const logger = new SaninnLogger({
-      showLoggerFunctionNames: true
+      showLoggerFunctionNames: true,
     });
 
     const dirSpy = spyOn(console, 'dir');
@@ -353,7 +354,7 @@ describe('showLoggerFunctionNames', () => {
     const loggerPrefix = 'logger-prefix';
     const logger = new SaninnLogger({
       showLoggerFunctionNames: true,
-      prefix: loggerPrefix
+      prefix: loggerPrefix,
     });
 
     const dirSpy = spyOn(console, 'dir');
@@ -367,7 +368,7 @@ describe('showLoggerFunctionNames', () => {
 describe('External logger processors', () => {
   test('useLoggerProcessors should use the console proxy when useLoggerProcessors is true', () => {
     const saninnLogger = new SaninnLogger({
-      useLoggerProcessors: true
+      useLoggerProcessors: true,
     });
     const proxyFunctionSpy = jest.fn();
     // @ts-ignore
@@ -381,7 +382,7 @@ describe('External logger processors', () => {
   test('useLoggerProcessors should use the console proxy when useLoggerProcessors AND printToConsole is false', () => {
     const saninnLogger = new SaninnLogger({
       useLoggerProcessors: true,
-      printToConsole: false
+      printToConsole: false,
     });
     const proxyFunctionSpy = jest.fn();
 
@@ -394,8 +395,7 @@ describe('External logger processors', () => {
   });
 
   describe('the given loggerProcessor function should be called', () => {
-    test('log loggerProcessors', () => {
-      const consoleFunction = 'log';
+    test.each(SaninnLogger.LOG_TYPES_ARRAY)('loggerProcessors for %s order', (consoleFunction) => {
       const extraLogProcessor1 = jest.fn();
       const extraLogProcessor2 = jest.fn();
       const prefixTest = 'prefix-test';
@@ -404,83 +404,32 @@ describe('External logger processors', () => {
         prefix: prefixTest,
         useLoggerProcessors: true,
         loggerProcessors: {
-          log: [extraLogProcessor1, extraLogProcessor2]
-        }
+          [consoleFunction]: [extraLogProcessor1, extraLogProcessor2],
+        },
       });
 
       saninnLogger[consoleFunction](textTest);
 
-      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
-      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
-      expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
-    });
-
-    test('warn loggerProcessors', () => {
-      const consoleFunction = 'warn';
-      const extraLogProcessor1 = jest.fn();
-      const extraLogProcessor2 = jest.fn();
-      const prefixTest = 'prefix-test';
-      const textTest = 'some random text';
-      const saninnLogger = new SaninnLogger({
-        prefix: prefixTest,
-        useLoggerProcessors: true,
-        loggerProcessors: {
-          warn: [extraLogProcessor1, extraLogProcessor2]
-        }
-      });
-
-      saninnLogger[consoleFunction](textTest);
-
-      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
-      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
-      expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
-    });
-
-    test('error loggerProcessors', () => {
-      const consoleFunction = 'error';
-      const extraLogProcessor1 = jest.fn();
-      const extraLogProcessor2 = jest.fn();
-      const prefixTest = 'prefix-test';
-      const textTest = 'some random text';
-      const saninnLogger = new SaninnLogger({
-        prefix: prefixTest,
-        useLoggerProcessors: true,
-        loggerProcessors: {
-          error: [extraLogProcessor1, extraLogProcessor2]
-        }
-      });
-
-      saninnLogger[consoleFunction](textTest);
-
-      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
-      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
-      expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
-    });
-
-    test('dir loggerProcessors', () => {
-      const consoleFunction = 'dir';
-      const extraLogProcessor1 = jest.fn();
-      const extraLogProcessor2 = jest.fn();
-      const prefixTest = 'prefix-test';
-      const textTest = 'some random text';
-      const saninnLogger = new SaninnLogger({
-        prefix: prefixTest,
-        useLoggerProcessors: true,
-        loggerProcessors: {
-          dir: [extraLogProcessor1, extraLogProcessor2]
-        }
-      });
-
-      saninnLogger[consoleFunction](textTest);
-
-      expect(extraLogProcessor1).toHaveBeenCalledWith(prefixTest, [textTest]);
-      expect(extraLogProcessor2).toHaveBeenCalledWith(prefixTest, [textTest]);
+      expect(extraLogProcessor1).toHaveBeenCalledWith(
+        expect.objectContaining<ILoggerProcessorFunctionParams>({
+          prefix: prefixTest,
+          logType: consoleFunction,
+          args: [textTest],
+        })
+      );
+      expect(extraLogProcessor2).toHaveBeenCalledWith(
+        expect.objectContaining<ILoggerProcessorFunctionParams>({
+          prefix: prefixTest,
+          logType: consoleFunction,
+          args: [textTest],
+        })
+      );
       expect(extraLogProcessor1).toHaveBeenCalledBefore(extraLogProcessor2);
     });
   });
-  describe('the given loggerProcessor function should be called WITHOUT print to console', () => {
-    test('log loggerProcessors', () => {
-      const consoleFunction = 'log';
+  test.each(SaninnLogger.LOG_TYPES_ARRAY)(
+    'loggerProcessors for %s should be called WITHOUT print to console',
+    (consoleFunction) => {
       const extraLogProcessor = jest.fn();
       const prefixTest = 'prefix-test';
       const textTest = 'some random text';
@@ -489,16 +438,22 @@ describe('External logger processors', () => {
         prefix: prefixTest,
         useLoggerProcessors: true,
         loggerProcessors: {
-          log: [extraLogProcessor]
-        }
+          [consoleFunction]: [extraLogProcessor],
+        },
       });
 
       saninnLogger[consoleFunction](textTest);
-      expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, [textTest]);
-    });
-  });
-  test('excludes the color argument', () => {
-    const consoleFunction = 'log';
+      expect(extraLogProcessor).toHaveBeenCalledWith(
+        expect.objectContaining<ILoggerProcessorFunctionParams>({
+          prefix: prefixTest,
+          logType: consoleFunction,
+          args: [textTest],
+        })
+      );
+    }
+  );
+
+  test.each(SaninnLogger.LOG_TYPES_ARRAY)('loggerProcessors for %s excludes color argument', (consoleFunction) => {
     const extraLogProcessor = jest.fn();
     const prefixTest = 'prefix-test';
     const textTest = 'some random text';
@@ -506,45 +461,59 @@ describe('External logger processors', () => {
       prefix: prefixTest,
       useLoggerProcessors: true,
       prefixColors: {
-        log: 'red'
+        [consoleFunction]: 'red',
       },
       loggerProcessors: {
-        log: [extraLogProcessor]
-      }
+        [consoleFunction]: [extraLogProcessor],
+      },
     });
 
     saninnLogger[consoleFunction](textTest);
 
-    expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, [textTest]);
+    expect(extraLogProcessor).toHaveBeenCalledWith(
+      expect.objectContaining<ILoggerProcessorFunctionParams>({
+        prefix: prefixTest,
+        logType: consoleFunction,
+        args: [textTest],
+      })
+    );
   });
 
-  test('excludes the color argument BUT keeps the prefix', () => {
-    const consoleFunction = 'log';
-    const extraLogProcessor = jest.fn();
-    const prefixTest = 'prefix-test';
-    const textTest = 'some random text';
-    const saninnLogger = new SaninnLogger({
-      prefix: prefixTest,
-      useLoggerProcessors: true,
-      prefixColors: {
-        log: 'red'
-      },
-      loggerProcessors: {
-        log: [extraLogProcessor]
-      }
-    });
+  test.each(SaninnLogger.LOG_TYPES_ARRAY)(
+    'loggerProcessors for %s excludes color argument BUT keeps the prefix',
+    (consoleFunction) => {
+      const extraLogProcessor = jest.fn();
+      const prefixTest = 'prefix-test';
+      const textTest = 'some random text';
+      const saninnLogger = new SaninnLogger({
+        prefix: prefixTest,
+        useLoggerProcessors: true,
+        prefixColors: {
+          [consoleFunction]: 'red',
+        },
+        loggerProcessors: {
+          [consoleFunction]: [extraLogProcessor],
+        },
+      });
 
-    saninnLogger[consoleFunction](textTest);
+      saninnLogger[consoleFunction](textTest);
 
-    expect(extraLogProcessor).toHaveBeenCalledWith(prefixTest, [textTest]);
-  });
+      expect(extraLogProcessor).toHaveBeenCalledWith(
+        expect.objectContaining<ILoggerProcessorFunctionParams>({
+          prefix: prefixTest,
+          logType: consoleFunction,
+          args: [textTest],
+        })
+      );
+    }
+  );
 
   test('if no processor is registered nothing breaks', () => {
     const consoleFunction = 'log';
     const textTest = 'some random text';
     const someRandomObject = { a: 1, b: 2 };
     const saninnLogger = new SaninnLogger({
-      useLoggerProcessors: true
+      useLoggerProcessors: true,
     });
     // @ts-ignore
     const proxyFunctionSpy = spyOn(saninnLogger.consoleFunctionProxys, 'log').and.callThrough();
@@ -565,8 +534,8 @@ describe('Add and remove logger Processors', () => {
     const saninnLogger = new SaninnLogger({
       useLoggerProcessors: true,
       loggerProcessors: {
-        log: [createTimeProcessor]
-      }
+        log: [createTimeProcessor],
+      },
     });
 
     saninnLogger.log('test');
@@ -584,8 +553,8 @@ describe('Add and remove logger Processors', () => {
     const saninnLogger = new SaninnLogger({
       useLoggerProcessors: true,
       loggerProcessors: {
-        log: [createTimeProcessor]
-      }
+        log: [createTimeProcessor],
+      },
     });
 
     saninnLogger.removeLoggerProcessor(LoggerTypesEnum.log, runTimeAddedLoggerProcessor);
@@ -601,8 +570,8 @@ describe('Add and remove logger Processors', () => {
     const saninnLogger = new SaninnLogger({
       useLoggerProcessors: true,
       loggerProcessors: {
-        log: [createTimeProcessor]
-      }
+        log: [createTimeProcessor],
+      },
     });
 
     saninnLogger.addLoggerProcessor(LoggerTypesEnum.log, runTimeAddedLoggerProcessor);
@@ -620,8 +589,8 @@ describe('Add and remove logger Processors', () => {
     const saninnLogger = new SaninnLogger({
       useLoggerProcessors: true,
       loggerProcessors: {
-        log: [loggerProcessor]
-      }
+        log: [loggerProcessor],
+      },
     });
 
     saninnLogger.log('run logger processor');
@@ -636,8 +605,8 @@ describe('Add and remove logger Processors', () => {
     const saninnLogger = new SaninnLogger({
       useLoggerProcessors: true,
       loggerProcessors: {
-        log: [loggerProcessor]
-      }
+        log: [loggerProcessor],
+      },
     });
 
     saninnLogger.disableLoggerProcessors();
@@ -651,7 +620,7 @@ describe('Add and remove logger Processors', () => {
 
 test('#disablePrintToConsole deactivate console Prints', () => {
   const saninnLogger = new SaninnLogger({
-    prefix: 'test'
+    prefix: 'test',
   });
 
   const loggerActive = saninnLogger.log;
@@ -665,7 +634,7 @@ test('#disablePrintToConsole deactivate console Prints', () => {
 test('#enablePrintToConsole activates console Prints', () => {
   const saninnLogger = new SaninnLogger({
     prefix: 'test',
-    printToConsole: false
+    printToConsole: false,
   });
 
   const loggerInactive = saninnLogger.log;
@@ -681,7 +650,7 @@ test('prefix can be changed using #setPrefixTo', () => {
   const finalPrefix = 'final prefix';
   const fullFinalPrefix = `[${finalPrefix}]:`;
   const saninnLogger = new SaninnLogger({
-    prefix: initialPrefix
+    prefix: initialPrefix,
   });
 
   const consoleSpy = spyOn(console, 'log');
@@ -693,7 +662,7 @@ test('prefix can be changed using #setPrefixTo', () => {
 });
 
 describe('#setLogLevelTo', () => {
-  const logLevelsKeys = Object.keys(LogLevelsEnum).filter(levelKey => isNaN(parseInt(levelKey, 10)));
+  const logLevelsKeys = Object.keys(LogLevelsEnum).filter((levelKey) => isNaN(parseInt(levelKey, 10)));
   test.each(logLevelsKeys)('sets the level to the given level param', (levelKey: keyof LogLevelsEnum) => {
     const config = LoggerConfig.createInstance();
     jest.spyOn(LoggerConfig, 'createInstance').mockReturnValue(config);
@@ -710,9 +679,9 @@ test('can be completely disable', () => {
   const spyFunction = jest.fn();
   const globalPreLoggerFunctions: { [key: string]: (prefix: any) => void } = {};
 
-  Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+  Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
     spyOn(console, logType).and.callFake(spyFunction);
-    globalPreLoggerFunctions[logType] = prefix => {
+    globalPreLoggerFunctions[logType] = (prefix) => {
       spyFunction(prefix);
     };
   });
@@ -724,27 +693,27 @@ test('can be completely disable', () => {
     prefixColors: {
       error: 'blue',
       log: 'green',
-      warn: 'red'
+      warn: 'red',
     },
     printToConsole: false,
     useLoggerProcessors: true,
     loggerProcessors: {
       log: [
-        (prefix, args) => {
-          spyFunction(prefix, args);
+        (params) => {
+          spyFunction(params);
         },
-        (prefix, args) => {
-          spyFunction(prefix, args);
-        }
-      ]
-    }
+        (params) => {
+          spyFunction(params);
+        },
+      ],
+    },
   };
 
   const saninnLogger = new SaninnLogger(fullConfig);
 
   saninnLogger.disableAll();
 
-  Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+  Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
     saninnLogger[logType]('I should not be called!');
   });
 
@@ -759,7 +728,7 @@ describe('LogLevels', () => {
   });
 
   test.each(consoleFunctionNames)(
-    '[%i] if the debug level is set to OFF then no call to getBindedConsoleProxy should be done',
+    '[%s] if the debug level is set to OFF then no call to getBindedConsoleProxy should be done',
     (consoleFunction: LoggerTypesEnum) => {
       const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.OFF });
 
@@ -783,7 +752,7 @@ describe('LogLevels', () => {
 
   test(`setting a log level of ${LogLevelsEnum[LogLevelsEnum.INFO]} should no allow Debug calls`, () => {
     const notAllowedCalls: LoggerTypesEnum[] = [LoggerTypesEnum.debug];
-    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const allowedCalls = consoleFunctionNames.filter((logType) => !notAllowedCalls.includes(logType));
     const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.INFO });
 
     consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
@@ -791,7 +760,7 @@ describe('LogLevels', () => {
     });
 
     const calls = getBindedConsoleProxySpy.mock.calls;
-    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+    const firstParameters: LoggerTypesEnum[] = calls.map((call) => call[0]);
 
     expect(firstParameters).toEqual(allowedCalls);
   });
@@ -803,9 +772,9 @@ describe('LogLevels', () => {
       LoggerTypesEnum.debug,
       LoggerTypesEnum.info,
       LoggerTypesEnum.log,
-      LoggerTypesEnum.dir
+      LoggerTypesEnum.dir,
     ];
-    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const allowedCalls = consoleFunctionNames.filter((logType) => !notAllowedCalls.includes(logType));
     const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.WARN });
 
     consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
@@ -813,7 +782,7 @@ describe('LogLevels', () => {
     });
 
     const calls = getBindedConsoleProxySpy.mock.calls;
-    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+    const firstParameters: LoggerTypesEnum[] = calls.map((call) => call[0]);
 
     expect(firstParameters).toEqual(allowedCalls);
   });
@@ -826,9 +795,9 @@ describe('LogLevels', () => {
       LoggerTypesEnum.info,
       LoggerTypesEnum.log,
       LoggerTypesEnum.dir,
-      LoggerTypesEnum.warn
+      LoggerTypesEnum.warn,
     ];
-    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const allowedCalls = consoleFunctionNames.filter((logType) => !notAllowedCalls.includes(logType));
     const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.ERROR });
 
     consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
@@ -836,7 +805,7 @@ describe('LogLevels', () => {
     });
 
     const calls = getBindedConsoleProxySpy.mock.calls;
-    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+    const firstParameters: LoggerTypesEnum[] = calls.map((call) => call[0]);
 
     expect(firstParameters).toEqual(allowedCalls);
   });
@@ -850,9 +819,9 @@ describe('LogLevels', () => {
       LoggerTypesEnum.log,
       LoggerTypesEnum.dir,
       LoggerTypesEnum.warn,
-      LoggerTypesEnum.error
+      LoggerTypesEnum.error,
     ];
-    const allowedCalls = consoleFunctionNames.filter(logType => !notAllowedCalls.includes(logType));
+    const allowedCalls = consoleFunctionNames.filter((logType) => !notAllowedCalls.includes(logType));
     const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.FATAL });
 
     consoleFunctionNames.forEach((consoleFunction: LoggerTypesEnum, index: number) => {
@@ -860,7 +829,7 @@ describe('LogLevels', () => {
     });
 
     const calls = getBindedConsoleProxySpy.mock.calls;
-    const firstParameters: LoggerTypesEnum[] = calls.map(call => call[0]);
+    const firstParameters: LoggerTypesEnum[] = calls.map((call) => call[0]);
 
     expect(firstParameters).toEqual(allowedCalls);
   });

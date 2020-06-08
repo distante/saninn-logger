@@ -14,6 +14,7 @@ import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
 import { ILogger } from './models/logger.interface';
 import { LoggerProcessor, LoggerTypesObject } from './models/type-definitions';
+import { ILoggerProcessorFunctionParams } from './models/logger-procesor-function-params.interface';
 
 // let saninnLoggerInstanceCounter = 0;
 
@@ -208,7 +209,12 @@ export class SaninnLogger implements ILogger {
 
     // TODO: Use it with the observer pattern?
     this.config.loggerProcessors![logType]!.forEach((loggerProcessor) => {
-      loggerProcessor(prefix!, argumentsList);
+      const params: ILoggerProcessorFunctionParams = {
+        prefix,
+        logType,
+        args: argumentsList,
+      };
+      loggerProcessor(params);
     });
   }
 
