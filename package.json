@@ -23,7 +23,7 @@
   "scripts": {
     "test": "jest",
     "test:watch:coverage:silent": "jest --watch --coverage --silent --no-cache",
-    "test:ci": "jest --runInBand --no-cache --watch false --coverage true",
+    "test:ci": "jest --silent --runInBand --no-cache --watch false --coverage true",
     "test:codecov": "codecov",
     "tsc:check": "tsc --noEmit",
     "make-docs": "typedoc --out ./docs ./src/@saninn__logger.ts --hideGenerator",
@@ -100,7 +100,7 @@
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@types/jest": "^25.1.1",
-    "codecov": "^3.1.0",
+    "codecov": "^3.7.0",
     "filehound": "^1.16.7",
     "http-server": "^0.12.0",
     "husky": "^4.2.1",
