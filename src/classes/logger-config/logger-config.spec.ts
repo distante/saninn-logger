@@ -9,9 +9,9 @@ describe('LoggerConfig', () => {
   });
 
   describe('Assing correct loggerLevel from initialConfig', () => {
-    const logLevelKeys = Object.keys(LogLevelsEnum).filter(levelKey => isNaN(parseInt(levelKey, 10)));
+    const logLevelKeys = Object.keys(LogLevelsEnum).filter((levelKey) => isNaN(parseInt(levelKey, 10)));
 
-    test.each(logLevelKeys)('assigns %i', (levelKey: any) => {
+    test.each(logLevelKeys)('assigns %s', (levelKey: any) => {
       const wantedLevel = (LogLevelsEnum[levelKey] as unknown) as LogLevelsEnum;
       const config = LoggerConfig.createInstance({ logLevel: wantedLevel });
 

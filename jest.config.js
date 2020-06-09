@@ -57,8 +57,8 @@ module.exports = {
   globals: {
     'ts-jest': {
       diagnostics: false,
-      tsConfig: 'tsconfig.json'
-    }
+      tsConfig: 'tsconfig.json',
+    },
   },
 
   // An array of directory names to be searched recursively up from the requiring module's location
@@ -96,9 +96,9 @@ module.exports = {
         includeConsoleLog: true,
         includeFailureMsg: true,
         outputPath: '_test-reports/jest-report.html',
-        pageTitle: 'Test AudioTraining Report'
-      }
-    ]
+        pageTitle: '@Saninn/Logger Test  Report',
+      },
+    ],
   ],
   // Automatically reset mock state between every test
   // resetMocks: false,
@@ -166,8 +166,8 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest'
-  }
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
