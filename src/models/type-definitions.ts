@@ -1,6 +1,6 @@
 import { LoggerTypesEnum } from './log-types.enum';
 import { ILoggerConfig } from './logger-config.interface';
-import { ILoggerProcessorFunctionParams } from './logger-proccesor-function-params.interface';
+import { ILoggerProcessorFunctionParams } from './logger-processor-function-params.interface';
 
 // https://stackoverflow.com/questions/49655419/mapped-types-removing-optional-modifier/49655664#49655664
 declare type MakeRequired<T, K extends string> = { [P in K]: (T & { [name: string]: never })[P] };

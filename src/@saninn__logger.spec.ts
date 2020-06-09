@@ -7,7 +7,7 @@ import { Helpers } from './classes/helpers/helpers';
 import { LoggerConfig } from './classes/logger-config/logger-config';
 import { LogLevelsEnum } from './models/log-levels.enum';
 import { LoggerTypesEnum } from './models/log-types.enum';
-import { ILoggerProcessorFunctionParams } from './models/logger-proccesor-function-params.interface';
+import { ILoggerProcessorFunctionParams } from './models/logger-processor-function-params.interface';
 import { LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './models/type-definitions';
 
 /**
