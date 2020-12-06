@@ -1,6 +1,6 @@
 {
   "name": "@saninn/logger",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "A configurable wrapper around the console object (without losing the console call position)",
   "main": "dist/@saninn__logger.js",
   "types": "dist/@saninn__logger.d.ts",
