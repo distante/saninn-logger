@@ -135,17 +135,9 @@ export class SaninnLogger implements ILogger {
   }
 
   public disableAll() {
-    this.disablePrintToConsole();
+    this.setLogLevelTo(LogLevelsEnum.OFF);
     this.disableLoggerProcessors();
     this.disableGlobalLoggerFunctions();
-  }
-
-  public enablePrintToConsole() {
-    this.config.printToConsole = true;
-  }
-
-  public disablePrintToConsole() {
-    this.config.printToConsole = false;
   }
 
   public addLoggerProcessor(logType: LoggerTypesEnum, loggerProcessor: LoggerProcessor) {
@@ -210,7 +202,7 @@ export class SaninnLogger implements ILogger {
     if (this.config.loggerProcessors![logType] && this.config.loggerProcessors![logType]!.length) {
       this.runLoggerProcessorsOf(logType, argumentsList);
     }
-    if (this.config.printToConsole) {
+    if (this.config.logLevel !== LogLevelsEnum.OFF) {
       // Needed for IE10 https://stackoverflow.com/a/5539378/1255819
       const bindedFunction = Function.prototype.bind.call(nativeConsoleFunction, console);
       return bindedFunction.apply(void 0, argumentsList);
@@ -250,7 +242,7 @@ export class SaninnLogger implements ILogger {
     }
 
     /** printToConsole is @deprecated */
-    const loggerConsoleOutputIsDisabled = !this.config.printToConsole || this.config.logLevel === LogLevelsEnum.OFF;
+    const loggerConsoleOutputIsDisabled = this.config.logLevel === LogLevelsEnum.OFF;
 
     if (loggerConsoleOutputIsDisabled && !this.config.useLoggerProcessors) {
       return SaninnLogger.__emptyConsoleFunction as any;

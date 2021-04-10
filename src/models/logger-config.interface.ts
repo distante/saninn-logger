@@ -9,15 +9,7 @@ export interface ILoggerConfig {
   prefixColors?: LoggerTypesObjectForColors;
 
   /**
-   * If enabled the log output will be printed locally in console.
-   * The log call line will not be overwritten unless {@link ILoggerConfig.useLoggerProcessors} is true
-   *
-   * @deprecated set {@link ILoggerConfig.logLevel} to OFF to disable console output
-   */
-  printToConsole?: boolean;
-
-  /**
-   * If actived the function declared on globalPreLoggerFunctions will be called before
+   * If active the function declared on globalPreLoggerFunctions will be called before
    * every loggerProcessor and console function.
    * It DOES NOT Prevent the console to print the correct call line
    */
@@ -29,7 +21,7 @@ export interface ILoggerConfig {
   globalPreLoggerFunctions?: LoggerTypesObject<PreLoggerFunction>;
 
   /**
-   * If actived the array of functions on {@link ILoggerConfig.loggerProcessors} will be called before
+   * If active the array of functions on {@link ILoggerConfig.loggerProcessors} will be called before
    * every console function, util if you need to send the logs to third party libs or analytics services.
    * IMPORTANT: when this is enabled the SaninnLogger will lose the console position
    * because there is no way to get the console message without proxy it.
