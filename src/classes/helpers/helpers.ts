@@ -7,9 +7,9 @@ export namespace Helpers {
 
   export function getBindedConsoleProxy(
     logType: LoggerTypesEnum,
-    consoleProxy: Console,
+    consoleProxy: PatchedConsole,
     config: RequiredLoggerConfig
-  ): typeof console[LoggerTypesEnum] {
+  ): typeof ____patchedConsoleForSaninnLogger___[LoggerTypesEnum] {
     let logTypeToPrint = '';
     if (config.showLoggerFunctionNames && logType !== LoggerTypesEnum.dir) {
       logTypeToPrint = `[${logType.toUpperCase()}]`;
@@ -59,6 +59,8 @@ export namespace Helpers {
         return LogLevelsEnum.WARN;
       case LoggerTypesEnum.error:
         return LogLevelsEnum.ERROR;
+      case LoggerTypesEnum.fatal:
+        return LogLevelsEnum.FATAL;
       default:
         throw new Error('this LogType is not mapped to a LogLevel');
     }

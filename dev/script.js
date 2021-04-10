@@ -5,35 +5,43 @@ console.dir(SaninnLogger);
 // tslint:disable-next-line: no-string-literal
 window['SaninnLogger'] = SaninnLogger;
 
+const globalPreLoggerFunctions = {
+  dir: (prefix) => {
+    console.log(
+      'This is a DIR globalPreLoggerFunction that is not the direct console.dir',
+      'This is The Prefix:  ' + prefix
+    );
+  },
+  error: (prefix) => {
+    console.log(
+      'This is a ERROR globalPreLoggerFunction that is not the direct console.error',
+      'This is The Prefix:  ' + prefix
+    );
+  },
+  fatal: (prefix) => {
+    console.log(
+      'This is a FATAL globalPreLoggerFunction that is not the direct console.error',
+      'This is The Prefix:  ' + prefix
+    );
+  },
+  log: (prefix) => {
+    console.log(
+      'This is a LOG globalPreLoggerFunction that is not the direct console.log',
+      'This is The Prefix:  ' + prefix
+    );
+  },
+  warn: (prefix) => {
+    console.log(
+      'This is a WARN globalPreLoggerFunction that is not the direct console.warn',
+      'This is The Prefix:  ' + prefix
+    );
+  },
+};
+
 const loggerWithString = new SaninnLogger('just-with-string');
 const loggerWithFullConfig = new SaninnLogger({
   useGlobalPreLoggerFunctions: true,
-  globalPreLoggerFunctions: {
-    dir: (prefix) => {
-      console.log(
-        'This is a DIR preLoggerFunction that is not the direct console.dir',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    error: (prefix) => {
-      console.log(
-        'This is a ERROR preLoggerFunction that is not the direct console.error',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    log: (prefix) => {
-      console.log(
-        'This is a LOG preLoggerFunction that is not the direct console.log',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    warn: (prefix) => {
-      console.log(
-        'This is a WARN preLoggerFunction that is not the direct console.warn',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-  },
+  globalPreLoggerFunctions,
   prefix: 'full-config-logger',
   prefixColors: {
     error: 'blue',
@@ -45,32 +53,7 @@ const loggerWithFullConfig = new SaninnLogger({
 
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
   useGlobalPreLoggerFunctions: true,
-  globalPreLoggerFunctions: {
-    dir: (prefix) => {
-      console.log(
-        'This is a DIR preLoggerFunction that is not the direct console.dir',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    error: (prefix) => {
-      console.log(
-        'This is a ERROR preLoggerFunction that is not the direct console.error',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    log: (prefix) => {
-      console.log(
-        'This is a LOG preLoggerFunction that is not the direct console.log',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    warn: (prefix) => {
-      console.log(
-        'This is a WARN preLoggerFunction that is not the direct console.warn',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-  },
+  globalPreLoggerFunctions,
   prefix: 'full-config-logger',
   prefixColors: {
     error: 'blue',
@@ -114,32 +97,7 @@ loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors'
 
 const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
   useGlobalPreLoggerFunctions: true,
-  globalPreLoggerFunctions: {
-    dir: (prefix) => {
-      console.log(
-        'This is a DIR preLoggerFunction that is not the direct console.dir',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    error: (prefix) => {
-      console.log(
-        'This is a ERROR preLoggerFunction that is not the direct console.error',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    log: (prefix) => {
-      console.log(
-        'This is a LOG preLoggerFunction that is not the direct console.log',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-    warn: (prefix) => {
-      console.log(
-        'This is a WARN preLoggerFunction that is not the direct console.warn',
-        'This is The Prefix:  ' + prefix
-      );
-    },
-  },
+  globalPreLoggerFunctions,
   prefix: 'full-config-logger',
   prefixColors: {
     error: 'blue',
