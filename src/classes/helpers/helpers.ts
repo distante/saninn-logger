@@ -44,25 +44,20 @@ export namespace Helpers {
     return consoleProxy[logType].bind(console, `%c${prefixString}`, `color: ${config.prefixColors![logType]}`) as any;
   }
 
+  const logLevelsRecord: Record<LoggerTypesEnum, LogLevelsEnum> = {
+    [LoggerTypesEnum.debug]: LogLevelsEnum.DEBUG,
+    [LoggerTypesEnum.dir]: LogLevelsEnum.INFO,
+    [LoggerTypesEnum.info]: LogLevelsEnum.INFO,
+    [LoggerTypesEnum.log]: LogLevelsEnum.INFO,
+    [LoggerTypesEnum.warn]: LogLevelsEnum.WARN,
+    [LoggerTypesEnum.error]: LogLevelsEnum.ERROR,
+    [LoggerTypesEnum.fatal]: LogLevelsEnum.FATAL,
+  };
+
   /**
    * Maps LoggerTypesEnum to LogLevelsEnum values, allowing to set mo
    */
   export function getLogLevelOf(logType: LoggerTypesEnum): LogLevelsEnum {
-    switch (logType) {
-      case LoggerTypesEnum.debug:
-        return LogLevelsEnum.DEBUG;
-      case LoggerTypesEnum.dir:
-      case LoggerTypesEnum.info:
-      case LoggerTypesEnum.log:
-        return LogLevelsEnum.INFO;
-      case LoggerTypesEnum.warn:
-        return LogLevelsEnum.WARN;
-      case LoggerTypesEnum.error:
-        return LogLevelsEnum.ERROR;
-      case LoggerTypesEnum.fatal:
-        return LogLevelsEnum.FATAL;
-      default:
-        throw new Error('this LogType is not mapped to a LogLevel');
-    }
+    return logLevelsRecord[logType];
   }
 }
