@@ -14,5 +14,6 @@
   },
   "files.watcherExclude": {
     "**/dist": true
-  }
+  },
+  "cSpell.words": ["bestzip", "filehound"]
 }

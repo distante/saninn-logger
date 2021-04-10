@@ -782,7 +782,7 @@ describe('SaninnLogger', () => {
       expect(firstParameters).toEqual(allowedCalls);
     });
 
-    xtest(`setting a log level of ${
+    test(`setting a log level of ${
       LogLevelsEnum[LogLevelsEnum.FATAL]
     } should no allow Debug, Info(info,log,dir), Warn and Error level calls`, () => {
       const notAllowedCalls: LoggerTypesEnum[] = [
