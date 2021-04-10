@@ -9,5 +9,6 @@ export enum LoggerTypesEnum {
   info = 'info',
   dir = 'dir',
   warn = 'warn',
-  error = 'error'
+  error = 'error',
+  fatal = 'fatal',
 }

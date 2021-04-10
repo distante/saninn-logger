@@ -7,6 +7,8 @@
     "object-literal-sort-keys": false,
     "no-redundant-jsdoc": true,
     "no-namespace": false,
-    "ban-types": [false, ["Function"]]
+    "ban-types": [false, ["Function"]],
+    "interface-name": false,
+    "variable-name": false
   }
 }

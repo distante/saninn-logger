@@ -21,6 +21,28 @@ import { LoggerProcessor, LoggerTypesObject } from './models/type-definitions';
 export class SaninnLogger implements ILogger {
   public static LOG_TYPES_ARRAY = Helpers.LOG_TYPES_ARRAY;
 
+  /**
+   * This function will be returned as console[log|warn|dir,etc] handle when
+   * the output is disabled with {@link SaninnSalas#config.printToConsole} = false
+   *
+   */
+  // tslint:disable-next-line: variable-name
+  public static readonly __emptyConsoleFunction = () => void 0;
+
+  /** Since we need to patch the console to accept especial calls, that will be check here */
+  private static checkConsolePatch(): void {
+    // @ts-ignore
+    if (typeof ____patchedConsoleForSaninnLogger___ !== 'undefined' && ____patchedConsoleForSaninnLogger___.fatal) {
+      // We initialize this one time
+      return;
+    }
+
+    // @ts-ignore
+    window.____patchedConsoleForSaninnLogger___ = console;
+    // tslint:disable-next-line: no-console
+    window.____patchedConsoleForSaninnLogger___.fatal = console.error;
+  }
+
   //    ██████  ███████ ████████ ████████ ███████ ██████  ███████
   //   ██       ██         ██       ██    ██      ██   ██ ██
   //   ██   ███ █████      ██       ██    █████   ██████  ███████
@@ -58,8 +80,9 @@ export class SaninnLogger implements ILogger {
     return this.getConsoleHandlerFor(LoggerTypesEnum.error);
   }
 
-  // tslint:disable-next-line: variable-name
-  public static readonly __emptyConsoleFunction = () => void 0;
+  get fatal(): typeof console.error {
+    return this.getConsoleHandlerFor(LoggerTypesEnum.fatal);
+  }
 
   //    ██████  ██████  ██ ██    ██  █████  ████████ ███████
   //    ██   ██ ██   ██ ██ ██    ██ ██   ██    ██    ██
@@ -67,18 +90,12 @@ export class SaninnLogger implements ILogger {
   //    ██      ██   ██ ██  ██  ██  ██   ██    ██    ██
   //    ██      ██   ██ ██   ████   ██   ██    ██    ███████
 
-  /**
-   * This function will be retorned as console[log|warn|dir,etc] handle when
-   * the output is disabled with {@link SaninnSalas#config.printToConsole} = false
-   *
-   */
-
   private readonly config: LoggerConfig;
 
   // tslint:disable-next-line:no-empty
   private readonly consoleFunctionProxys: LoggerTypesObject<Function> = {};
   private readonly consoleProxyHandler: ProxyHandler<Console> = {
-    get: (target: Console, prop: LoggerTypesEnum) => {
+    get: (target: PatchedConsole, prop: LoggerTypesEnum) => {
       if (this.config.useLoggerProcessors) {
         return this.consoleFunctionProxys[prop];
       } else {
@@ -87,9 +104,12 @@ export class SaninnLogger implements ILogger {
     },
   };
 
-  private readonly consoleProxy = new Proxy<Console>(console, this.consoleProxyHandler);
+  private readonly consoleProxy: PatchedConsole;
 
   constructor(loggerConfig?: string | ILoggerConfig) {
+    SaninnLogger.checkConsolePatch();
+
+    this.consoleProxy = new Proxy<PatchedConsole>(____patchedConsoleForSaninnLogger___, this.consoleProxyHandler);
     // saninnLoggerInstanceCounter++;
     // this.loggerId = `SaninnLogger_${Date.now()}_${saninnLoggerInstanceCounter}`;
 
@@ -166,7 +186,10 @@ export class SaninnLogger implements ILogger {
         apply: (target, consoleObject, argumentsList) =>
           this.consoleFunctionProxyApply(target, consoleObject, argumentsList, logType),
       };
-      this.consoleFunctionProxys[logType] = new Proxy(console[logType], consoleFunctionHandler);
+      this.consoleFunctionProxys[logType] = new Proxy(
+        ____patchedConsoleForSaninnLogger___[logType],
+        consoleFunctionHandler
+      );
       // console.error(this.consoleFunctionProxys[logType]);
     });
   }
@@ -218,7 +241,7 @@ export class SaninnLogger implements ILogger {
     });
   }
 
-  private getConsoleHandlerFor(logType: LoggerTypesEnum): typeof console[LoggerTypesEnum] {
+  private getConsoleHandlerFor(logType: LoggerTypesEnum): PatchedConsole[LoggerTypesEnum] {
     const extraFunctionForThisLogType = this.config.globalPreLoggerFunctions![logType];
 
     // TODO: add an callback for when this function is done?????
