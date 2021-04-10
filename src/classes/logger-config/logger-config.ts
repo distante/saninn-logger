@@ -5,7 +5,7 @@ import {
   LoggerTypesObject,
   LoggerTypesObjectForColors,
   PreLoggerFunction,
-  RequiredLoggerConfig
+  RequiredLoggerConfig,
 } from '../../models/type-definitions';
 import { Helpers } from '../helpers/helpers';
 
@@ -16,9 +16,8 @@ export class LoggerConfig implements RequiredLoggerConfig {
 
   public prefix = '';
 
-  public prefixColors: LoggerTypesObjectForColors = ({} as unknown) as LoggerTypesObjectForColors;
-  /** @deprecated */
-  public printToConsole = true;
+  public prefixColors: LoggerTypesObjectForColors = {};
+
   public useGlobalPreLoggerFunctions = false;
   public globalPreLoggerFunctions: LoggerTypesObject<PreLoggerFunction> = {};
   public useLoggerProcessors = false;
@@ -46,11 +45,6 @@ export class LoggerConfig implements RequiredLoggerConfig {
 
     this.useGlobalPreLoggerFunctions = !!wantedLoggerConfig.useGlobalPreLoggerFunctions;
 
-    // Since printToConsole is true by default this is the safest way to assign it.
-    if (typeof wantedLoggerConfig.printToConsole !== 'undefined') {
-      this.printToConsole = wantedLoggerConfig.printToConsole;
-    }
-
     if (this.globalPreLoggerFunctions) {
       this.initializeObjectsBasedOnEnumsLogTypes(
         this.globalPreLoggerFunctions,
@@ -66,7 +60,7 @@ export class LoggerConfig implements RequiredLoggerConfig {
   }
 
   private initializeLoggerProcessorsWith(loggerProcessors: LoggerTypesObject<LoggerProcessor[]>) {
-    Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+    Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
       // tslint:disable-next-line:prefer-conditional-expression
       if (loggerProcessors[logType]) {
         this.loggerProcessors![logType] = loggerProcessors[logType];
@@ -84,7 +78,7 @@ export class LoggerConfig implements RequiredLoggerConfig {
       return;
     }
 
-    Helpers.LOG_TYPES_ARRAY.forEach(logType => {
+    Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
       if (configs[logType]) {
         object[logType] = configs[logType];
       }

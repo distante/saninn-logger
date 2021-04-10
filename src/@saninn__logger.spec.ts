@@ -42,7 +42,6 @@ describe('SaninnLogger', () => {
     test('With an config Object', () => {
       const saninnLogger = new SaninnLogger({
         prefix: 'hello',
-        printToConsole: false,
       });
       expect(saninnLogger).toBeTruthy();
     });
@@ -139,25 +138,6 @@ describe('SaninnLogger', () => {
       saninnLogger[consoleFunction]();
 
       expect(mockFunction).toHaveBeenCalledWith(loggerPrefix);
-    });
-  });
-
-  describe('printToConsole', () => {
-    test('if printToConsole is set to false, the logger should not be bind', () => {
-      const consoleFunction: LoggerTypesEnum = LoggerTypesEnum.log;
-
-      const bindSpy = spyOn(____patchedConsoleForSaninnLogger___[consoleFunction] as Function, 'bind').and.returnValue(
-        () => {
-          /* */
-        }
-      );
-      const saninnLogger = new SaninnLogger({
-        printToConsole: false,
-      });
-
-      saninnLogger[consoleFunction]();
-
-      expect(bindSpy).not.toHaveBeenCalled();
     });
   });
 
@@ -402,7 +382,6 @@ describe('SaninnLogger', () => {
     test('useLoggerProcessors should use the console proxy when useLoggerProcessors AND printToConsole is false', () => {
       const saninnLogger = new SaninnLogger({
         useLoggerProcessors: true,
-        printToConsole: false,
       });
       const proxyFunctionSpy = jest.fn();
 
@@ -454,7 +433,6 @@ describe('SaninnLogger', () => {
         const prefixTest = 'prefix-test';
         const textTest = 'some random text';
         const saninnLogger = new SaninnLogger({
-          printToConsole: false,
           prefix: prefixTest,
           useLoggerProcessors: true,
           loggerProcessors: {
@@ -638,33 +616,6 @@ describe('SaninnLogger', () => {
     });
   });
 
-  test('#disablePrintToConsole deactivate console Prints', () => {
-    const saninnLogger = new SaninnLogger({
-      prefix: 'test',
-    });
-
-    const loggerActive = saninnLogger.log;
-    saninnLogger.disablePrintToConsole();
-    const loggerInactive = saninnLogger.log;
-
-    expect(loggerActive).not.toBe(loggerInactive);
-    expect(loggerInactive).toBe(SaninnLogger.__emptyConsoleFunction);
-  });
-
-  test('#enablePrintToConsole activates console Prints', () => {
-    const saninnLogger = new SaninnLogger({
-      prefix: 'test',
-      printToConsole: false,
-    });
-
-    const loggerInactive = saninnLogger.log;
-    saninnLogger.enablePrintToConsole();
-    const loggerActive = saninnLogger.log;
-
-    expect(loggerActive).not.toBe(loggerInactive);
-    expect(loggerInactive).toBe(SaninnLogger.__emptyConsoleFunction);
-  });
-
   test('prefix can be changed using #setPrefixTo', () => {
     const initialPrefix = 'initial prefix';
     const finalPrefix = 'final prefix';
@@ -697,7 +648,7 @@ describe('SaninnLogger', () => {
     });
   });
 
-  test('can be completely disable', () => {
+  test('can be completely disabled', () => {
     const spyFunction = jest.fn();
     const globalPreLoggerFunctions: { [key: string]: (prefix: any) => void } = {};
 
@@ -717,7 +668,6 @@ describe('SaninnLogger', () => {
         log: 'green',
         warn: 'red',
       },
-      printToConsole: false,
       useLoggerProcessors: true,
       loggerProcessors: {
         log: [
