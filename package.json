@@ -32,6 +32,7 @@
     "watch": "run-s clean:module && npm run transpile-dev && npm-watch",
     "serve": "live-server --watch=dist/,dev/ --open=dev/index-es6.html --wait=500",
     "transpile-dev": "tsc && npm run fix-es2015-modules",
+    "buildAll": "npm run build && npm run build-bundles",
     "build": "shx rm -rf ./dist/ && tsc --sourceMap false && run-s fix-es2015-modules",
     "build-bundles": "run-p build:*",
     "build:module": "run-s clean:module && tsc --sourceMap false --outDir ./dist-bundles/es6 && node ./scripts/fix-es2015-modules.js ./dist-bundles/es6",
