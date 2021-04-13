@@ -6,7 +6,7 @@ import {
   LoggerTypesObjectForColors,
   PreLoggerFunction,
   RequiredLoggerConfig,
-} from '../../models/type-definitions';
+} from '../../type-definitions';
 import { Helpers } from '../helpers/helpers';
 
 export class LoggerConfig implements RequiredLoggerConfig {

@@ -1,5 +1,3 @@
-declare interface PatchedConsole extends Console {
-  fatal: typeof console.error;
-}
+import { PatchedConsole } from './internal-interfaces/patched-console.interface';
 
 declare var ____patchedConsoleForSaninnLogger___: PatchedConsole;

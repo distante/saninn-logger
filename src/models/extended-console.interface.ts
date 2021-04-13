@@ -1,4 +1,4 @@
-import { LoggerTypesObject } from './type-definitions';
+import { LoggerTypesObject } from '../type-definitions';
 
 export interface IExtendedConsoleForLogger extends Console {
   ___SaninnLogger: {

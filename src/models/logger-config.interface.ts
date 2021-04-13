@@ -1,5 +1,5 @@
 import { LogLevelsEnum } from './log-levels.enum';
-import { LoggerProcessor, LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './type-definitions';
+import { LoggerProcessor, LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from '../type-definitions';
 
 export interface ILoggerConfig {
   /** The prefix to be appended before the log message */
