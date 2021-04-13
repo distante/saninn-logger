@@ -15,6 +15,5 @@
   "files.watcherExclude": {
     "**/dist": true
   },
-  "cSpell.words": ["bestzip", "filehound"],
-  "exportall.config.folderListener": ["/src/models"]
+  "cSpell.words": ["bestzip", "filehound"]
 }
