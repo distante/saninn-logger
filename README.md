@@ -9,7 +9,7 @@ Made with Typescript, usable as es6 module and iife (with IE10 support).
 
 <div align="center">
 
-[![Build Status](https://travis-ci.org/distante/saninn-logger.svg?branch=master)](https://travis-ci.org/distante/saninn-logger) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) [![Known Vulnerabilities](https://snyk.io/test/github/distante/saninn/badge.svg?targetFile=package.json)](https://snyk.io/test/github/distante/saninn?targetFile=package.json) [![Maintainability](https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability)](https://codeclimate.com/github/distante/saninn-logger/maintainability) ![Licence](https://img.shields.io/github/license/distante/saninn-logger.svg)
+[![Build Status](https://github.com/distante/saninn-logger/actions/workflows/node.js.yml/badge.svg)](https://github.com/distante/saninn-logger/actions/workflows/node.js.yml) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) [![Known Vulnerabilities](https://snyk.io/test/github/distante/saninn/badge.svg?targetFile=package.json)](https://snyk.io/test/github/distante/saninn?targetFile=package.json) [![Maintainability](https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability)](https://codeclimate.com/github/distante/saninn-logger/maintainability) ![Licence](https://img.shields.io/github/license/distante/saninn-logger.svg)
 
 </div>
 </div>
@@ -120,36 +120,36 @@ You can see the [Wiki](https://github.com/distante/saninn-logger/wiki) for ideas
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
   useGlobalPreLoggerFunctions: true,
   globalPreLoggerFunctions: {
-    dir: prefix => {
+    dir: (prefix) => {
       console.log(
         'This is a DIR preLoggerFunction that is not the direct console.dir',
         'This is The Prefix:  ' + prefix
       );
     },
-    error: prefix => {
+    error: (prefix) => {
       console.log(
         'This is a ERROR preLoggerFunction that is not the direct console.error',
         'This is The Prefix:  ' + prefix
       );
     },
-    log: prefix => {
+    log: (prefix) => {
       console.log(
         'This is a LOG preLoggerFunction that is not the direct console.log',
         'This is The Prefix:  ' + prefix
       );
     },
-    warn: prefix => {
+    warn: (prefix) => {
       console.log(
         'This is a WARN preLoggerFunction that is not the direct console.warn',
         'This is The Prefix:  ' + prefix
       );
-    }
+    },
   },
   prefix: 'full-config-logger',
   prefixColors: {
     error: 'blue',
     log: 'green',
-    warn: 'red'
+    warn: 'red',
   },
   printToConsole: true,
   useLoggerProcessors: true,
@@ -164,9 +164,9 @@ const loggerWithFullConfigAndProcessors = new SaninnLogger({
         console.log('SECOND logger Processor para saninnLogger.log');
         console.log('prefix: ', prefix);
         console.log('args: ', args);
-      }
-    ]
-  }
+      },
+    ],
+  },
 });
 
 const dummyObject = {
@@ -174,11 +174,11 @@ const dummyObject = {
   b: 2,
   c: {
     d: 3,
-    e: 4
-  }
+    e: 4,
+  },
 };
 
-const dummyFunction = function() {
+const dummyFunction = function () {
   console.log('dummy function');
 };
 loggerWithFullConfigAndProcessors.log('log of loggerWithFullConfigAndProcessors', dummyObject, dummyFunction);
