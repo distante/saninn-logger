@@ -30,6 +30,7 @@
     "prettier:check": "pretty-quick --staged",
     "saninn": "run-p watch live-server",
     "watch": "run-s clean:module && npm run transpile-dev && npm-watch",
+    "prepare": "npm run build",
     "serve": "live-server --watch=dist/,dev/ --open=dev/index-es6.html --wait=500",
     "transpile-dev": "tsc && npm run fix-es2015-modules",
     "buildAll": "npm run build && npm run build-bundles",
