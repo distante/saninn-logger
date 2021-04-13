@@ -9,14 +9,17 @@
  */
 import { Helpers } from './classes/helpers/helpers';
 import { LoggerConfig } from './classes/logger-config/logger-config';
+import { PatchedConsole } from './internal-interfaces/patched-console.interface';
 import { LogLevelsEnum } from './models/log-levels.enum';
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerConfig } from './models/logger-config.interface';
 import { ILoggerProcessorFunctionParams } from './models/logger-processor-function-params.interface';
 import { ILogger } from './models/logger.interface';
-import { LoggerProcessor, LoggerTypesObject } from './models/type-definitions';
+import { LoggerProcessor, LoggerTypesObject } from './type-definitions';
 
 // let saninnLoggerInstanceCounter = 0;
+
+declare var ____patchedConsoleForSaninnLogger___: PatchedConsole;
 
 export class SaninnLogger implements ILogger {
   public static LOG_TYPES_ARRAY = Helpers.LOG_TYPES_ARRAY;
@@ -39,6 +42,8 @@ export class SaninnLogger implements ILogger {
 
     // @ts-ignore
     window.____patchedConsoleForSaninnLogger___ = console;
+
+    // @ts-ignore
     // tslint:disable-next-line: no-console
     window.____patchedConsoleForSaninnLogger___.fatal = console.error;
   }

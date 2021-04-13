@@ -1,5 +1,3 @@
-// tslint:disable-next-line: no-reference
-///<reference path="typings.d.ts"/>
 // tslint:disable:no-implicit-dependencies
 import 'jest-extended';
 
@@ -7,10 +5,13 @@ import { ILoggerConfig } from '../dist';
 import { SaninnLogger } from './@saninn__logger';
 import { Helpers } from './classes/helpers/helpers';
 import { LoggerConfig } from './classes/logger-config/logger-config';
+import { PatchedConsole } from './internal-interfaces/patched-console.interface';
 import { LogLevelsEnum } from './models/log-levels.enum';
 import { LoggerTypesEnum } from './models/log-types.enum';
 import { ILoggerProcessorFunctionParams } from './models/logger-processor-function-params.interface';
-import { LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './models/type-definitions';
+import { LoggerTypesObject, LoggerTypesObjectForColors, PreLoggerFunction } from './type-definitions';
+
+declare var ____patchedConsoleForSaninnLogger___: PatchedConsole;
 
 /**
  * LoggerTypesEnum constructs the logger interface and several objects.

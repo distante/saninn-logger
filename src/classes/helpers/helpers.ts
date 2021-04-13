@@ -1,6 +1,7 @@
+import { PatchedConsole } from '../../internal-interfaces/patched-console.interface';
 import { LogLevelsEnum } from '../../models/log-levels.enum';
 import { LoggerTypesEnum } from '../../models/log-types.enum';
-import { RequiredLoggerConfig } from '../../models/type-definitions';
+import { RequiredLoggerConfig } from '../../type-definitions';
 
 export namespace Helpers {
   export const LOG_TYPES_ARRAY: LoggerTypesEnum[] = Object.keys(LoggerTypesEnum) as LoggerTypesEnum[];
@@ -9,7 +10,7 @@ export namespace Helpers {
     logType: LoggerTypesEnum,
     consoleProxy: PatchedConsole,
     config: RequiredLoggerConfig
-  ): typeof ____patchedConsoleForSaninnLogger___[LoggerTypesEnum] {
+  ): PatchedConsole[LoggerTypesEnum] {
     let logTypeToPrint = '';
     if (config.showLoggerFunctionNames && logType !== LoggerTypesEnum.dir) {
       logTypeToPrint = `[${logType.toUpperCase()}]`;

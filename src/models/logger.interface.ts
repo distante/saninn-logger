@@ -1,7 +1,7 @@
 import { LogLevelsEnum } from './log-levels.enum';
 import { LoggerTypesEnum } from './log-types.enum';
 import { ILoggerActions } from './logger-actions.interface';
-import { LoggerProcessor } from './type-definitions';
+import { LoggerProcessor } from '../type-definitions';
 
 export interface ILogger extends ILoggerActions {
   setPrefixTo(newPrefix: string): void;

@@ -8,4 +8,5 @@
  *  http://www.saninnsalas.com
  */
 export * from './@saninn__logger';
-export * from './models/logger-config.interface';
+export * from './models/index';
+export * from './type-definitions';
