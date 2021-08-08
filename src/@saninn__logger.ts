@@ -176,6 +176,10 @@ export class SaninnLogger implements ILogger {
     this.config.logLevel = level;
   }
 
+  public get level(): LogLevelsEnum {
+    return this.config.logLevel;
+  }
+
   private initProxy() {
     Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
       const consoleFunctionHandler: ProxyHandler<Function> = {

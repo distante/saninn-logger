@@ -806,5 +806,23 @@ describe('SaninnLogger', () => {
 
       expect(firstParameters).toEqual(allowedCalls);
     });
+
+    describe('level property', () => {
+      test('the level returns the current level from the config', () => {
+        const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.FATAL });
+        expect(saninnLogger.level).toBe(LogLevelsEnum.FATAL);
+
+        saninnLogger.setLogLevelTo(LogLevelsEnum.INFO);
+        expect(saninnLogger.level).toBe(LogLevelsEnum.INFO);
+      });
+
+      test('level can not be changed directly', () => {
+        const saninnLogger = new SaninnLogger({ logLevel: LogLevelsEnum.FATAL });
+        // @ts-expect-error not all people uses typescript (sadly);
+        expect(() => (saninnLogger.level = LogLevelsEnum.OFF)).toThrow();
+
+        expect(saninnLogger.level).toBe(LogLevelsEnum.FATAL);
+      });
+    });
   });
 });
