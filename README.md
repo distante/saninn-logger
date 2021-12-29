@@ -9,7 +9,7 @@ Made with Typescript, usable as es6 module and iife (with IE10 support).
 
 <div align="center">
 
-[![Build Status](https://github.com/distante/saninn-logger/actions/workflows/node.js.yml/badge.svg)](https://github.com/distante/saninn-logger/actions/workflows/node.js.yml) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) [![Known Vulnerabilities](https://snyk.io/test/github/distante/saninn/badge.svg?targetFile=package.json)](https://snyk.io/test/github/distante/saninn?targetFile=package.json) [![Maintainability](https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability)](https://codeclimate.com/github/distante/saninn-logger/maintainability) ![Licence](https://img.shields.io/github/license/distante/saninn-logger.svg)
+[![Build Status](https://github.com/distante/saninn-logger/actions/workflows/node.js.yml/badge.svg)](https://github.com/distante/saninn-logger/actions/workflows/node.js.yml) [![codecov](https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg)](https://codecov.io/gh/distante/saninn-logger) [![Known Vulnerabilities](https://snyk.io/test/github/distante/saninn-logger/badge.svg?targetFile=package.json)](https://snyk.io/test/github/distante/saninn-logger?targetFile=package.json) [![Maintainability](https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability)](https://codeclimate.com/github/distante/saninn-logger/maintainability) ![Licence](https://img.shields.io/github/license/distante/saninn-logger.svg)
 
 </div>
 </div>
