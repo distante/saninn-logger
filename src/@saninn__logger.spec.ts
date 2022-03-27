@@ -61,7 +61,7 @@ describe('SaninnLogger', () => {
       const expected = () => {
         return;
       };
-      spyOn(____patchedConsoleForSaninnLogger___[consoleFunction] as Function, 'bind').and.returnValue(expected);
+      jest.spyOn(____patchedConsoleForSaninnLogger___[consoleFunction] as Function, 'bind').mockReturnValue(expected);
 
       // tslint:disable-next-line:no-console
       console.log(`calling ${consoleFunction}`);
@@ -76,7 +76,7 @@ describe('SaninnLogger', () => {
   describe.each([loggerFunctions])('globalPreLoggerFunctions', (consoleFunction: LoggerTypesEnum) => {
     test(`${consoleFunction} globalPreLoggerFunction is called before bind to console`, () => {
       const consoleBindMock = jest.fn();
-      spyOn(____patchedConsoleForSaninnLogger___[consoleFunction] as Function, 'bind').and.returnValue(() => {
+      jest.spyOn(____patchedConsoleForSaninnLogger___[consoleFunction] as Function, 'bind').mockReturnValue(() => {
         consoleBindMock();
       });
       const mockFunction = jest.fn();
@@ -153,21 +153,21 @@ describe('SaninnLogger', () => {
 
     const log: LoggerTypesEnum = LoggerTypesEnum.log;
     test(`should call ${log} function with the given prefix`, () => {
-      spyOn(____patchedConsoleForSaninnLogger___, log);
+      jest.spyOn(____patchedConsoleForSaninnLogger___, log);
       saninnLogger[log]();
       expect(____patchedConsoleForSaninnLogger___[log]).toHaveBeenCalledWith(completePrefix);
     });
 
     const warn: LoggerTypesEnum = LoggerTypesEnum.warn;
     test(`should call ${warn} function with the given prefix`, () => {
-      spyOn(____patchedConsoleForSaninnLogger___, warn);
+      jest.spyOn(____patchedConsoleForSaninnLogger___, warn);
       saninnLogger[warn]();
       expect(____patchedConsoleForSaninnLogger___[warn]).toHaveBeenCalledWith(completePrefix);
     });
 
     const error: LoggerTypesEnum = LoggerTypesEnum.error;
     test(`should call ${error} function with the given prefix`, () => {
-      spyOn(____patchedConsoleForSaninnLogger___, error);
+      jest.spyOn(____patchedConsoleForSaninnLogger___, error);
       saninnLogger[error]();
       expect(____patchedConsoleForSaninnLogger___[error]).toHaveBeenCalledWith(completePrefix);
     });
@@ -175,7 +175,7 @@ describe('SaninnLogger', () => {
     // dir does not have prefix!
     const dir: LoggerTypesEnum = LoggerTypesEnum.dir;
     test(`should NOT call ${dir} function with the given prefix`, () => {
-      spyOn(____patchedConsoleForSaninnLogger___, dir);
+      jest.spyOn(____patchedConsoleForSaninnLogger___, dir);
       saninnLogger[dir]();
       expect(____patchedConsoleForSaninnLogger___[dir]).not.toHaveBeenCalledWith(completePrefix);
     });
@@ -200,7 +200,7 @@ describe('SaninnLogger', () => {
       // @ts-ignore
       document.documentMode = true;
       // TODO: Move this to logger-config.spec.ts
-      const initSpy = spyOn(LoggerConfig.prototype as any, 'initializeObjectsBasedOnEnumsLogTypes');
+      const initSpy = jest.spyOn(LoggerConfig.prototype as any, 'initializeObjectsBasedOnEnumsLogTypes');
       // tslint:disable-next-line:no-unused-expression
       new SaninnLogger({
         prefix: prefixText,
@@ -215,7 +215,7 @@ describe('SaninnLogger', () => {
     describe('should return the colored prefix', () => {
       test('for log', () => {
         const consoleFunction = LoggerTypesEnum.log;
-        spyOn(____patchedConsoleForSaninnLogger___, consoleFunction).and.callThrough();
+        jest.spyOn(____patchedConsoleForSaninnLogger___, consoleFunction);
         const saninnLogger = new SaninnLogger({
           prefix: prefixText,
           prefixColors: colors,
@@ -232,7 +232,7 @@ describe('SaninnLogger', () => {
 
       test('for warn', () => {
         const consoleFunction = LoggerTypesEnum.warn;
-        spyOn(____patchedConsoleForSaninnLogger___, consoleFunction).and.callThrough();
+        jest.spyOn(____patchedConsoleForSaninnLogger___, consoleFunction);
         const saninnLogger = new SaninnLogger({
           prefix: prefixText,
           prefixColors: colors,
@@ -249,7 +249,7 @@ describe('SaninnLogger', () => {
 
       test('for error', () => {
         const consoleFunction = LoggerTypesEnum.error;
-        spyOn(____patchedConsoleForSaninnLogger___, consoleFunction).and.callThrough();
+        jest.spyOn(____patchedConsoleForSaninnLogger___, consoleFunction);
         const saninnLogger = new SaninnLogger({
           prefix: prefixText,
           prefixColors: colors,
@@ -279,7 +279,7 @@ describe('SaninnLogger', () => {
           if (logType === LoggerTypesEnum.dir) {
             return;
           }
-          spyOn(____patchedConsoleForSaninnLogger___, logType);
+          jest.spyOn(____patchedConsoleForSaninnLogger___, logType);
           logger[logType]();
           expect(____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(`[${logType.toUpperCase()}]:`);
         });
@@ -293,7 +293,7 @@ describe('SaninnLogger', () => {
           if (logType === LoggerTypesEnum.dir) {
             return;
           }
-          spyOn(____patchedConsoleForSaninnLogger___, logType);
+          jest.spyOn(____patchedConsoleForSaninnLogger___, logType);
           logger[logType](myMessage);
           expect(____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(
             `[${logType.toUpperCase()}]:`,
@@ -311,7 +311,7 @@ describe('SaninnLogger', () => {
           if (logType === LoggerTypesEnum.dir) {
             return;
           }
-          spyOn(____patchedConsoleForSaninnLogger___, logType);
+          jest.spyOn(____patchedConsoleForSaninnLogger___, logType);
           logger[logType]();
           expect(____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(
             `[${loggerPrefix}][${logType.toUpperCase()}]:`
@@ -329,7 +329,7 @@ describe('SaninnLogger', () => {
           if (logType === LoggerTypesEnum.dir) {
             return;
           }
-          spyOn(____patchedConsoleForSaninnLogger___, logType);
+          jest.spyOn(____patchedConsoleForSaninnLogger___, logType);
           logger[logType](myMessage);
           expect(____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(
             `[${loggerPrefix}][${logType.toUpperCase()}]:`,
@@ -344,11 +344,11 @@ describe('SaninnLogger', () => {
         showLoggerFunctionNames: true,
       });
 
-      const dirSpy = spyOn(____patchedConsoleForSaninnLogger___, 'dir');
+      const dirSpy = jest.spyOn(____patchedConsoleForSaninnLogger___, 'dir');
       logger.dir();
 
-      const callInfo = dirSpy.calls.mostRecent();
-      expect(callInfo.args.length).toBe(0);
+      expect(dirSpy.mock.calls.length).toBe(1);
+      expect(dirSpy.mock.calls[0].length).toBe(0);
     });
 
     test('should not print the loggerFunction for .dir with prefix', () => {
@@ -358,11 +358,11 @@ describe('SaninnLogger', () => {
         prefix: loggerPrefix,
       });
 
-      const dirSpy = spyOn(____patchedConsoleForSaninnLogger___, 'dir');
+      const dirSpy = jest.spyOn(____patchedConsoleForSaninnLogger___, 'dir');
       logger.dir();
 
-      const callInfo = dirSpy.calls.mostRecent();
-      expect(callInfo.args.length).toBe(0);
+      expect(dirSpy.mock.calls.length).toBe(1);
+      expect(dirSpy.mock.calls[0].length).toBe(0); // 0 args
     });
   });
 
@@ -373,7 +373,7 @@ describe('SaninnLogger', () => {
       });
       const proxyFunctionSpy = jest.fn();
       // @ts-ignore
-      spyOn(saninnLogger.consoleFunctionProxys, 'log').and.callFake(proxyFunctionSpy);
+      jest.spyOn(saninnLogger.consoleFunctionProxys, 'log').mockImplementation(proxyFunctionSpy);
 
       saninnLogger.log('test');
 
@@ -387,7 +387,7 @@ describe('SaninnLogger', () => {
       const proxyFunctionSpy = jest.fn();
 
       // @ts-ignore
-      spyOn(saninnLogger.consoleFunctionProxys, 'log').and.callFake(proxyFunctionSpy);
+      jest.spyOn(saninnLogger.consoleFunctionProxys, 'log').mockImplementation(proxyFunctionSpy);
 
       saninnLogger.log('test');
 
@@ -514,10 +514,10 @@ describe('SaninnLogger', () => {
       const saninnLogger = new SaninnLogger({
         useLoggerProcessors: true,
       });
-      // @ts-ignore
-      const proxyFunctionSpy = spyOn(saninnLogger.consoleFunctionProxys, 'log').and.callThrough();
-      // @ts-ignore
-      const runLoggerProcessorSpy = spyOn(saninnLogger, 'runLoggerProcessorsOf').and.callThrough();
+      // @ts-expect-error I need to check that it is called!
+      const proxyFunctionSpy = jest.spyOn(saninnLogger.consoleFunctionProxys, 'log');
+      // @ts-expect-error I need to check that it is called!
+      const runLoggerProcessorSpy = jest.spyOn(saninnLogger, 'runLoggerProcessorsOf');
 
       saninnLogger[consoleFunction](textTest, someRandomObject);
 
@@ -625,7 +625,7 @@ describe('SaninnLogger', () => {
       prefix: initialPrefix,
     });
 
-    const consoleSpy = spyOn(____patchedConsoleForSaninnLogger___, 'log');
+    const consoleSpy = jest.spyOn(____patchedConsoleForSaninnLogger___, 'log');
 
     saninnLogger.setPrefixTo(finalPrefix);
     saninnLogger.log();
@@ -654,7 +654,7 @@ describe('SaninnLogger', () => {
     const globalPreLoggerFunctions: { [key: string]: (prefix: any) => void } = {};
 
     Helpers.LOG_TYPES_ARRAY.forEach((logType) => {
-      spyOn(____patchedConsoleForSaninnLogger___, logType).and.callFake(spyFunction);
+      jest.spyOn(____patchedConsoleForSaninnLogger___, logType).mockImplementation(spyFunction);
       globalPreLoggerFunctions[logType] = (prefix) => {
         spyFunction(prefix);
       };
