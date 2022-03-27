@@ -99,8 +99,8 @@
     }
   },
   "devDependencies": {
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@types/jest": "^26.0.22",
     "bestzip": "^2.2.0",
     "filehound": "^1.17.4",
@@ -125,6 +125,5 @@
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.2.4",
     "uglify-js": "^3.13.3"
-  },
-  "dependencies": {}
+  }
 }
