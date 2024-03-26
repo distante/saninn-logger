@@ -33,9 +33,9 @@ export class SaninnLogger implements ILogger {
 
   /** Since we need to patch the console to accept especial calls, that will be check here */
   private static checkConsolePatch(): void {
-    // @ts-ignore
     if (
       typeof SaninnLogger.____patchedConsoleForSaninnLogger___ !== 'undefined' &&
+      // @ts-ignore
       SaninnLogger.____patchedConsoleForSaninnLogger___.fatal
     ) {
       // We initialize this one time
