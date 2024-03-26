@@ -104,6 +104,7 @@
     "@compodoc/live-server": "^1.2.3",
     "@testing-library/jest-dom": "^5.16.3",
     "@types/jest": "^27.4.1",
+    "bestzip": "^2.2.1",
     "filehound": "^1.17.4",
     "husky": "^4.3.4",
     "jest": "^27.5.1",
