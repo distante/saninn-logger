@@ -86,6 +86,9 @@ export class LoggerConfig implements RequiredLoggerConfig {
   }
 
   private isIE() {
+    if (typeof document === 'undefined') {
+      return false;
+    }
     // @ts-ignore
     return /*@cc_on!@*/ false || !!document.documentMode;
   }

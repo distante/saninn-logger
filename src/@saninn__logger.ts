@@ -19,9 +19,8 @@ import { LoggerProcessor, LoggerTypesObject } from './type-definitions';
 
 // let saninnLoggerInstanceCounter = 0;
 
-declare var ____patchedConsoleForSaninnLogger___: PatchedConsole;
-
 export class SaninnLogger implements ILogger {
+  public static ____patchedConsoleForSaninnLogger___: PatchedConsole;
   public static LOG_TYPES_ARRAY = Helpers.LOG_TYPES_ARRAY;
 
   /**
@@ -35,17 +34,20 @@ export class SaninnLogger implements ILogger {
   /** Since we need to patch the console to accept especial calls, that will be check here */
   private static checkConsolePatch(): void {
     // @ts-ignore
-    if (typeof ____patchedConsoleForSaninnLogger___ !== 'undefined' && ____patchedConsoleForSaninnLogger___.fatal) {
+    if (
+      typeof SaninnLogger.____patchedConsoleForSaninnLogger___ !== 'undefined' &&
+      SaninnLogger.____patchedConsoleForSaninnLogger___.fatal
+    ) {
       // We initialize this one time
       return;
     }
 
-    // @ts-ignore
-    window.____patchedConsoleForSaninnLogger___ = console;
+    // @ts-expect-error fatal is not a property of console
+    SaninnLogger.____patchedConsoleForSaninnLogger___ = console;
 
     // @ts-ignore
     // tslint:disable-next-line: no-console
-    window.____patchedConsoleForSaninnLogger___.fatal = console.error;
+    SaninnLogger.____patchedConsoleForSaninnLogger___.fatal = console.error;
   }
 
   //    ██████  ███████ ████████ ████████ ███████ ██████  ███████
@@ -114,7 +116,10 @@ export class SaninnLogger implements ILogger {
   constructor(loggerConfig?: string | ILoggerConfig) {
     SaninnLogger.checkConsolePatch();
 
-    this.consoleProxy = new Proxy<PatchedConsole>(____patchedConsoleForSaninnLogger___, this.consoleProxyHandler);
+    this.consoleProxy = new Proxy<PatchedConsole>(
+      SaninnLogger.____patchedConsoleForSaninnLogger___,
+      this.consoleProxyHandler
+    );
     // saninnLoggerInstanceCounter++;
     // this.loggerId = `SaninnLogger_${Date.now()}_${saninnLoggerInstanceCounter}`;
 
@@ -188,7 +193,7 @@ export class SaninnLogger implements ILogger {
           this.consoleFunctionProxyApply(target, consoleObject, argumentsList, logType),
       };
       this.consoleFunctionProxys[logType] = new Proxy(
-        ____patchedConsoleForSaninnLogger___[logType],
+        SaninnLogger.____patchedConsoleForSaninnLogger___[logType],
         consoleFunctionHandler
       );
       // console.error(this.consoleFunctionProxys[logType]);
