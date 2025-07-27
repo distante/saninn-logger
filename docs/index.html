@@ -2,7 +2,7 @@
   <h1>@saninn/logger</h1>
 <p><span style="font-size:2em">👨‍💻💻</span></p>
 <p>A configurable wrapper of the console that keeps the log call position.</p>
-<p>Made with Typescript, usable as es6 module and iife (with IE10 support).</p>
+<p>Made with Typescript, usable as es6 module and iife (es5).</p>
 <div align="center">
 <p><a href="https://github.com/distante/saninn-logger/actions/workflows/node.js.yml"><img src="https://github.com/distante/saninn-logger/actions/workflows/node.js.yml/badge.svg" alt="Build Status"></a> <a href="https://codecov.io/gh/distante/saninn-logger"><img src="https://codecov.io/gh/distante/saninn-logger/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://snyk.io/test/github/distante/saninn-logger?targetFile=package.json"><img src="https://snyk.io/test/github/distante/saninn-logger/badge.svg?targetFile=package.json" alt="Known Vulnerabilities"></a> <a href="https://codeclimate.com/github/distante/saninn-logger/maintainability"><img src="https://api.codeclimate.com/v1/badges/f7d99fcb6516cac26fde/maintainability" alt="Maintainability"></a> <img src="https://img.shields.io/github/license/distante/saninn-logger.svg" alt="Licence"></p>
 </div>
@@ -70,14 +70,14 @@
 <h2 id="development" class="tsd-anchor-link">Development<a href="#development" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h2><p>This project uses:</p>
 <ul>
 <li><a href="https://www.npmjs.com/package/typescript">Typescript</a> in strict mode.</li>
-<li><a href="https://github.com/prettier/prettier">Prettier</a> as code formater.</li>
+<li><a href="https://github.com/prettier/prettier">Prettier</a> as code formatter.</li>
 <li><a href="https://github.com/marionebl/commitlint">commitlint</a> to assure the commits follow the <a href="https://www.conventionalcommits.org/">conventional commit format</a>.</li>
 <li><a href="https://jestjs.io/">jest</a> as test runner.</li>
 </ul>
 <h3 id="scripts" class="tsd-anchor-link">Scripts<a href="#scripts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><p>There are 3 scripts I use together for dev (each in their own console): 'watch', 'serve' and 'test'.</p>
 <ul>
 <li>'npm run watch' will look for Typescript changes and compile it to es6.</li>
-<li>'npm run serve' will load a local server with './index-es6.html' as entry point. It uses './script.js' as module loader.</li>
+<li>'npm run serve' will load a local server with './es6/index-es6.html' as entry point. It uses './script.js' as module loader.</li>
 <li>'npm run test -- --watch --coverage --silent' will run jest tests on each typescript change.</li>
 </ul>
 <h3 id="todo" class="tsd-anchor-link">ToDo<a href="#todo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
