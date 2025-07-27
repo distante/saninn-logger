@@ -30,7 +30,7 @@
     "make-docs": "typedoc --out ./docs ./src/@saninn__logger.ts --hideGenerator",
     "saninn": "run-p watch live-server",
     "watch": "run-s clean:module && npm run transpile-dev && npm-watch",
-    "prepare": "npm run build",
+    "prepare": "husky",
     "serve": "live-server --watch=dist/,dev/ --open=dev/index-es6.html --wait=500",
     "transpile-dev": "tsc && npm run fix-es2015-modules",
     "buildAll": "npm run build && npm run build-bundles",
@@ -73,40 +73,16 @@
   "author": "Saninn Salas Diaz",
   "license": "MIT",
   "homepage": "https://saninnsalas.com",
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  },
-  "release-it": {
-    "hooks": {
-      "before:init": "node ./scripts/release_1_before-start.js",
-      "after:bump": "node ./scripts/release_3_after-Bump.js ${version}",
-      "after:release": "echo Successfully released ${name} v${version} to https://${repo.host}/${repo.repository}/releases/tag/v${version}"
-    },
-    "git": {
-      "commitMessage": "release: v${version}",
-      "tagName": "v${version}",
-      "tagAnnotation": "Release v${version}"
-    },
-    "github": {
-      "release": true,
-      "releaseName": "${version}",
-      "assets": [
-        "dist-bundles/*.zip"
-      ]
-    }
-  },
   "devDependencies": {
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@compodoc/live-server": "^1.2.3",
+    "@rollup/plugin-typescript": "^12.1.4",
     "@testing-library/jest-dom": "^5.16.3",
     "@types/jest": "^27.4.1",
     "bestzip": "^2.2.1",
     "filehound": "^1.17.4",
-    "husky": "^4.3.4",
+    "husky": "^9.1.7",
     "jest": "^27.5.1",
     "jest-extended": "^2.0.0",
     "jest-html-reporter": "^3.4.2",
@@ -117,9 +93,8 @@
     "prettier": "2.2.1",
     "pretty-quick": "^3.1.0",
     "proxy-polyfill": "^0.3.2",
-    "release-it": "^14.13.1",
+    "release-it": "^19.0.4",
     "rollup": "^2.70.1",
-    "rollup-plugin-typescript": "^1.0.1",
     "shx": "^0.3.3",
     "ts-jest": "^27.1.4",
     "tslib": "^2.2.0",
