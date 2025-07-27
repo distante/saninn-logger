@@ -93,8 +93,8 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 
 ## API and Documentation
 
-- [Configuration](https://logger.saninnsalas.com/interfaces/_models_logger_config_interface_.iloggerconfig.html)
-- [API](https://logger.saninnsalas.com/)
+- [Configuration](https://logger.saninnsalas.com/interfaces/interfaces/ILoggerConfig.html)
+- [API](https://logger.saninnsalas.com/classes/SaninnLogger.html)
 
 * `enableGlobalLoggerFunctions(): void`
 * `disableGlobalLoggerFunctions(): void`
@@ -151,7 +151,6 @@ const loggerWithFullConfigAndProcessors = new SaninnLogger({
     log: 'green',
     warn: 'red',
   },
-  printToConsole: true,
   useLoggerProcessors: true,
   loggerProcessors: {
     log: [

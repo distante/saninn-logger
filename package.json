@@ -27,7 +27,7 @@
     "test:codecov": "codecov",
     "tsc:check": "tsc --noEmit",
     "prettier:check": "prettier --config ./.prettierrc ./src --check",
-    "make-docs": "typedoc --out ./docs ./src/@saninn__logger.ts --hideGenerator",
+    "make-docs": "typedoc --out ./docs ./src --hideGenerator",
     "saninn": "run-p watch live-server",
     "watch": "run-s clean:module && npm run transpile-dev && npm-watch",
     "prepare": "husky",

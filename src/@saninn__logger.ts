@@ -16,7 +16,6 @@ import { ILoggerConfig } from './models/logger-config.interface';
 import { ILoggerProcessorFunctionParams } from './models/logger-processor-function-params.interface';
 import { ILogger } from './models/logger.interface';
 import { LoggerProcessor, LoggerTypesObject } from './type-definitions';
-
 // let saninnLoggerInstanceCounter = 0;
 
 export class SaninnLogger implements ILogger {
@@ -25,7 +24,7 @@ export class SaninnLogger implements ILogger {
 
   /**
    * This function will be returned as console[log|warn|dir,etc] handle when
-   * the output is disabled with {@link SaninnSalas#config.printToConsole} = false
+   * the output is disabled
    *
    */
   // tslint:disable-next-line: variable-name
@@ -255,7 +254,6 @@ export class SaninnLogger implements ILogger {
       extraFunctionForThisLogType(this.config.prefix!);
     }
 
-    /** printToConsole is @deprecated */
     const loggerConsoleOutputIsDisabled = this.config.logLevel === LogLevelsEnum.OFF;
 
     if (loggerConsoleOutputIsDisabled && !this.config.useLoggerProcessors) {

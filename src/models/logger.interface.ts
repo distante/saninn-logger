@@ -1,12 +1,13 @@
-import { LogLevelsEnum } from './log-levels.enum';
-import { LoggerTypesEnum } from './log-types.enum';
-import { ILoggerActions } from './logger-actions.interface';
-import { LoggerProcessor } from '../type-definitions';
+import type { LogLevelsEnum } from './log-levels.enum';
+import type { LoggerTypesEnum } from './log-types.enum';
+import type { ILoggerActions } from './logger-actions.interface';
+import type { LoggerProcessor } from '../type-definitions';
+import type { ILoggerConfig } from './logger-config.interface';
 
 export interface ILogger extends ILoggerActions {
   setPrefixTo(newPrefix: string): void;
   /**
-   * Will set all outputs like {@link ILoggerConfig.printToConsole}, {@link ILoggerConfig.useLoggerProcessors}, {@link ILoggerConfig.useGlobalPreLoggerFunctions} to false.
+   * Will set all outputs like, {@link ILoggerConfig.useLoggerProcessors}, {@link ILoggerConfig.useGlobalPreLoggerFunctions} to false.
    */
   disableAll(): void;
   enableGlobalLoggerFunctions(): void;

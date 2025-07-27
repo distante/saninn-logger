@@ -383,7 +383,7 @@ describe('SaninnLogger', () => {
       expect(proxyFunctionSpy).toHaveBeenCalled();
     });
 
-    test('useLoggerProcessors should use the console proxy when useLoggerProcessors AND printToConsole is false', () => {
+    test('useLoggerProcessors should use the console proxy when useLoggerProcessors', () => {
       const saninnLogger = new SaninnLogger({
         useLoggerProcessors: true,
       });

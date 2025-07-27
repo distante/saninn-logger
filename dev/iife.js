@@ -50,7 +50,6 @@ var loggerWithFullConfig = new SaninnLogger({
     log: 'green',
     warn: 'red',
   },
-  printToConsole: true,
 });
 
 var loggerWithFullConfigAndProcessors = new SaninnLogger({
@@ -62,7 +61,6 @@ var loggerWithFullConfigAndProcessors = new SaninnLogger({
     log: 'green',
     warn: 'red',
   },
-  printToConsole: true,
   useLoggerProcessors: true,
   loggerProcessors: {
     log: [
@@ -106,7 +104,6 @@ var loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
     log: 'green',
     warn: 'red',
   },
-  printToConsole: false,
   useLoggerProcessors: true,
   loggerProcessors: {
     log: [

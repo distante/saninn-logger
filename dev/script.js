@@ -48,7 +48,6 @@ const loggerWithFullConfig = new SaninnLogger({
     log: 'green',
     warn: 'red',
   },
-  printToConsole: true,
 });
 
 const loggerWithFullConfigAndProcessors = new SaninnLogger({
@@ -60,7 +59,6 @@ const loggerWithFullConfigAndProcessors = new SaninnLogger({
     log: 'green',
     warn: 'red',
   },
-  printToConsole: true,
   useLoggerProcessors: true,
   loggerProcessors: {
     log: [
@@ -104,7 +102,6 @@ const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
     log: 'green',
     warn: 'red',
   },
-  printToConsole: false,
   useLoggerProcessors: true,
   loggerProcessors: {
     log: [
