@@ -277,9 +277,6 @@ describe('SaninnLogger', () => {
             showLoggerFunctionNames: true,
           });
 
-          if (logType === LoggerTypesEnum.dir) {
-            return;
-          }
           jest.spyOn(SaninnLogger.____patchedConsoleForSaninnLogger___, logType);
           logger[logType]();
           expect(SaninnLogger.____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(
@@ -293,9 +290,7 @@ describe('SaninnLogger', () => {
           });
 
           const myMessage = 'some message';
-          if (logType === LoggerTypesEnum.dir) {
-            return;
-          }
+
           jest.spyOn(SaninnLogger.____patchedConsoleForSaninnLogger___, logType);
           logger[logType](myMessage);
           expect(SaninnLogger.____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(
@@ -311,9 +306,6 @@ describe('SaninnLogger', () => {
             showLoggerFunctionNames: true,
           });
 
-          if (logType === LoggerTypesEnum.dir) {
-            return;
-          }
           jest.spyOn(SaninnLogger.____patchedConsoleForSaninnLogger___, logType);
           logger[logType]();
           expect(SaninnLogger.____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(
@@ -329,9 +321,6 @@ describe('SaninnLogger', () => {
             showLoggerFunctionNames: true,
           });
 
-          if (logType === LoggerTypesEnum.dir) {
-            return;
-          }
           jest.spyOn(SaninnLogger.____patchedConsoleForSaninnLogger___, logType);
           logger[logType](myMessage);
           expect(SaninnLogger.____patchedConsoleForSaninnLogger___[logType]).toHaveBeenCalledWith(
