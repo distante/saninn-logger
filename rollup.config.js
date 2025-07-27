@@ -1,4 +1,4 @@
-import typescript from 'rollup-plugin-typescript';
+import typescript from '@rollup/plugin-typescript';
 
 export default {
   input: './src/@saninn__logger.ts',
@@ -14,13 +14,15 @@ export default {
  */`,
     file: './dist-bundles/iife/@saninn__logger.js',
     format: 'iife',
-    name: 'SaninnLogger'
+    name: 'SaninnLogger',
   },
   plugins: [
     typescript({
-      // lib: ["es5", "es6", "dom"],
       sourceMap: false,
-      target: 'es3'
-    })
-  ]
+      compilerOptions: {
+        target: 'es5',
+        outDir: './dist-bundles/iife',
+      },
+    }),
+  ],
 };

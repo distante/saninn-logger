@@ -38,7 +38,7 @@
     "build-bundles": "run-p build:*",
     "build:module": "run-s clean:module && tsc --sourceMap false --outDir ./dist-bundles/es6 && node ./scripts/fix-es2015-modules.js ./dist-bundles/es6",
     "build:commonjs": "run-s clean:commonjs && tsc --sourceMap false -m commonjs --outDir ./dist-bundles/commonjs",
-    "build:iife": "npm run clean:iife && rollup -c && run-s fix-iife-export prepend-iife-polyfills",
+    "build:iife": "npm run clean:iife && rollup -c --bundleConfigAsCjs && run-s fix-iife-export prepend-iife-polyfills",
     "clean:module": "shx rm -rf ./dist-bundles/es6",
     "clean:commonjs": "shx rm -rf ./dist-bundles/commonjs",
     "clean:iife": "shx rm -rf ./dist-bundles/iife",
