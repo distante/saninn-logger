@@ -7,39 +7,6 @@ console.dir(SaninnLogger);
 // tslint:disable-next-line: no-string-literal
 window['SaninnLogger'] = SaninnLogger;
 
-var globalPreLoggerFunctions = {
-  dir: function (prefix) {
-    console.log(
-      'This is a DIR globalPreLoggerFunction that is not the direct console.dir',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  error: function (prefix) {
-    console.log(
-      'This is a ERROR globalPreLoggerFunction that is not the direct console.error',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  fatal: function (prefix) {
-    console.log(
-      'This is a FATAL globalPreLoggerFunction that is not the direct console.error',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  log: function (prefix) {
-    console.log(
-      'This is a LOG globalPreLoggerFunction that is not the direct console.log',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  warn: function (prefix) {
-    console.log(
-      'This is a WARN globalPreLoggerFunction that is not the direct console.warn',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-};
-
 var loggerWithString = new SaninnLogger('just-with-string');
 var loggerWithFullConfig = new SaninnLogger({
   useGlobalPreLoggerFunctions: true,
@@ -62,20 +29,7 @@ var loggerWithFullConfigAndProcessors = new SaninnLogger({
     warn: 'red',
   },
   useLoggerProcessors: true,
-  loggerProcessors: {
-    log: [
-      function (prefix, args) {
-        console.log('FIRST logger Processor para saninnLogger.log');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-      function (prefix, args) {
-        console.log('SECOND logger Processor para saninnLogger.log');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-    ],
-  },
+  loggerProcessors: loggerWithFullConfigAndProcessors__Processors,
 });
 
 var dummyObject = {
@@ -105,26 +59,13 @@ var loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
     warn: 'red',
   },
   useLoggerProcessors: true,
-  loggerProcessors: {
-    log: [
-      function (prefix, args) {
-        console.log('FIRST logger Processor para loggerWithFullConfigAndProcessorsButNoOutput');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-      function (prefix, args) {
-        console.log('SECOND logger Processor para loggerWithFullConfigAndProcessorsButNoOutput');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-    ],
-  },
+  loggerProcessors: loggerWithFullConfigAndProcessorsButNoOutput__Processors,
 });
 
 console.log('loggerWithString\n', loggerWithString);
 console.log('loggerWithFullConfig\n', loggerWithFullConfig);
 console.log('loggerWithFullConfigAndProcessors\n', loggerWithFullConfigAndProcessors);
-console.log('\n\n');
+console.log('\n\n \n\n loggerWithString STARTS BELOW \n\n \n\n');
 loggerWithString.log();
 loggerWithString.log('Regular log');
 loggerWithFullConfig.log('trying log');

@@ -1,80 +1,21 @@
 // tslint:disable:object-literal-sort-keys
 // tslint:disable:no-console
-import { SaninnLogger } from '../dist/index.js';
+import { SaninnLogger } from '../../dist/index.js';
+import {
+  globalPreLoggerFunctions,
+  loggerWithFullConfigAndProcessors__Config,
+  loggerWithFullConfig_Config,
+  loggerWithFullConfigAndProcessorsButNoOutput_Config,
+} from './config.js';
+
 console.dir(SaninnLogger);
 // tslint:disable-next-line: no-string-literal
 window['SaninnLogger'] = SaninnLogger;
 
-const globalPreLoggerFunctions = {
-  dir: (prefix) => {
-    console.log(
-      'This is a DIR globalPreLoggerFunction that is not the direct console.dir',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  error: (prefix) => {
-    console.log(
-      'This is a ERROR globalPreLoggerFunction that is not the direct console.error',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  fatal: (prefix) => {
-    console.log(
-      'This is a FATAL globalPreLoggerFunction that is not the direct console.error',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  log: (prefix) => {
-    console.log(
-      'This is a LOG globalPreLoggerFunction that is not the direct console.log',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-  warn: (prefix) => {
-    console.log(
-      'This is a WARN globalPreLoggerFunction that is not the direct console.warn',
-      'This is The Prefix:  ' + prefix
-    );
-  },
-};
-
 const loggerWithString = new SaninnLogger('just-with-string');
-const loggerWithFullConfig = new SaninnLogger({
-  useGlobalPreLoggerFunctions: true,
-  globalPreLoggerFunctions,
-  prefix: 'full-config-logger',
-  prefixColors: {
-    error: 'blue',
-    log: 'green',
-    warn: 'red',
-  },
-});
+const loggerWithFullConfig = new SaninnLogger(loggerWithFullConfig_Config);
 
-const loggerWithFullConfigAndProcessors = new SaninnLogger({
-  useGlobalPreLoggerFunctions: true,
-  globalPreLoggerFunctions,
-  prefix: 'full-config-logger',
-  prefixColors: {
-    error: 'blue',
-    log: 'green',
-    warn: 'red',
-  },
-  useLoggerProcessors: true,
-  loggerProcessors: {
-    log: [
-      (prefix, args) => {
-        console.log('FIRST logger Processor para saninnLogger.log');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-      (prefix, args) => {
-        console.log('SECOND logger Processor para saninnLogger.log');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-    ],
-  },
-});
+const loggerWithFullConfigAndProcessors = new SaninnLogger(loggerWithFullConfigAndProcessors__Config);
 
 const dummyObject = {
   a: 1,
@@ -93,36 +34,14 @@ loggerWithFullConfigAndProcessors.warn('warn of loggerWithFullConfigAndProcessor
 loggerWithFullConfigAndProcessors.error('error of loggerWithFullConfigAndProcessors');
 loggerWithFullConfigAndProcessors.dir('dir of loggerWithFullConfigAndProcessors');
 
-const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger({
-  useGlobalPreLoggerFunctions: true,
-  globalPreLoggerFunctions,
-  prefix: 'full-config-logger',
-  prefixColors: {
-    error: 'blue',
-    log: 'green',
-    warn: 'red',
-  },
-  useLoggerProcessors: true,
-  loggerProcessors: {
-    log: [
-      (prefix, args) => {
-        console.log('FIRST logger Processor para loggerWithFullConfigAndProcessorsButNoOutput');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-      (prefix, args) => {
-        console.log('SECOND logger Processor para loggerWithFullConfigAndProcessorsButNoOutput');
-        console.log('prefix: ', prefix);
-        console.log('args: ', args);
-      },
-    ],
-  },
-});
+const loggerWithFullConfigAndProcessorsButNoOutput = new SaninnLogger(
+  loggerWithFullConfigAndProcessorsButNoOutput_Config
+);
 
 console.log('loggerWithString\n', loggerWithString);
 console.log('loggerWithFullConfig\n', loggerWithFullConfig);
 console.log('loggerWithFullConfigAndProcessors\n', loggerWithFullConfigAndProcessors);
-console.log('\n\n');
+console.log('\n\n \n\n loggerWithString STARTS BELOW \n\n \n\n');
 loggerWithString.log();
 loggerWithString.log('Regular log');
 loggerWithFullConfig.log('trying log');

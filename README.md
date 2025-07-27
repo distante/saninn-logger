@@ -5,7 +5,7 @@
 
 A configurable wrapper of the console that keeps the log call position.
 
-Made with Typescript, usable as es6 module and iife (with IE10 support).
+Made with Typescript, usable as es6 module and iife (es5).
 
 <div align="center">
 
@@ -207,7 +207,7 @@ transformIgnorePatterns: ['<rootDir>/node_modules/(?!@saninn|@someOtherPackage)'
 This project uses:
 
 - [Typescript](https://www.npmjs.com/package/typescript) in strict mode.
-- [Prettier](https://github.com/prettier/prettier) as code formater.
+- [Prettier](https://github.com/prettier/prettier) as code formatter.
 - [commitlint](https://github.com/marionebl/commitlint) to assure the commits follow the [conventional commit format](https://www.conventionalcommits.org/).
 - [jest](https://jestjs.io/) as test runner.
 
@@ -216,7 +216,7 @@ This project uses:
 There are 3 scripts I use together for dev (each in their own console): 'watch', 'serve' and 'test'.
 
 - 'npm run watch' will look for Typescript changes and compile it to es6.
-- 'npm run serve' will load a local server with './index-es6.html' as entry point. It uses './script.js' as module loader.
+- 'npm run serve' will load a local server with './es6/index-es6.html' as entry point. It uses './script.js' as module loader.
 - 'npm run test -- --watch --coverage --silent' will run jest tests on each typescript change.
 
 ### ToDo
