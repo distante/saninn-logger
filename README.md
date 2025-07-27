@@ -94,7 +94,7 @@ myLogger.log('this is a log'); // [my-logger-prefix]: this is a log.
 ## API and Documentation
 
 - [Configuration](https://logger.saninnsalas.com/interfaces/_models_logger_config_interface_.iloggerconfig.html)
-- [API](https://logger.saninnsalas.com/classes/__saninn__logger_.saninnlogger.html)
+- [API](https://logger.saninnsalas.com/)
 
 * `enableGlobalLoggerFunctions(): void`
 * `disableGlobalLoggerFunctions(): void`

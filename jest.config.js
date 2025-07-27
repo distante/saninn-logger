@@ -61,12 +61,7 @@ module.exports = {
   // globalTeardown: null,
 
   // A set of global variables that need to be available in all test environments
-  globals: {
-    'ts-jest': {
-      diagnostics: false,
-      tsconfig: 'tsconfig.json',
-    },
-  },
+  globals: {},
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
@@ -95,18 +90,7 @@ module.exports = {
   // projects: null,
 
   // Use this configuration option to add custom reporters to Jest
-  reporters: [
-    'default',
-    [
-      './node_modules/jest-html-reporter',
-      {
-        includeConsoleLog: true,
-        includeFailureMsg: true,
-        outputPath: '_test-reports/jest-report.html',
-        pageTitle: '@Saninn/Logger Test  Report',
-      },
-    ],
-  ],
+  reporters: ['default'],
   // Automatically reset mock state between every test
   // resetMocks: false,
 
@@ -173,7 +157,13 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(ts|tsx)$': [
+      'ts-jest',
+      {
+        diagnostics: false,
+        tsconfig: 'tsconfig.json',
+      },
+    ],
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
